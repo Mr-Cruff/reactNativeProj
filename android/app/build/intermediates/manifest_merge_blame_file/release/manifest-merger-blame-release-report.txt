@@ -1,0 +1,88 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.reactnativeproj"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="31" />
+9-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-79
+12-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:10:5-76
+13-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:10:22-73
+14
+15    <application
+15-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:6:5-25:19
+16        android:name="com.reactnativeproj.MainApplication"
+16-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:7:7-38
+17        android:allowBackup="false"
+17-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:11:7-34
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.7.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\24cd1d49d41b8067d65f8e0a7d140611\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+19        android:icon="@mipmap/ic_launcher"
+19-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:9:7-41
+20        android:label="@string/app_name"
+20-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:8:7-39
+21        android:roundIcon="@mipmap/ic_launcher_round"
+21-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:10:7-52
+22        android:theme="@style/AppTheme" >
+22-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:12:7-38
+23        <activity
+23-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:13:7-24:18
+24            android:name="com.reactnativeproj.MainActivity"
+24-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:14:9-37
+25            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+25-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:16:9-118
+26            android:exported="true"
+26-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:19:9-32
+27            android:label="@string/app_name"
+27-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:15:9-41
+28            android:launchMode="singleTask"
+28-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:17:9-40
+29            android:windowSoftInputMode="adjustResize" >
+29-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:18:9-51
+30            <intent-filter>
+30-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:20:9-23:25
+31                <action android:name="android.intent.action.MAIN" />
+31-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:13-65
+31-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:21-62
+32
+33                <category android:name="android.intent.category.LAUNCHER" />
+33-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:13-73
+33-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:23-70
+34            </intent-filter>
+35        </activity>
+36
+37        <provider
+37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+38            android:name="androidx.startup.InitializationProvider"
+38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+39            android:authorities="com.reactnativeproj.androidx-startup"
+39-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+40            android:exported="false" >
+40-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+41            <meta-data
+41-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+42                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+42-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+43                android:value="androidx.startup" />
+43-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\e000f99ffc7e6c7f1c11cc418b9f48b8\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+44            <meta-data
+44-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\713c17db12cb852c70a9732c6d13297e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+45                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+45-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\713c17db12cb852c70a9732c6d13297e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+46                android:value="androidx.startup" />
+46-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\713c17db12cb852c70a9732c6d13297e\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+47        </provider>
+48    </application>
+49
+50</manifest>

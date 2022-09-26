@@ -9,6 +9,7 @@ import HouseSelect from '../screens/HouseSelect';
 import DailyForm from '../screens/DailyForm';
 import GeneralForm from '../screens/GeneralForm';
 import NewForm from '../screens/NewForm';
+<<<<<<< HEAD
 // import Culls from '../screens/EditFormDetails';
 import FarmHouseSelect from '../screens/FarmHouseSelect';
 import ResetPassword from '../screens/ResetPassword';
@@ -19,6 +20,11 @@ import CreateForm from '../screens/CreateForm';
 // import { createIconSetFromIcoMoon } from '@expo/vector-icons';
 import { ContextProvider } from '../contexts/GlobalContext';
 import ReviewAndEdit from '../screens/ReviewAndEdit';
+=======
+import EditForm from '../screens/EditForm';
+import FarmHouseSelect from '../screens/FarmHouseSelect';
+import {createStackNavigator} from '@react-navigation/stack';
+>>>>>>> 3826207 (merge)
 
 const Stack = createStackNavigator();
 export const AppStackContext = createContext({});
@@ -26,6 +32,7 @@ export const AppStackContext = createContext({});
 const AppStack = () => {
   return (
     <Stack.Navigator>
+<<<<<<< HEAD
         <Stack.Screen
           name="Home"
           component={Home}
@@ -98,6 +105,55 @@ const AppStack = () => {
           component={ReviewAndEdit}
           options={{title: ''}}
         />
+=======
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: 'Landing Page',
+          headerShown: false,
+          background: '#efefef',
+          transparentCard: true,
+          cardStyle: {opacity: 1},
+        }}
+      />
+      <Stack.Screen
+        name="Farm Type Select"
+        component={FarmTypeSelect}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="Farm Select"
+        component={FarmSelect}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="House Select"
+        component={HouseSelect}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="Daily Form"
+        component={DailyForm}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="General Form"
+        component={GeneralForm}
+        options={{title: ''}}
+      />
+      <Stack.Screen name="New Form" component={NewForm} options={{title: ''}} />
+      <Stack.Screen
+        name="Edit Form"
+        component={EditForm}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="Farm House Select"
+        component={FarmHouseSelect}
+        options={{title: ''}}
+      />
+>>>>>>> 3826207 (merge)
     </Stack.Navigator>
   );
 };

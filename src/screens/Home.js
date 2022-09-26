@@ -1,5 +1,9 @@
 /* eslint-disable prettier/prettier */
+<<<<<<< HEAD
 import React, {useEffect, useState, useContext} from 'react';
+=======
+import React, {useEffect, useState} from 'react';
+>>>>>>> 3826207 (merge)
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ActivityIndicator,
@@ -13,6 +17,7 @@ import {
 import {useAuth} from '../contexts/Auth';
 import Header from '../components/Header';
 import {FarmTile} from '../components/Dashboard';
+<<<<<<< HEAD
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import { APP_API } from '../Constants.tsx';
@@ -272,6 +277,98 @@ const Home = ({navigation, back}) => {
 
   // Buttons
   // Move buttons to another file
+=======
+import {NewForm} from './NewForm';
+import EditForm from './EditForm';
+import FarmHouseSelect from './FarmHouseSelect';
+
+import NetInfo from '@react-native-community/netinfo';
+
+const farms = [
+  {
+    name: 'Farm 4',
+    type: 'Production',
+    house: 'House 1',
+    id: '2',
+    flockNumber: '34',
+    birdsOverhead: '534',
+    BirdsBroughtForward: {
+      male: '872',
+      female: '2234',
+    },
+    males: '567',
+    females: '2341',
+    age: '34',
+  },
+  {
+    name: 'Farm 4',
+    type: 'Production',
+    house: 'House 1',
+    id: '2',
+    flockNumber: '34',
+    birdsOverhead: '534',
+    BirdsBroughtForward: {
+      male: '872',
+      female: '2234',
+    },
+    males: '567',
+    females: '2341',
+    age: '34',
+  },
+  {
+    name: 'Farm 4',
+    type: 'Production',
+    house: 'House 1',
+    id: '2',
+    flockNumber: '34',
+    birdsOverhead: '534',
+    BirdsBroughtForward: {
+      male: '872',
+      female: '2234',
+    },
+    males: '567',
+    females: '2341',
+    age: '34',
+  },
+  {
+    name: 'Farm 5',
+    type: 'Grow',
+    house: 'House 1',
+    id: '2',
+    flockNumber: '18',
+    birdsOverhead: '364',
+    BirdsBroughtForward: {
+      male: '642',
+      female: '1334',
+    },
+    males: '567',
+    females: '2341',
+    age: '19',
+  },
+  {
+    name: 'Farm 5',
+    type: 'Grow',
+    house: 'House 1',
+    id: '2',
+    flockNumber: '18',
+    birdsOverhead: '364',
+    BirdsBroughtForward: {
+      male: '642',
+      female: '1334',
+    },
+    males: '567',
+    females: '2341',
+    age: '19',
+  },
+];
+
+//HOME SCREEN
+const Home = ({navigation, back}) => {
+  const auth = useAuth();
+
+  // let x = [];
+
+>>>>>>> 3826207 (merge)
   const signOut = () => {
     auth.signOut();
   };
@@ -318,6 +415,7 @@ const Home = ({navigation, back}) => {
   }
 // Button end --------------------------------------------
 
+<<<<<<< HEAD
 // Button Panel
 const ButtonPanel =()=>{
   if (Object.keys(APP_ROLES).includes(role)){
@@ -346,6 +444,156 @@ const ButtonPanel =()=>{
           <View style={{backgroundColor:'pink',padding:'1%', alignItems:'center',borderRadius:10, width:'80%'}}>
             <Text style={{fontSize:15, fontWeight:'500'}}>There appears to be something wrong with the role you've been assigned.</Text>
             <Text>In order to access the application, you may need to update your role. To do so, kindly seek the help of the System Administrator for assistance.</Text>
+=======
+  const NewFormButton = props => {
+    const goto = props.path;
+    const location = require('../resources/newForm.png');
+    return (
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={props => navigation.navigate(goto)}>
+        <Image source={location} />
+        <Text style={{color: '#ffff', fontSize: 18, fontWeight: 'bold'}}>
+          {' '}
+          NEW FORM{' '}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+  const EditFormButton = props => {
+    const goto = props.path;
+    const location = require('../resources/EditForm.png');
+    return (
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={props => navigation.navigate(goto)}>
+        <Image source={location} />
+        <Text
+          style={{
+            color: '#ffff',
+            fontSize: 18,
+            fontWeight: 'bold',
+            padding: 5,
+            paddingLeft: 10,
+            // textAlign: 'center',
+          }}>
+          EDIT FORM
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+  const ApproveFormButton = props => {
+    const goto = props.path;
+    const location = require('../resources/approveForm.png');
+    return (
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={props => navigation.navigate(goto)}>
+        <Image source={location} />
+        <Text
+          style={{
+            color: '#ffff',
+            fontSize: 18,
+            fontWeight: 'bold',
+            padding: 5,
+          }}>
+          APPROVE FORM
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const [netInfo, setNetInfo] = useState(null);
+  useEffect(() => {
+    // Subscribe to network state updates
+    const unsubscribe = NetInfo.addEventListener(state => {
+      const offline = !(state.isConnected && state.isInternetReachable);
+      const status = offline
+        ? 'Offline'
+        : !offline
+        ? 'Online'
+        : 'Undetermined Connectivity';
+      setNetInfo(status);
+    });
+
+    return () => {
+      // Unsubscribe to network state updates
+      unsubscribe();
+    };
+  }, []);
+
+  const InternetStatus = () => {
+    const bgColor =
+      netInfo == 'Online'
+        ? '#0C5A40'
+        : netInfo == 'Offline'
+        ? '#560909'
+        : 'grey';
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          backgroundColor: bgColor,
+        }}>
+        <Text style={{color: 'white'}}>{netInfo}</Text>
+      </View>
+    );
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <View>
+        <View
+          style={{
+            paddingTop: 10,
+            backgroundColor: 'white',
+          }}>
+          <Header />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              paddingVertical: 10,
+              paddingHorizontal: 40,
+            }}>
+            <Text style={{fontSize: 18}}>Welcome, {auth.authData.name}</Text>
+            <TouchableOpacity style={styles.button} onPress={signOut}>
+              <Text
+                style={{
+                  color: 'white',
+                  justifyContent: 'center',
+                  fontSize: 14,
+                  fontWeight: 'medium',
+                }}>
+                Sign Out
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <InternetStatus />
+        <View style={{paddingTop: 30, paddingHorizontal: 20}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+            <NewFormButton path="Farm House Select" />
+            <EditFormButton path="Edit Form" />
+            <ApproveFormButton path="Farm Type Select" />
+          </View>
+        </View>
+        <View
+          style={{
+            paddingTop: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{fontSize: 30, color: '#282C50', fontWeight: 'bold'}}>
+            MY FARMS
+          </Text>
+          <View>
+            {farms.map((item, index) => {
+              return <FarmTile farm={farms[index]} key={index} />;
+            })}
+>>>>>>> 3826207 (merge)
           </View>
         </View>
       </View>
@@ -671,16 +919,29 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     flex: 1,
+=======
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+>>>>>>> 3826207 (merge)
     backgroundColor: '#E0E8FC',
   },
   button: {
     alignItems: 'center',
+<<<<<<< HEAD
     backgroundColor: '#6B0C0C',
     // backgroundColor: '#FFC700',
     padding: 10,
     borderRadius: 5,
     marginLeft:20
+=======
+    backgroundColor: '#282C50',
+    color: 'white',
+    padding: 10,
+    borderRadius: 5,
+>>>>>>> 3826207 (merge)
   },
   actionButton: {
     flexDirection: 'row',
@@ -689,7 +950,10 @@ const styles = StyleSheet.create({
     color: '#ffff',
     borderRadius: 10,
     padding: 10,
+<<<<<<< HEAD
     marginHorizontal:5,
     marginLeft:20
+=======
+>>>>>>> 3826207 (merge)
   },
 });

@@ -19,6 +19,7 @@ const signIn = async (email, _password): Promise<AuthData> => {
   // will need to connect with some real API,
   // send email and password, and if credential is corret
   //the API will resolve with some token and another datas as the below
+<<<<<<< HEAD
 
   let decoded ="";let name="";let data:any={};let role="";let uuid:"";
 
@@ -49,18 +50,27 @@ const signIn = async (email, _password): Promise<AuthData> => {
   });
   
   if (data.success) {
+=======
+  if (email == 'ckwilliams@jabgl.com' && _password == 'simone101!') {
+>>>>>>> 3826207 (merge)
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({
           uuid:uuid,
           token: data.token || '',
           email: email,
+<<<<<<< HEAD
           name: name,
           password: data.firstLogon === 1 ?_password:"",
           role: role,
           refreshToken: data.refreshToken || '',
           firstLogon: data.firstLogon || 0,
         },);
+=======
+          name: 'Chrishonne Williams',
+          role: 'basic',
+        });
+>>>>>>> 3826207 (merge)
       }, 1000);
     });
   } else {
@@ -72,10 +82,14 @@ const signIn = async (email, _password): Promise<AuthData> => {
           token: '',
           email: '',
           name: '',
+<<<<<<< HEAD
           password: '',
           role:'',
           uuid:'',
           refreshToken:'',
+=======
+          role: '',
+>>>>>>> 3826207 (merge)
         });
       }, 1000);
     });

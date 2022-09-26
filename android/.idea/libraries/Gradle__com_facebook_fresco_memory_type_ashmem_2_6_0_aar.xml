@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: com.facebook.fresco:memory-type-ashmem:2.6.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8041a471b31c1bd17adb1f3a08cb049b/transformed/jetified-memory-type-ashmem-2.6.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1016ff520fa3b856ec683c2a118111a8/transformed/jetified-memory-type-ashmem-2.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1016ff520fa3b856ec683c2a118111a8/transformed/jetified-memory-type-ashmem-2.6.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1016ff520fa3b856ec683c2a118111a8/transformed/jetified-memory-type-ashmem-2.6.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/memory-type-ashmem/2.6.0/f7a15c6ce63c09fe1f9d0c0c93d00ca5f1f10f83/memory-type-ashmem-2.6.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/memory-type-ashmem/2.6.0/8b089022a7c8fbb35162239703ca1a1cf06e2e11/memory-type-ashmem-2.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

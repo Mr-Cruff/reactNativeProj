@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
+<<<<<<< HEAD
 import React,{useEffect, useState} from 'react';
 // import {Text} from 'react-native';
+=======
+import React from 'react';
+import {Text} from 'react-native';
+>>>>>>> 3826207 (merge)
 import {NavigationContainer} from '@react-navigation/native';
 import AppStack from './AppStack';
 import AdminStack from './AdminStack';
@@ -23,6 +28,7 @@ const Routes = () => {
   //return <Loading />;
   //}
 
+<<<<<<< HEAD
   // useEffect(()=>{
   //   const showResetScreen = () =>{
   //     if(authData?.firstLogon === 1){
@@ -53,6 +59,21 @@ const Routes = () => {
 
   //authData?.token ? <AppStack /> : <AuthStack />
   return <NavigationContainer children={<ContextProvider children={!loading?<RouteValidation />:<Loading />}></ContextProvider>} onStateChange={()=>validateUser()}></NavigationContainer>;
+=======
+  const routeValidation = () => {
+    if (authData?.token) {
+      //console.log('routeValidation: ' + JSON.stringify(authData));
+      if (authData.role == 'basic') {
+        return <AppStack />;
+      } else {
+        return <AdminStack />;
+      }
+    }
+    return <AuthStack />;
+  };
+  //authData?.token ? <AppStack /> : <AuthStack />
+  return <NavigationContainer>{routeValidation()}</NavigationContainer>;
+>>>>>>> 3826207 (merge)
 };
 
 export default Routes;

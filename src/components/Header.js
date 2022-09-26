@@ -17,8 +17,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ffff',
+<<<<<<< HEAD
     paddingVertical: 10,
     marginBottom: 10,
+=======
+    paddingTop: 10,
+    marginBottom: 20,
+>>>>>>> 3826207 (merge)
   },
   img: {
     // resizeMode: 'cover',
