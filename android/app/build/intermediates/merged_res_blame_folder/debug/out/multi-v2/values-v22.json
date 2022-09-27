@@ -4,7 +4,7 @@
             "outputFile": "com.reactnativeproj.app-mergeDebugResources-27:/values-v22/values-v22.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Chriz\\.gradle\\caches\\transforms-3\\60dd02627e0f3456d61fd3d9f660454a\\transformed\\appcompat-1.4.1\\res\\values-v22\\values-v22.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\60dd02627e0f3456d61fd3d9f660454a\\transformed\\appcompat-1.4.1\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

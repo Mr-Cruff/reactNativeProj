@@ -1,39 +1,39 @@
-com.reactnativeproj.app-lifecycle-viewmodel-2.3.1-0 C:\Users\Chriz\.gradle\caches\transforms-3\0e49b57aae9e533354dfa0fd5e176b79\transformed\lifecycle-viewmodel-2.3.1\res
-com.reactnativeproj.app-jetified-core-ktx-1.6.0-1 C:\Users\Chriz\.gradle\caches\transforms-3\187ebcfcbecbe194e1f8bfef93d680c0\transformed\jetified-core-ktx-1.6.0\res
-com.reactnativeproj.app-jetified-flipper-0.125.0-2 C:\Users\Chriz\.gradle\caches\transforms-3\252cb2a23c49042eb937faf76f487d04\transformed\jetified-flipper-0.125.0\res
-com.reactnativeproj.app-jetified-viewpager2-1.0.0-3 C:\Users\Chriz\.gradle\caches\transforms-3\316f47cdf4c9f631aba485e06313130e\transformed\jetified-viewpager2-1.0.0\res
-com.reactnativeproj.app-jetified-startup-runtime-1.0.0-4 C:\Users\Chriz\.gradle\caches\transforms-3\3fac9a8cba5118c0f5051b82ee3ffdfa\transformed\jetified-startup-runtime-1.0.0\res
-com.reactnativeproj.app-core-1.7.0-5 C:\Users\Chriz\.gradle\caches\transforms-3\45935ca3890147589828bc2a49e63fa2\transformed\core-1.7.0\res
-com.reactnativeproj.app-jetified-savedstate-1.1.0-6 C:\Users\Chriz\.gradle\caches\transforms-3\46082b430c47195b1ac718ab969bc44b\transformed\jetified-savedstate-1.1.0\res
-com.reactnativeproj.app-material-1.1.0-7 C:\Users\Chriz\.gradle\caches\transforms-3\4924d4835b8353151291ca26718bb720\transformed\material-1.1.0\res
-com.reactnativeproj.app-fragment-1.3.6-8 C:\Users\Chriz\.gradle\caches\transforms-3\524e3a29d4624e641e12a5fc20542b99\transformed\fragment-1.3.6\res
-com.reactnativeproj.app-jetified-annotation-experimental-1.1.0-9 C:\Users\Chriz\.gradle\caches\transforms-3\527149997052d56d9121f3e7e713593e\transformed\jetified-annotation-experimental-1.1.0\res
-com.reactnativeproj.app-appcompat-1.4.1-10 C:\Users\Chriz\.gradle\caches\transforms-3\60dd02627e0f3456d61fd3d9f660454a\transformed\appcompat-1.4.1\res
-com.reactnativeproj.app-jetified-lifecycle-process-2.4.0-11 C:\Users\Chriz\.gradle\caches\transforms-3\6de55c7e01b4064844600d617d99e4cf\transformed\jetified-lifecycle-process-2.4.0\res
-com.reactnativeproj.app-jetified-drawee-2.6.0-12 C:\Users\Chriz\.gradle\caches\transforms-3\7ab1747218ac7a1cae590e09ec0fd8b3\transformed\jetified-drawee-2.6.0\res
-com.reactnativeproj.app-jetified-emoji2-1.0.0-13 C:\Users\Chriz\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\res
-com.reactnativeproj.app-transition-1.2.0-14 C:\Users\Chriz\.gradle\caches\transforms-3\a4d8a265b73b09639b44cdf968bbbb80\transformed\transition-1.2.0\res
-com.reactnativeproj.app-jetified-emoji2-views-helper-1.0.0-15 C:\Users\Chriz\.gradle\caches\transforms-3\ae7b484a5fa69e5deca1f4e95777303a\transformed\jetified-emoji2-views-helper-1.0.0\res
-com.reactnativeproj.app-recyclerview-1.1.0-16 C:\Users\Chriz\.gradle\caches\transforms-3\b40404291b79657e5f006dde48a01bff\transformed\recyclerview-1.1.0\res
-com.reactnativeproj.app-jetified-appcompat-resources-1.4.1-17 C:\Users\Chriz\.gradle\caches\transforms-3\bd65958179bbbcc9cf3900f4782cec7b\transformed\jetified-appcompat-resources-1.4.1\res
-com.reactnativeproj.app-coordinatorlayout-1.1.0-18 C:\Users\Chriz\.gradle\caches\transforms-3\c1c8917a09afd351e952923aa1b8ed94\transformed\coordinatorlayout-1.1.0\res
-com.reactnativeproj.app-jetified-autofill-1.1.0-19 C:\Users\Chriz\.gradle\caches\transforms-3\ccb02a5d8577bec3205a6c55b15b6166\transformed\jetified-autofill-1.1.0\res
-com.reactnativeproj.app-lifecycle-runtime-2.4.0-20 C:\Users\Chriz\.gradle\caches\transforms-3\d3a951bc142735a3d1fdc59c0832424c\transformed\lifecycle-runtime-2.4.0\res
-com.reactnativeproj.app-jetified-react-native-0.69.3-debug-21 C:\Users\Chriz\.gradle\caches\transforms-3\db7588b2fe68de845aaecf211508bbe2\transformed\jetified-react-native-0.69.3-debug\res
-com.reactnativeproj.app-cardview-1.0.0-22 C:\Users\Chriz\.gradle\caches\transforms-3\ea110756df6a1e419252a188acbe201d\transformed\cardview-1.0.0\res
-com.reactnativeproj.app-pngs-23 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\generated\res\pngs\debug
-com.reactnativeproj.app-react-24 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\generated\res\react\debug
-com.reactnativeproj.app-resValues-25 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\generated\res\resValues\debug
-com.reactnativeproj.app-rs-26 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\generated\res\rs\debug
-com.reactnativeproj.app-mergeDebugResources-27 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.reactnativeproj.app-mergeDebugResources-28 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.reactnativeproj.app-merged_res-29 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\build\intermediates\merged_res\debug
-com.reactnativeproj.app-debug-30 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\src\debug\res
-com.reactnativeproj.app-main-31 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\android\app\src\main\res
-com.reactnativeproj.app-packaged_res-32 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-33 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\@react-native-community\masked-view\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-34 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-35 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\@react-native-picker\picker\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-36 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\react-native-gesture-handler\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-37 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
-com.reactnativeproj.app-packaged_res-38 C:\Users\Chriz\Documents\My Projects (Practice)\ReactNative\reactNativeProj\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-lifecycle-viewmodel-2.3.1-0 C:\Users\ckwilliams\.gradle\caches\transforms-3\0e49b57aae9e533354dfa0fd5e176b79\transformed\lifecycle-viewmodel-2.3.1\res
+com.reactnativeproj.app-jetified-core-ktx-1.6.0-1 C:\Users\ckwilliams\.gradle\caches\transforms-3\187ebcfcbecbe194e1f8bfef93d680c0\transformed\jetified-core-ktx-1.6.0\res
+com.reactnativeproj.app-jetified-flipper-0.125.0-2 C:\Users\ckwilliams\.gradle\caches\transforms-3\252cb2a23c49042eb937faf76f487d04\transformed\jetified-flipper-0.125.0\res
+com.reactnativeproj.app-jetified-viewpager2-1.0.0-3 C:\Users\ckwilliams\.gradle\caches\transforms-3\316f47cdf4c9f631aba485e06313130e\transformed\jetified-viewpager2-1.0.0\res
+com.reactnativeproj.app-jetified-startup-runtime-1.0.0-4 C:\Users\ckwilliams\.gradle\caches\transforms-3\3fac9a8cba5118c0f5051b82ee3ffdfa\transformed\jetified-startup-runtime-1.0.0\res
+com.reactnativeproj.app-core-1.7.0-5 C:\Users\ckwilliams\.gradle\caches\transforms-3\45935ca3890147589828bc2a49e63fa2\transformed\core-1.7.0\res
+com.reactnativeproj.app-jetified-savedstate-1.1.0-6 C:\Users\ckwilliams\.gradle\caches\transforms-3\46082b430c47195b1ac718ab969bc44b\transformed\jetified-savedstate-1.1.0\res
+com.reactnativeproj.app-material-1.1.0-7 C:\Users\ckwilliams\.gradle\caches\transforms-3\4924d4835b8353151291ca26718bb720\transformed\material-1.1.0\res
+com.reactnativeproj.app-fragment-1.3.6-8 C:\Users\ckwilliams\.gradle\caches\transforms-3\524e3a29d4624e641e12a5fc20542b99\transformed\fragment-1.3.6\res
+com.reactnativeproj.app-jetified-annotation-experimental-1.1.0-9 C:\Users\ckwilliams\.gradle\caches\transforms-3\527149997052d56d9121f3e7e713593e\transformed\jetified-annotation-experimental-1.1.0\res
+com.reactnativeproj.app-appcompat-1.4.1-10 C:\Users\ckwilliams\.gradle\caches\transforms-3\60dd02627e0f3456d61fd3d9f660454a\transformed\appcompat-1.4.1\res
+com.reactnativeproj.app-jetified-lifecycle-process-2.4.0-11 C:\Users\ckwilliams\.gradle\caches\transforms-3\6de55c7e01b4064844600d617d99e4cf\transformed\jetified-lifecycle-process-2.4.0\res
+com.reactnativeproj.app-jetified-drawee-2.6.0-12 C:\Users\ckwilliams\.gradle\caches\transforms-3\7ab1747218ac7a1cae590e09ec0fd8b3\transformed\jetified-drawee-2.6.0\res
+com.reactnativeproj.app-jetified-emoji2-1.0.0-13 C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\res
+com.reactnativeproj.app-transition-1.2.0-14 C:\Users\ckwilliams\.gradle\caches\transforms-3\a4d8a265b73b09639b44cdf968bbbb80\transformed\transition-1.2.0\res
+com.reactnativeproj.app-jetified-emoji2-views-helper-1.0.0-15 C:\Users\ckwilliams\.gradle\caches\transforms-3\ae7b484a5fa69e5deca1f4e95777303a\transformed\jetified-emoji2-views-helper-1.0.0\res
+com.reactnativeproj.app-recyclerview-1.1.0-16 C:\Users\ckwilliams\.gradle\caches\transforms-3\b40404291b79657e5f006dde48a01bff\transformed\recyclerview-1.1.0\res
+com.reactnativeproj.app-jetified-appcompat-resources-1.4.1-17 C:\Users\ckwilliams\.gradle\caches\transforms-3\bd65958179bbbcc9cf3900f4782cec7b\transformed\jetified-appcompat-resources-1.4.1\res
+com.reactnativeproj.app-coordinatorlayout-1.1.0-18 C:\Users\ckwilliams\.gradle\caches\transforms-3\c1c8917a09afd351e952923aa1b8ed94\transformed\coordinatorlayout-1.1.0\res
+com.reactnativeproj.app-jetified-autofill-1.1.0-19 C:\Users\ckwilliams\.gradle\caches\transforms-3\ccb02a5d8577bec3205a6c55b15b6166\transformed\jetified-autofill-1.1.0\res
+com.reactnativeproj.app-lifecycle-runtime-2.4.0-20 C:\Users\ckwilliams\.gradle\caches\transforms-3\d3a951bc142735a3d1fdc59c0832424c\transformed\lifecycle-runtime-2.4.0\res
+com.reactnativeproj.app-jetified-react-native-0.69.3-debug-21 C:\Users\ckwilliams\.gradle\caches\transforms-3\db7588b2fe68de845aaecf211508bbe2\transformed\jetified-react-native-0.69.3-debug\res
+com.reactnativeproj.app-cardview-1.0.0-22 C:\Users\ckwilliams\.gradle\caches\transforms-3\ea110756df6a1e419252a188acbe201d\transformed\cardview-1.0.0\res
+com.reactnativeproj.app-pngs-23 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\generated\res\pngs\debug
+com.reactnativeproj.app-react-24 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\generated\res\react\debug
+com.reactnativeproj.app-resValues-25 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\generated\res\resValues\debug
+com.reactnativeproj.app-rs-26 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\generated\res\rs\debug
+com.reactnativeproj.app-mergeDebugResources-27 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.reactnativeproj.app-mergeDebugResources-28 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.reactnativeproj.app-merged_res-29 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\build\intermediates\merged_res\debug
+com.reactnativeproj.app-debug-30 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\res
+com.reactnativeproj.app-main-31 C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\res
+com.reactnativeproj.app-packaged_res-32 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-33 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\masked-view\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-34 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-35 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-picker\picker\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-36 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\react-native-gesture-handler\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-37 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
+com.reactnativeproj.app-packaged_res-38 C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
