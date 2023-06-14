@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import {Alert} from 'react-native';
 
-const alert_LoginFailed = () => {
+const alert_LoginFailed = (message) => {
   //todo: clear fields on buttonpress
   Alert.alert(
     'Login Failed',
-    'Incorrect Credentials Entered, Please Try Again.',
+    `${message}, Please Try Again.`,
     [{text: 'OK', onPress: () => console.log('OK')}],
   );
 };

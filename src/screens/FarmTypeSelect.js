@@ -15,7 +15,7 @@ class FarmTypeSelect extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{display: 'flex', flex: 1, backgroundColor: '#efeeee'}}>
         <Header />
         <Text style={styles.head}>Please Select the farm type</Text>
         <Picker

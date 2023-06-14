@@ -28,7 +28,11 @@ const DailyForm = ({route, navigation}) => {
   let date =
     today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-  const handlePress = () => {
+  const handleSave = () => {
+    Alert.alert('Notification', 'Form Saved');
+    navigation.navigate('Home');
+  };
+  const handleSubmit = () => {
     Alert.alert('Notification', 'Form Submitted');
     navigation.navigate('Home');
   };
@@ -63,14 +67,13 @@ const DailyForm = ({route, navigation}) => {
               </Text>
             </Text>
           </View>
-          <View style={styles.subgroupPicker}>
+          {/* <View style={styles.subgroupPicker}>
             <Picker selectedValue={state.house} onValueChange={updateHouse}>
-              <Picker.Item label="Change House" value="none" />
               <Picker.Item label="House 1" value="house1" />
               <Picker.Item label="House 2" value="house2" />
               <Picker.Item label="Male / House 1B" value="house1b" />
             </Picker>
-          </View>
+          </View> */}
         </View>
         <View
           style={{
@@ -300,7 +303,8 @@ const DailyForm = ({route, navigation}) => {
             </View>
           </View>
         </View>
-        <Button onPress={handlePress} title="Submit" color="red" />
+        <Button onPress={handleSave} title="Save" color="#D9022F" />
+        <Button onPress={handleSubmit} title="Submit" color="red" />
       </ScrollView>
     </View>
   );

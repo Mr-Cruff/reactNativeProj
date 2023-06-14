@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  ImageBackground,
 } from 'react-native';
 import {useAuth} from '../contexts/Auth';
 
@@ -15,8 +16,11 @@ import {useAuth} from '../contexts/Auth';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShow] = useState(true);
   const auth = useAuth();
   const [loading, isLoading] = useState(false);
+
+  const backImage = require('../resources/backgroundImage.png');
 
   const setIsLoading = x => {
     isLoading(x);
@@ -29,36 +33,56 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../resources/ipb.jpg')} />
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
-          // eslint-disable-next-line no-shadow
-          onChangeText={email => setEmail(email)}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          // eslint-disable-next-line no-shadow
-          onChangeText={password => setPassword(password)}
-        />
-      </View>
-      {loading ? (
-        <ActivityIndicator color={'#000'} animating={true} size="small" />
-      ) : (
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText} onPress={signIn}>
-            LOGIN
-          </Text>
-          {/*<Button title="Sign In" style={styles.loginBtn} onPress={signIn}*/}
-        </TouchableOpacity>
-      )}
+      <ImageBackground source={backImage} style={styles.backImage}>
+        <View style={styles.div}>
+          <Image
+            style={styles.image}
+            source={require('../resources/ipbFull.jpg')}
+          />
+          {/* <Text>Enter use info</Text> */}
+          <View style={styles.inputView}>
+            <Image
+              style={styles.imageStyle}
+              source={require('../resources/avatar.png')}
+            />
+            <TextInput
+              style={[styles.TextInput, {flex:1}]}
+              autoCapitalize="none"
+              placeholder="Email Address"
+              placeholderTextColor="#efefef"
+              // eslint-disable-next-line no-shadow
+              onChangeText={email => setEmail(email)}
+            />
+          </View>
+          <View style={[styles.inputView,{}]}>
+            <Image
+              style={styles.imageStyle}
+              source={require('../resources/lock.png')}
+            />
+            <TextInput
+              style={[styles.TextInput, {flex:1}]}
+              autoCapitalize="none"
+              placeholder="Password"
+              placeholderTextColor="#efefef"
+              secureTextEntry={showPassword}
+              // eslint-disable-next-line no-shadow
+              onChangeText={password => setPassword(password)}
+            />
+            <TouchableOpacity style={{padding:10, color:'grey'}} onPress={()=>setShow(!showPassword)}><Text style={{color:"#efefef"}} >{showPassword?"SHOW":"HIDE"}</Text></TouchableOpacity>
+          </View>
+
+          {loading ? (
+            <ActivityIndicator color={'#000'} animating={true} size="small" />
+          ) : (
+            <TouchableOpacity style={styles.loginBtn} onPress={signIn}>
+              <Text style={styles.loginText} >
+                LOGIN
+              </Text>
+              {/*<Button title="Sign In" style={styles.loginBtn} onPress={signIn}*/}
+            </TouchableOpacity>
+          )}
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -66,43 +90,70 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+  },
+
+  div: {
+    backgroundColor: '#EBF1FF',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 400,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRadius: 10,
+    elevation: 5,
   },
 
   image: {
     marginBottom: 40,
   },
 
+  backImage: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   inputView: {
-    backgroundColor: '#FFC0CB',
-    borderRadius: 30,
-    width: '50%',
+    flexDirection: 'row',
+    backgroundColor: '#585D89',
+    borderRadius: 10,
+    width: 300,
     height: 45,
     marginBottom: 20,
-
     alignItems: 'center',
   },
 
   TextInput: {
+    color: '#ffff',
+    fontSize: 18,
     padding: 10,
-    marginLeft: 20,
+    marginLeft: 10,
   },
 
   forgot_button: {
     height: 30,
     marginBottom: 30,
   },
+  loginText: {
+    color: '#ffff',
+  },
 
   loginBtn: {
-    width: '60%',
+    width: 300,
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
-    backgroundColor: '#FF1493',
+    marginBottom: 10,
+    backgroundColor: '#9D8D62',
+  },
+  imageStyle: {
+    // padding: 10,
+    marginLeft: 30,
+    height: 25,
+    width: 25,
+    // resizeMode: 'stretch',
+    // alignItems: 'center',
   },
 });
 
