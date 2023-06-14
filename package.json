@@ -10,18 +10,31 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "^1.17.7",
-    "@react-native-community/async-storage": "^1.12.1",
-    "@react-native-picker/picker": "^2.4.1",
+    "@react-native-community/datetimepicker": "^6.5.0",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/netinfo": "^9.3.0",
+    "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
-    "react": "18.0.0",
-    "react-hook-form": "^7.33.0",
-    "react-native": "0.69.3",
-    "react-native-gesture-handler": "^2.4.2",
+    "axios": "^0.27.2",
+    "expo-font": "^10.2.0",
+    "i": "^0.3.7",
+    "jwt-decode": "^3.1.2",
+    "npm": "^8.19.3",
+    "react": "^16.11.0 || ^17 || ^18",
+    "react-hook-form": "^7.34.2",
+    "react-native": ">=0.65.0 <1.0.x",
+    "react-native-collapsible": "^1.6.0",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-linear-gradient": "^2.6.2",
+    "react-native-paper": "^4.12.4",
+    "react-native-reanimated": "^2.12.0",
     "react-native-router-flux": "^4.3.1",
     "react-native-safe-area-context": "^4.3.1",
-    "react-native-screens": "^3.13.1",
+    "react-native-screens": "^3.15.0",
+    "react-native-splash-screen": "^3.3.0",
     "react-navigation": "^4.4.4",
     "react-router": "^6.3.0",
     "yarn": "^1.22.19"
@@ -35,6 +48,10 @@
     "jest": "26.6.3",
     "metro-react-native-babel-preset": "0.67.0",
     "react-test-renderer": "17.0.2"
+  },
+  "peerDependencies": {
+    "react": "^16.11.0 || ^17 || ^18",
+    "react-native": ">=0.65.0 <1.0.x"
   },
   "jest": {
     "preset": "react-native"

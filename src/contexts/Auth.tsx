@@ -1,13 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React, {createContext, useState, useContext, useEffect} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import {AuthData, authService} from '../services/AuthService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthData, authService, tokenValidation} from '../services/AuthService';
 import LoginFailed from '../components/LoginFailed_Alert';
+import ResetPassword from '../screens/ResetPassword';
+import { useNavigation } from '@react-navigation/native'
 
 type AuthContextData = {
   authData?: AuthData;
   loading: boolean;
   signIn(): Promise<void>;
+  refreshToken(): boolean;
   signOut(): void;
 };
 
@@ -27,15 +30,16 @@ const AuthProvider: React.FC = ({children}) => {
     //and call the loadStorage function.
     loadStorageData();
   }, []);
-
+  
   async function loadStorageData(): Promise<void> {
     try {
       //Try get the data from Async Storage
       const authDataSerialized = await AsyncStorage.getItem('@AuthData');
       if (authDataSerialized) {
-        //If there are data, it's converted to an Object and the state is updated.
+        //If there is data, it's converted to an Object and the state is updated.
         const _authData: AuthData = JSON.parse(authDataSerialized);
-        setAuthData(_authData);
+        if(tokenValidation(_authData.token))
+          setAuthData(_authData);
       }
     } catch (error) {
     } finally {
@@ -44,11 +48,15 @@ const AuthProvider: React.FC = ({children}) => {
     }
   }
 
-  const signIn = async (email, password, setIsLoading) => {
+  const signIn = async (email:string, password:string, setIsLoading?:Function) => {
     //call the service passing credential (email and password).
     //In a real App this data will be provided by the user from some InputText components.
     const _authData = await authService.signIn(email, password);
     //
+
+    // const nav = useNavigation();
+    // // if(_authData.firstLogon == 0)
+    //   navigation.navigate('Reset Password');
 
     //Set the data in the context, so the App can be notified
     //and send the user to the AuthStack
@@ -57,12 +65,12 @@ const AuthProvider: React.FC = ({children}) => {
     //Persist the data in the Async Storage
     //to be recovered in the next user session.
     AsyncStorage.setItem('@AuthData', JSON.stringify(_authData));
-    console.log(_authData);
+    //console.log(_authData);
 
     //check if login failed, disables load icon and displays a login failed alert
-    if (_authData.token == '') {
+    if (_authData.token == '' && setIsLoading) {
       setIsLoading(false);
-      LoginFailed();
+      // LoginFailed();
     }
   };
 
@@ -75,11 +83,21 @@ const AuthProvider: React.FC = ({children}) => {
     //to NOT be recoverede in next session.
     await AsyncStorage.removeItem('@AuthData');
   };
+ 
+  const resetFirstLogon = async() =>{
+    setLoading(true);
+    const {name, token, uuid, email, role, refreshToken} = authData;
+    const test:AuthData = {name:name,token:token, uuid:uuid, email:email, password:"", role:role, refreshToken:refreshToken, firstLogon:0}
+    setAuthData(test);
+    await AsyncStorage.setItem('@AuthData', JSON.stringify(test)).then(()=>setLoading(false));
+  };
+
+  const isTokenValid = () => tokenValidation(authData.token);
 
   return (
     //This component will be used to encapsulate the whole App,
     //so all components will have access to the Context
-    <AuthContext.Provider value={{authData, loading, signIn, signOut}}>
+    <AuthContext.Provider value={{authData, loading, signIn, signOut, isTokenValid, resetFirstLogon}}>
       {children}
     </AuthContext.Provider>
   );
