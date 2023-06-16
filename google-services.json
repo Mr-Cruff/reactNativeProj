@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "747609920971",
+    "project_id": "ipb-form-manager",
+    "storage_bucket": "ipb-form-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747609920971:android:dfdd565bcf17311373124e",
+        "android_client_info": {
+          "package_name": "com.reactnativeproj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747609920971-g0fooj6ljj9pdu3l1h0jvpcjqosrfmdh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnativeproj",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "747609920971-i85qptl28jecfmj70ss7jltq4c94v74j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEqo6jFHvbkAtiJVDSF6IVbBNu0fP8_bY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747609920971-i85qptl28jecfmj70ss7jltq4c94v74j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

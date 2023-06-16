@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.reactnativeproj.app-mergeDebugResources-27:/values-v24/values-v24.xml",
+            "outputFile": "com.reactnativeproj.app-mergeDebugResources-33:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\60dd02627e0f3456d61fd3d9f660454a\\transformed\\appcompat-1.4.1\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\87d9204301197a69f54dc0e679fc87d2\\transformed\\appcompat-1.4.1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

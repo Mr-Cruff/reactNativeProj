@@ -114,7 +114,9 @@ export const getAllFormIds = async ()=>{
 
 export const doesFormExist = async (formId) => {
   const formsIds = await getAllFormIds();
-  console.log(formsIds.includes(formId))
+  // console.log(formsIds.includes(formId))
+  // console.log(formsIds);
+  // console.log("New Id: "+formId);
   return formsIds.includes(formId); 
 }
 // interface App{

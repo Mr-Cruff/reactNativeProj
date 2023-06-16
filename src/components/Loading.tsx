@@ -1,6 +1,9 @@
 import React from 'react';
 import {View, ActivityIndicator, StyleSheet, Text, Image} from 'react-native';
 
+var pkg = require('../../package.json');
+// console.log(pkg.version);
+
 export const Loading = () => {
   return( 
     <View style={styles.container}>
@@ -11,9 +14,11 @@ export const Loading = () => {
             <Text style={{alignSelf:'center',color:'#959ec0', marginBottom:20}}>Please wait . . .</Text>
           <ActivityIndicator color="#dfb510" size="large" />
         </View>
+        <Text style={{fontSize:16, paddingVertical:'5%', textAlign:'center', color:'#959ec0'}}>V. {pkg.version}</Text>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

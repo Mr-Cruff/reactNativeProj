@@ -5,6 +5,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0bae8820ea748a1da10671e88465f28e/transformed/jetified-imagepipeline-okhttp3-2.5.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0bae8820ea748a1da10671e88465f28e/transformed/jetified-imagepipeline-okhttp3-2.5.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0bae8820ea748a1da10671e88465f28e/transformed/jetified-imagepipeline-okhttp3-2.5.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5ec06c9a45dff49aabccf9f408f2718f/transformed/jetified-imagepipeline-okhttp3-2.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5ec06c9a45dff49aabccf9f408f2718f/transformed/jetified-imagepipeline-okhttp3-2.5.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5ec06c9a45dff49aabccf9f408f2718f/transformed/jetified-imagepipeline-okhttp3-2.5.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/imagepipeline-okhttp3/2.5.0/53668e77d5b018b3b094623a670ba2806dc30be4/imagepipeline-okhttp3-2.5.0-javadoc.jar!/" />

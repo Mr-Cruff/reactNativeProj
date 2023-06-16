@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.reactnativeproj.app-mergeReleaseResources-26:/values-v16/values-v16.xml",
+            "outputFile": "com.reactnativeproj.app-mergeReleaseResources-32:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\24cd1d49d41b8067d65f8e0a7d140611\\transformed\\core-1.7.0\\res\\values-v16\\values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\a88a4c4c64f1a232239fbf53e0811e76\\transformed\\appcompat-1.4.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\87d9204301197a69f54dc0e679fc87d2\\transformed\\appcompat-1.4.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -30,6 +20,16 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\fec63db4c9552f6ae745b7c2716a346d\\transformed\\core-1.7.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
                     }
                 }
             ]

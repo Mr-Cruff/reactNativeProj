@@ -1,11 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {createContext, useState, useContext, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-<<<<<<< HEAD
 import {AuthData, authService, tokenValidation} from '../services/AuthService';
-=======
-import {AuthData, authService} from '../services/AuthService';
->>>>>>> 3826207 (merge)
 import LoginFailed from '../components/LoginFailed_Alert';
 import ResetPassword from '../screens/ResetPassword';
 import { useNavigation } from '@react-navigation/native'

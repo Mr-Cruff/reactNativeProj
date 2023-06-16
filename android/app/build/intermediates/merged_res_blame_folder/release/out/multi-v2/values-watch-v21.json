@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.reactnativeproj.app-mergeReleaseResources-26:/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "com.reactnativeproj.app-mergeReleaseResources-32:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\a88a4c4c64f1a232239fbf53e0811e76\\transformed\\appcompat-1.4.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\87d9204301197a69f54dc0e679fc87d2\\transformed\\appcompat-1.4.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

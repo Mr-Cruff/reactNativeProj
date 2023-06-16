@@ -32,15 +32,24 @@ const CreateForm = ({ route, navigation }) => {
     const [feedRecieved, setFeedRecieved] = useState("");
     const [eggsDelivered, setEggsDelivered] = useState("");
 
+    console.log(route.params);
+
     const setMinDate = () =>{
       var date = new Date();
-      var firstDay= date.getDate() - date.getDay()
-      var minDate= new Date(date.setDate(firstDay))
+      // var firstDay= date.getDate() - date.getDay()
+      var minDate= new Date(date.setDate(date.getDate()-6))
       return minDate;
     }
 
-    const formIdCalc = (farm, house) => {
-      let today = new Date();
+    // const setMinDate = () =>{
+    //   var date = new Date();
+    //   var firstDay= date.getDate() - date.getDay()
+    //   var minDate= new Date(date.setDate(firstDay))
+    //   return minDate;
+    // }
+
+    const formIdCalc = (farm, house, date) => {
+      let today = date;
       let dd = today.getDate();
       let mm = today.getMonth() + 1;
       let yyyy = today.getFullYear();
@@ -169,7 +178,7 @@ const CreateForm = ({ route, navigation }) => {
                 onPress: () => navigation.navigate('Edit Form', {formSelected:newForm, farmSelected:farmHouse}),
               },
             ]);
-          }
+        }
       }
     }
 
@@ -182,7 +191,7 @@ const CreateForm = ({ route, navigation }) => {
       // if(showFeedRec)
       //   return {"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete', "Eggs":{"Eggs Delivered":parseInt(eggsDelivered)},"Feed Inventory":{"Feed Recieved (lbs)":parseFloat(feedRecieved)}}
       // else
-      return {"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete'}
+      return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete'}
     }
 
     useEffect(() => {

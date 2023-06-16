@@ -39,6 +39,8 @@ import axios from 'axios';
 // };
 
 //refactor to be more concise
+
+
 export const currentDate = () => {
   let today = new Date();
   let dd = today.getDate();

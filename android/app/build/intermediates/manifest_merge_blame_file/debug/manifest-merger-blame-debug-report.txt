@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.reactnativeproj"
-4    android:versionCode="1"
-5    android:versionName="1.0" >
+4    android:versionCode="2"
+5    android:versionName="1.0.1 - UAT" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
@@ -15,84 +15,317 @@
 12-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:4:5-67
 12-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:4:22-64
 13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\252cb2a23c49042eb937faf76f487d04\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
-13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\252cb2a23c49042eb937faf76f487d04\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
+13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d4f40093e379855b7ab0decd92b6fac2\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
+13-->[com.facebook.flipper:flipper:0.125.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d4f40093e379855b7ab0decd92b6fac2\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
 14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 14-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
 14-->[:react-native-community_netinfo] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-76
-15
-16    <application
-16-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:6:5-25:19
-17        android:name="com.reactnativeproj.MainApplication"
-17-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:7:7-38
-18        android:allowBackup="false"
-18-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:11:7-34
-19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-19-->[androidx.core:core:1.7.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\45935ca3890147589828bc2a49e63fa2\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
-20        android:debuggable="true"
-21        android:icon="@mipmap/ic_launcher"
-21-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:9:7-41
-22        android:label="@string/app_name"
-22-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:8:7-39
-23        android:roundIcon="@mipmap/ic_launcher_round"
-23-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:10:7-52
-24        android:theme="@style/AppTheme"
-24-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:12:7-38
-25        android:usesCleartextTraffic="true" >
-25-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:8:9-44
-26        <activity
-26-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:9-111
-27            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-27-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:19-83
-28            android:exported="false" />
-28-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:84-108
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-68
+15-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-65
+16    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+16-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:25:5-77
+16-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:25:22-74
+17    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+17-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:28:5-82
+17-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:28:22-79
+18
+19    <application
+19-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:6:5-25:19
+20        android:name="com.reactnativeproj.MainApplication"
+20-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:7:7-38
+21        android:allowBackup="false"
+21-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:11:7-34
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.7.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\fec63db4c9552f6ae745b7c2716a346d\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+23        android:debuggable="true"
+24        android:icon="@mipmap/ic_launcher"
+24-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:9:7-41
+25        android:label="@string/app_name"
+25-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:8:7-39
+26        android:roundIcon="@mipmap/ic_launcher_round"
+26-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:10:7-52
+27        android:theme="@style/AppTheme"
+27-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:12:7-38
+28        android:usesCleartextTraffic="true" >
+28-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:8:9-44
 29        <activity
-29-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:13:7-24:18
-30            android:name="com.reactnativeproj.MainActivity"
-30-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:14:9-37
-31            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-31-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:16:9-118
-32            android:exported="true"
-32-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:19:9-32
-33            android:label="@string/app_name"
-33-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:15:9-41
-34            android:launchMode="singleTask"
-34-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:17:9-40
-35            android:windowSoftInputMode="adjustResize" >
-35-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:18:9-51
-36            <intent-filter>
-36-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:20:9-23:25
-37                <action android:name="android.intent.action.MAIN" />
-37-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:13-65
-37-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:21-62
-38
-39                <category android:name="android.intent.category.LAUNCHER" />
-39-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:13-73
-39-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:23-70
-40            </intent-filter>
-41        </activity>
-42
-43        <provider
-43-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
-44            android:name="androidx.startup.InitializationProvider"
-44-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
-45            android:authorities="com.reactnativeproj.androidx-startup"
-45-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
-46            android:exported="false" >
-46-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
-47            <meta-data
-47-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
-48                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-48-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
-49                android:value="androidx.startup" />
-49-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\91c6c7e42e79a14a3af53cc7398f1c4f\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
-50            <meta-data
-50-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\6de55c7e01b4064844600d617d99e4cf\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
-51                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-51-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\6de55c7e01b4064844600d617d99e4cf\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
-52                android:value="androidx.startup" />
-52-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\6de55c7e01b4064844600d617d99e4cf\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
-53        </provider>
-54    </application>
-55
-56</manifest>
+29-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:9-111
+30            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+30-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:19-83
+31            android:exported="false" />
+31-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\debug\AndroidManifest.xml:11:84-108
+32        <activity
+32-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:13:7-24:18
+33            android:name="com.reactnativeproj.MainActivity"
+33-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:14:9-37
+34            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+34-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:16:9-118
+35            android:exported="true"
+35-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:19:9-32
+36            android:label="@string/app_name"
+36-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:15:9-41
+37            android:launchMode="singleTask"
+37-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:17:9-40
+38            android:windowSoftInputMode="adjustResize" >
+38-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:18:9-51
+39            <intent-filter>
+39-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:20:9-23:25
+40                <action android:name="android.intent.action.MAIN" />
+40-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:13-65
+40-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:21:21-62
+41
+42                <category android:name="android.intent.category.LAUNCHER" />
+42-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:13-73
+42-->C:\Users\ckwilliams\Documents\reactNativeProj\android\app\src\main\AndroidManifest.xml:22:23-70
+43            </intent-filter>
+44        </activity>
+45
+46        <service
+46-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-16:40
+47            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingHeadlessService"
+47-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-103
+48            android:exported="false" />
+48-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
+49        <service
+49-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-23:19
+50            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingService"
+50-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-95
+51            android:exported="false" >
+51-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
+52            <intent-filter>
+52-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-22:29
+53                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+53-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:17-78
+53-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:25-75
+54            </intent-filter>
+55        </service>
+56
+57        <receiver
+57-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-32:20
+58            android:name="io.invertase.firebase.messaging.ReactNativeFirebaseMessagingReceiver"
+58-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-96
+59            android:exported="true"
+59-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-36
+60            android:permission="com.google.android.c2dm.permission.SEND" >
+60-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-73
+61            <intent-filter>
+61-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-31:29
+62                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+62-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:17-81
+62-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:25-78
+63            </intent-filter>
+64        </receiver>
+65
+66        <meta-data
+66-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:9-36:36
+67            android:name="firebase_messaging_auto_init_enabled"
+67-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-64
+68            android:value="true" />
+68-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-33
+69        <meta-data
+69-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:9-39:32
+70            android:name="com.google.firebase.messaging.default_notification_channel_id"
+70-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:38:13-89
+71            android:value="" />
+71-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:39:13-29
+72        <meta-data
+72-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:40:9-42:47
+73            android:name="com.google.firebase.messaging.default_notification_color"
+73-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-84
+74            android:resource="@color/white" />
+74-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-44
+75        <meta-data
+75-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-13:36
+76            android:name="app_data_collection_default_enabled"
+76-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-63
+77            android:value="true" />
+77-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-33
+78
+79        <service
+79-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-23:19
+80            android:name="com.google.firebase.components.ComponentDiscoveryService"
+80-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-84
+81            android:directBootAware="true"
+81-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-43
+82            android:exported="false" >
+82-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-37
+83            <meta-data
+83-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-22:85
+84                android:name="com.google.firebase.components:io.invertase.firebase.app.ReactNativeFirebaseAppRegistrar"
+84-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:17-120
+85                android:value="com.google.firebase.components.ComponentRegistrar" />
+85-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:22:17-82
+86            <meta-data
+86-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:55:13-57:85
+87                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+87-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:56:17-119
+88                android:value="com.google.firebase.components.ComponentRegistrar" />
+88-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:57:17-82
+89            <meta-data
+89-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ckwilliams\.gradle\caches\transforms-3\aae385714049499d9ce3a94324a64106\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:27:13-29:85
+90                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+90-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ckwilliams\.gradle\caches\transforms-3\aae385714049499d9ce3a94324a64106\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:28:17-115
+91                android:value="com.google.firebase.components.ComponentRegistrar" />
+91-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\ckwilliams\.gradle\caches\transforms-3\aae385714049499d9ce3a94324a64106\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:29:17-82
+92            <meta-data
+92-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\ckwilliams\.gradle\caches\transforms-3\b840a81f84a1bcea91be4ee1c9b6b607\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:17:13-19:85
+93                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+93-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\ckwilliams\.gradle\caches\transforms-3\b840a81f84a1bcea91be4ee1c9b6b607\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:18:17-127
+94                android:value="com.google.firebase.components.ComponentRegistrar" />
+94-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\ckwilliams\.gradle\caches\transforms-3\b840a81f84a1bcea91be4ee1c9b6b607\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:19:17-82
+95        </service>
+96
+97        <provider
+97-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:9-29:38
+98            android:name="io.invertase.firebase.app.ReactNativeFirebaseAppInitProvider"
+98-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:13-88
+99            android:authorities="com.reactnativeproj.reactnativefirebaseappinitprovider"
+99-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-86
+100            android:exported="false"
+100-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-37
+101            android:initOrder="99" />
+101-->[:react-native-firebase_app] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-35
+102
+103        <receiver
+103-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:31:9-38:20
+104            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+104-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:32:13-78
+105            android:exported="true"
+105-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:33:13-36
+106            android:permission="com.google.android.c2dm.permission.SEND" >
+106-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:34:13-73
+107            <intent-filter>
+107-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-31:29
+108                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+108-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:17-81
+108-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:25-78
+109            </intent-filter>
+110        </receiver>
+111        <!--
+112             FirebaseMessagingService performs security checks at runtime,
+113             but set to not exported to explicitly avoid allowing another app to call it.
+114        -->
+115        <service
+115-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:44:9-51:19
+116            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+116-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:45:13-82
+117            android:directBootAware="true"
+117-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:46:13-43
+118            android:exported="false" >
+118-->[com.google.firebase:firebase-messaging:23.1.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\c7ecd6be4184ceed2935974d2819fe0a\transformed\jetified-firebase-messaging-23.1.2\AndroidManifest.xml:47:13-37
+119            <intent-filter android:priority="-500" >
+119-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-22:29
+120                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+120-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:17-78
+120-->[:react-native-firebase_messaging] C:\Users\ckwilliams\Documents\reactNativeProj\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:25-75
+121            </intent-filter>
+122        </service>
+123        <service
+123-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:28:9-34:19
+124            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+124-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:29:13-103
+125            android:exported="false" >
+125-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:30:13-37
+126            <meta-data
+126-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:31:13-33:39
+127                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+127-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:32:17-94
+128                android:value="cct" />
+128-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\6c2b29acfb0f65c1a4fb56bc95868f75\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:33:17-36
+129        </service>
+130        <service
+130-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:26:9-30:19
+131            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+131-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:27:13-117
+132            android:exported="false"
+132-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:28:13-37
+133            android:permission="android.permission.BIND_JOB_SERVICE" >
+133-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:29:13-69
+134        </service>
+135
+136        <receiver
+136-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:32:9-34:40
+137            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+137-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:33:13-132
+138            android:exported="false" />
+138-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\ckwilliams\.gradle\caches\transforms-3\db412d75345372c0c54aa4d734570e40\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:34:13-37
+139
+140        <provider
+140-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:25:9-30:39
+141            android:name="com.google.firebase.provider.FirebaseInitProvider"
+141-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:26:13-77
+142            android:authorities="com.reactnativeproj.firebaseinitprovider"
+142-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:27:13-72
+143            android:directBootAware="true"
+143-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:28:13-43
+144            android:exported="false"
+144-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:29:13-37
+145            android:initOrder="100" />
+145-->[com.google.firebase:firebase-common:20.3.2] C:\Users\ckwilliams\.gradle\caches\transforms-3\8b8f1309ee55f8d70f348104d50ec02b\transformed\jetified-firebase-common-20.3.2\AndroidManifest.xml:30:13-36
+146
+147        <activity
+147-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:23:9-27:75
+148            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+148-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:24:13-93
+149            android:excludeFromRecents="true"
+149-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:25:13-46
+150            android:exported="false"
+150-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:26:13-37
+151            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+151-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:27:13-72
+152        <!--
+153            Service handling Google Sign-In user revocation. For apps that do not integrate with
+154            Google Sign-In, this service will never be started.
+155        -->
+156        <service
+156-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:33:9-37:51
+157            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+157-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:34:13-89
+158            android:exported="true"
+158-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:35:13-36
+159            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+159-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:36:13-107
+160            android:visibleToInstantApps="true" />
+160-->[com.google.android.gms:play-services-auth:20.5.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d16e600b706ed8390ee11de027cf3122\transformed\jetified-play-services-auth-20.5.0\AndroidManifest.xml:37:13-48
+161
+162        <activity
+162-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\ckwilliams\.gradle\caches\transforms-3\1afdcc07a5e3466d5d3b58aceeebe8a3\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+163            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+163-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\ckwilliams\.gradle\caches\transforms-3\1afdcc07a5e3466d5d3b58aceeebe8a3\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+164            android:exported="false"
+164-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\ckwilliams\.gradle\caches\transforms-3\1afdcc07a5e3466d5d3b58aceeebe8a3\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+165            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+165-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\ckwilliams\.gradle\caches\transforms-3\1afdcc07a5e3466d5d3b58aceeebe8a3\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+166
+167        <meta-data
+167-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\107f9f0150424e123fdb2c6fc8a6d3c4\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:21:9-23:69
+168            android:name="com.google.android.gms.version"
+168-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\107f9f0150424e123fdb2c6fc8a6d3c4\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:22:13-58
+169            android:value="@integer/google_play_services_version" />
+169-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\107f9f0150424e123fdb2c6fc8a6d3c4\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:23:13-66
+170
+171        <provider
+171-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+172            android:name="androidx.startup.InitializationProvider"
+172-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+173            android:authorities="com.reactnativeproj.androidx-startup"
+173-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+174            android:exported="false" >
+174-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+175            <meta-data
+175-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+176                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+176-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+177                android:value="androidx.startup" />
+177-->[androidx.emoji2:emoji2:1.0.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\9b65552f03a02d022b9142ef47cbec05\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+178            <meta-data
+178-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d3872f7862685e36e57108202da921a1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+179                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+179-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d3872f7862685e36e57108202da921a1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+180                android:value="androidx.startup" />
+180-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\ckwilliams\.gradle\caches\transforms-3\d3872f7862685e36e57108202da921a1\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+181        </provider>
+182    </application>
+183
+184</manifest>

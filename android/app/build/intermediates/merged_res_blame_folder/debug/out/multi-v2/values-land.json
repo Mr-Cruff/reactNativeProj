@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.reactnativeproj.app-mergeDebugResources-27:/values-land/values-land.xml",
+            "outputFile": "com.reactnativeproj.app-mergeDebugResources-33:/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\4924d4835b8353151291ca26718bb720\\transformed\\material-1.1.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\c4d30c012cdbf7129a843582bd51dd54\\transformed\\material-1.1.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,30",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\60dd02627e0f3456d61fd3d9f660454a\\transformed\\appcompat-1.4.1\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\ckwilliams\\.gradle\\caches\\transforms-3\\87d9204301197a69f54dc0e679fc87d2\\transformed\\appcompat-1.4.1\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
