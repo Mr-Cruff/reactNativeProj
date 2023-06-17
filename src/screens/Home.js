@@ -388,7 +388,7 @@ const getFarms = async () => {
   let farmArray;
   let asyncFarmArray;
   // try {
-  console.log('======================= GET FARMS ======================');
+  // console.log('======================= GET FARMS ======================');
   // console.log('Trying  . . . ');
   await axios.get(farmUrl, config)
   .then((farmData)=>{
@@ -574,7 +574,8 @@ const InternetStatus = () => {
   //   return <ResetPassword />;
   // else{  
   return (
-!loading?   <View style={styles.container}>
+    !loading?   
+    <View style={styles.container}>
       <View
         style={{
           paddingTop: 10,

@@ -1,4 +1,4 @@
-#Thu Jun 15 00:10:50 COT 2023
+#Fri Jun 16 19:23:42 COT 2023
 base.1=C\:\\Users\\ckwilliams\\Documents\\reactNativeProj\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes2.dex
 path.1=classes2.dex
 base.0=C\:\\Users\\ckwilliams\\Documents\\reactNativeProj\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
