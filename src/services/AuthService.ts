@@ -22,21 +22,22 @@ const signIn = async (email, _password): Promise<AuthData> => {
 
   let decoded ="";let name="";let data:any={};let role="";let uuid:"";
 
+  console.log('attempting to access auth endpoint');
   await axios.post(`${AUTH_API}/api/Auth/login`, {"username":email,"password":_password, "appID":APP_ID}).then(res=>{
     console.log(res)
-        data = res.data;
-        decoded = jwt_decode(data.token);
-        name="";
-        
-        Object.keys(decoded).map((item) => {
-         item.endsWith('name') ? name = decoded[item] : '';
-         item.endsWith('role') ? role = decoded[item] : '';
-         item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
-        });
+    data = res.data;
+    decoded = jwt_decode(data.token);
+    name="";
+    
+    Object.keys(decoded).map((item) => {
+     item.endsWith('name') ? name = decoded[item] : '';
+     item.endsWith('role') ? role = decoded[item] : '';
+     item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
+    });
   }).catch(res =>{
-        // console.log("LOG IN FAILED")
+        console.log("LOG IN FAILED")
         // console.log(res)
-        // console.log(res.response)
+        console.log(res.response)
       //   return new Promise(reject => {
       //     console.log(0)
       //       reject({

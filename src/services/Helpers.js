@@ -509,6 +509,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
   // console.log(farm?.type.toLowerCase());
   const globalEdit = typeof allowEdit == 'undefined'? true: allowEdit;
   const dateGlobal = new Date();
+  // console.log(categorySchema.title);
   return(
     <ScrollView>
           <View style={styles.container}>
@@ -1084,7 +1085,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                       )
                     }else if(item.type == 'time'){
                       const [l,setL]=useState(defaultVal === "" || typeof defaultVal == "undefined"?true:false);
-                      const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? new Date() : new Date(defaultVal)));
+                      const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? dateGlobal: new Date(defaultVal)));
                       const [isVisible,setIsVisible]=useState(false);
                       return(
                         <View style={{marginVertical: 12}} key={index}>
@@ -1093,34 +1094,34 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                             <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
                           </Text>
                           <Controller
-                            control={control}
-                            name={baseFormLabel}
-                            defaultValue={date}
-                            value={date}
-                            rules={rules(item.type, item.regex)}
                             render={({ field:{onChange} }) => (
-                            <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
+                              <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
                                 <Text style={{color:'black'}}>{l?" -  Select Time  - ":`${timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}`}</Text>
                                 {
                                   isVisible && 
                                   <DateTimePicker 
-                                    value={date} 
-                                    defaultValue={date} 
-                                    is24Hour={false} 
-                                    onChange={(event, selectedDate)=>{
-                                        setIsVisible(false);
-                                        setDate(selectedDate);
-                                        setL(false);
-                                        // setValue(`${baseFormLabel}`, selectedDate.toJSON());
-                                        // defaultVal=selectedDate;
-                                        onChange(selectedDate);
-                                      }
-                                    } 
-                                    mode="time" display="spinner" 
-                                  />
-                                }
+                                  value={date} 
+                                  defaultValue={defaultVal || date} 
+                                  is24Hour={false} 
+                                  onChange={(event, selectedDate)=>{
+                                    setIsVisible(false);
+                                    setDate(selectedDate);
+                                    setL(false);
+                                    // setValue(`${baseFormLabel}`, selectedDate.toJSON());
+                                    // defaultVal=selectedDate;
+                                    onChange(selectedDate);
+                                  }
+                                } 
+                                mode="time" display="spinner" 
+                                />
+                              }
                             </TouchableOpacity>
                             )}
+                            control={control}
+                            name={baseFormLabel}
+                            defaultValue={defaultVal || ""}
+                            value={date}
+                            rules={rules(item.type, item.regex)}
                           /> 
                       </View>
                     );
@@ -1139,33 +1140,33 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                             <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
                           </Text>
                           <Controller
-                            control={control}
-                            name={baseFormLabel}
-                            defaultValue={date}
-                            value={date}
-                            rules={rules(item.type, item.regex)}
                             render={({ field:{onChange} }) => (
-                            <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
+                              <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
                                 <Text style={{color:'black'}}>{l?" -  Select Time  - ":`${timeConverter(date)}`}</Text>
                                 {
                                   isVisible && 
                                   <DateTimePicker 
-                                    value={date} 
-                                    is24Hour={true} 
-                                    onChange={(event, selectedDate)=>{
-                                        setIsVisible(false);
-                                        setDate(selectedDate);
-                                        setL(false);
-                                        // setValue(`${baseFormLabel}`, selectedDate.toJSON())
-                                        onChange(selectedDate);
-                                      }
-                                    } 
-                                    mode="time" display="spinner" 
-                                  />
-                                }
+                                  value={date} 
+                                  is24Hour={true} 
+                                  onChange={(event, selectedDate)=>{
+                                    setIsVisible(false);
+                                    setDate(selectedDate);
+                                    setL(false);
+                                    // setValue(`${baseFormLabel}`, selectedDate.toJSON())
+                                    onChange(selectedDate);
+                                  }
+                                } 
+                                mode="time" display="spinner" 
+                                />
+                              }
                             </TouchableOpacity>
                             )}
-                          /> 
+                      control={control}
+                      name={baseFormLabel}
+                      defaultValue={defaultVal || ""}
+                      value={date}
+                      rules={rules(item.type, item.regex)}
+                            /> 
                         </View>
                       );
                     }else{ 
@@ -1205,7 +1206,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                 })()
                               }}
                               value={value}
-                              defaultValue={""+defaultVal1.current}
+                              defaultValue={defaultVal1.current === null ? "" : ""+defaultVal1.current}
+                              // defaultValue={""+defaultVal1.current}
                               multiline={item.type=="description"? true : false}
                               keyboardType={(item.type=='int' || item.type=='float') ? "number-pad":"default"}
                             />
@@ -1256,7 +1258,7 @@ const rules = (type, regex={}) => {
     return ({
       required: true,
       valueAsDate: true,
-      validate:((value, formValues)=> console.log(value, formValues))(),
+      // validate:((value, formValues)=> console.log(value, formValues))(),
     })
   }
   else{

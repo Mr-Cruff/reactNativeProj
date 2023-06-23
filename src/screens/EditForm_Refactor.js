@@ -36,7 +36,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
     // const reasons = JSON.parse(rejectReasons)
     const form = useForm({mode: "onChange",});
     const { formState } = form;
-    
+    console.log(retrievedForm);
     // const FarmSummary = () => {
     //     return (
     //       <View
@@ -212,6 +212,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
       saveForm(adjustedForm).then((updatedForm)=>{console.log(updatedForm); 
       SubmitForm(updatedForm)});
     };
+
     const SubmitForm = async (form) => {
       // console.log(`========================================`);
       // console.log(`=================Normal=======================`);
@@ -226,6 +227,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
       executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',undefined,{_object:JSON.stringify(form)})
       .then((response) => {
+        console.log(JSON.stringify(response));
         if(response.status == 200 ) {
           Alert.alert(
             `Success`, 
@@ -245,8 +247,9 @@ const EditForm_Refactored = ({ route, navigation }) => {
           adjustedForm.Status = FORM_STATUS_OBJ[-1];
           console.log("On Submit Fail: ");
           saveForm(adjustedForm);
-          console.log(response.toJSON());
-          console.log(response.toJSON().status);
+          // console.log(response.toJSON());
+          // console.log(JSON.stringify(response));
+          // console.log(response.toJSON().status);
           Alert.alert(`Falied`, `Your form could NOT be submitted, please try again later.\nError:${response.message}`);
         }
         setloading(false);
@@ -343,41 +346,40 @@ const EditForm_Refactored = ({ route, navigation }) => {
     return(
         // <FormContext {...methods}>
         <ScrollView style={{backgroundColor:'#E0E8FC'}}>
-            <Text style={styles.header}>EDIT FORM</Text>
-            <FarmSummary props={{Farm, House}}/>
-            {/* <View style={{marginHorizontal:"10%", backgroundColor:"white", borderWidth:2, borderRadius:10, borderColor:'#81171b', paddingBottom:10}}>
-              <Text style={{backgroundColor:'#81171b', color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10, borderTopRightRadius:5, borderTopLeftRadius:5, elevation:1}}>Rejection Reasons</Text>
-              <Text style={{color:"#5e0b15", fontSize:16, marginHorizontal:10}}>This form was rejected for the following reason(s):</Text>
-              {reasons.map((reason, idx)=>{
-                return <Text key={idx} style={{padding:5, marginLeft:30, marginRight:10,fontSize:16, backgroundColor: (idx%2!=0)? 'white' : '#f8f9fa'}}><Text style={{marginHorizontal:10, color:"#5e0b15", fontSize:16}}>{idx+1}.       </Text>{reasons[idx]}</Text>
-              })}
-            </View> */}
-            {/* {console.log(form.formState.isValid)} */}
-            {/* <RenderForm formFields={formFields} retrievedForm={retrievedForm} form={form} /> */}
-            <RenderForm formFields={formFields} retrievedForm={categories} form={form} farm={Farm} house={House.house}/>
-            {/* Change the below VIEW component to a Category control function which toggles visibilty and saves the values accordingly */}
-            {/* <CategoryController categorySchema={formFields[2]} retrievedData={retrievedForm["Miscellaneous"]} form={form}/>
-            <CategoryController categorySchema={formFields[4]} retrievedData={retrievedForm["Vaccination"]} form={form}/> */}
-            {/* <Button disabled={!formState.isValid} title="Submit" onPress={(e)=>form.handleSubmit(onSubmit)(e)} />
-            <Button title="Save" onPress={() => console.log(form.getValues())} /> */}
-            {
-             !loading ? 
-              <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
-                <TouchableOpacity style={!formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={formState.isValid} onPress={(e)=>{setloading(true); onSave(form.getValues());}}>
-                    <Text style={!formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE</Text>
-                </TouchableOpacity>
-                {/* <TouchableOpacity style={!formState.isValid ? styles.button: styles.saveButtonDisabled} onPress={(e)=>getFormFields}>
-                    <Text style={!formState.isValid ? styles.buttonText: {color:"grey"}}>Get Values</Text>
-                </TouchableOpacity> */}
-
-                {/* {console.log("IS THE FORM VALID? "+formState.isValid)}
-                {console.log("IS THE FORM VALID? "+JSON.stringify(formState.errors))} */}
-                <TouchableOpacity style={formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={!formState.isValid} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
-                  <Text style={formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE & SUBMIT</Text>
-                </TouchableOpacity> 
-              </View>
-             : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />
-            }
+          <Text style={styles.header}>EDIT FORM</Text>
+          <FarmSummary props={{Farm, House}}/>
+          {/* <View style={{marginHorizontal:"10%", backgroundColor:"white", borderWidth:2, borderRadius:10, borderColor:'#81171b', paddingBottom:10}}>
+            <Text style={{backgroundColor:'#81171b', color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10, borderTopRightRadius:5, borderTopLeftRadius:5, elevation:1}}>Rejection Reasons</Text>
+            <Text style={{color:"#5e0b15", fontSize:16, marginHorizontal:10}}>This form was rejected for the following reason(s):</Text>
+            {reasons.map((reason, idx)=>{
+              return <Text key={idx} style={{padding:5, marginLeft:30, marginRight:10,fontSize:16, backgroundColor: (idx%2!=0)? 'white' : '#f8f9fa'}}><Text style={{marginHorizontal:10, color:"#5e0b15", fontSize:16}}>{idx+1}.       </Text>{reasons[idx]}</Text>
+            })}
+          </View> */}
+          {/* {console.log(form.formState.isValid)} */}
+          {/* <RenderForm formFields={formFields} retrievedForm={retrievedForm} form={form} /> */}
+          <RenderForm formFields={formFields} retrievedForm={categories} form={form} farm={Farm} house={House.house}/>
+          {/* Change the below VIEW component to a Category control function which toggles visibilty and saves the values accordingly */}
+          {/* <CategoryController categorySchema={formFields[2]} retrievedData={retrievedForm["Miscellaneous"]} form={form}/>
+          <CategoryController categorySchema={formFields[4]} retrievedData={retrievedForm["Vaccination"]} form={form}/> */}
+          {/* <Button disabled={!formState.isValid} title="Submit" onPress={(e)=>form.handleSubmit(onSubmit)(e)} />
+          <Button title="Save" onPress={() => console.log(form.getValues())} /> */}
+          {
+           !loading ? 
+            <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
+              <TouchableOpacity style={!formState.isDirty? styles.saveButtonDisabled : !formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={formState.isValid || !formState.isDirty} onPress={(e)=>{setloading(true); onSave(form.getValues());}}>
+                  <Text style={!formState.isDirty ?  {color:"grey"} : !formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={!formState.isValid ? styles.button: styles.saveButtonDisabled} onPress={(e)=>getFormFields}>
+                  <Text style={!formState.isValid ? styles.buttonText: {color:"grey"}}>Get Values</Text>
+              </TouchableOpacity> */}
+              {/* {console.log("IS THE FORM VALID? "+formState.isValid)}
+              {console.log("IS THE FORM VALID? "+JSON.stringify(formState.errors))} */}
+              <TouchableOpacity style={formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={!formState.isValid} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
+                <Text style={formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE & SUBMIT</Text>
+              </TouchableOpacity> 
+            </View>
+           : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />
+          }
         </ScrollView>
         // </FormContext>
     );
@@ -523,16 +525,16 @@ export const setFormStatus = ({type, name}) => {
 const RenderForm = ({ formFields, retrievedForm, form, farm, house }) => {
   // console.log(farm, house);
     return(
-        <View>
-            {
-              Object.keys(formFields).map((key, index)=>{
-                return(
-                  <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, ...{house:house}}}/>
-                )
-                //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
-              })
-            }
-        </View>
+      <View>
+        {
+          Object.keys(formFields).map((key, index)=>{
+            return(
+              <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, ...{house:house}}}/>
+            )
+            //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
+          })
+        }
+      </View>
     )
 }
 

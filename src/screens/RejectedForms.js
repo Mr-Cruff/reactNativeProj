@@ -130,13 +130,13 @@ const RejectedForms = ({route, navigation, back}) => {
     }
 
     const getForm = async (formId)=>{
-        const config = {
-            headers:{
-              'Content-Type': 'application/text/plain',
-              Authorization: 'bearer ' + auth.authData.token
-            },params: { formId: formId } 
-        }
-        return await axios.get(`${APP_API}/api/FormDetails/GetSubmittedFormByFormID`,config).then((response)=>{setLoading(false); return response.data}) 
+      const config = {
+          headers:{
+            'Content-Type': 'application/text/plain',
+            Authorization: 'bearer ' + auth.authData.token
+          },params: { formId: formId } 
+      }
+      return await axios.get(`${APP_API}/api/FormDetails/GetSubmittedFormByFormID`,config).then((response)=>{setLoading(false); return response.data}) 
     }
 
     const FormTile = ({ formObj }) => {

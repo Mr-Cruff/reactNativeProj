@@ -193,7 +193,7 @@ const EditFormSelect = ({navigation, back, route}) => {
           }
         }
         // console.log(selectedFarmHouse);
-        console.log(form);
+        // console.log(form);
         // // console.log(selectedFarmHouse);
         // // let farms = JSON.parse(route.params);
         // // console.log(route.params.farms);

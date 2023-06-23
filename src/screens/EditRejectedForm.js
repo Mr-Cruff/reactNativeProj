@@ -37,6 +37,8 @@ const EditRejectedForm = ({ route, navigation }) => {
     const form = useForm({mode: "onChange"});
     const { formState } = form;
 
+    console.log(retrievedForm);
+
     const onSubmit = data => {
       setloading(true);
       const adjustedForm ={...baseFormDetails, ...data}
@@ -115,33 +117,32 @@ const EditRejectedForm = ({ route, navigation }) => {
 
     const baseFormDetails = getFormFields();  
 
-  
     return(
-        // <FormContext {...methods}>
-        <ScrollView style={{backgroundColor:'#E0E8FC'}}>
-            <Text style={styles.header}>REJECTED FORM</Text>
-            <View style={{marginHorizontal:"10%", backgroundColor:"white", borderWidth:2, borderRadius:10, borderColor:'#81171b', paddingBottom:10}}>
-              <Text style={{backgroundColor:'#81171b', color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10, borderTopRightRadius:5, borderTopLeftRadius:5, elevation:1}}>Rejection Reasons</Text>
-              <Text style={{color:"#5e0b15", fontSize:16, marginHorizontal:10}}>This form was rejected for the following reason(s):</Text>
-              {/* <Text>{reasons}</Text> */}
-              {reasons.map((reason, idx)=>{
-                return <Text key={idx} style={{padding:5, marginLeft:30, marginRight:10,fontSize:16, backgroundColor: (idx%2!=0)? 'white' : '#f8f9fa'}}><Text style={{marginHorizontal:10, color:"#5e0b15", fontSize:16}}>{idx+1}.       </Text>{reasons[idx]}</Text>
-              })}
-            </View>
-            {/* <FarmSummary props={{Farm, House}}/> */}
-            {/* {console.log(form.formState.isValid)} */}
-            <RenderForm formFields={formFields} retrievedForm={retrievedForm} form={form} farm={farm} house={House}/>
-            {/* Change the below VIEW component to a Category control function which toggles visibilty and saves the values accordingly */}
-            {/* <CategoryController categorySchema={formFields[2]} retrievedData={retrievedForm["Miscellaneous"]} form={form}/>
-            <CategoryController categorySchema={formFields[4]} retrievedData={retrievedForm["Vaccination"]} form={form}/> */}
-            {/* <Button disabled={!formState.isValid} title="Submit" onPress={(e)=>form.handleSubmit(onSubmit)(e)} />
-            <Button title="Save" onPress={() => console.log(form.getValues())} /> */}
-            {!loading ? <TouchableOpacity style={formState.isValid ? formState.isDirty? styles.button: styles.saveButtonDisabled:styles.saveButtonDisabled} disabled={!formState.isValid || !formState.isDirty} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
-              <Text style={formState.isValid ? formState.isDirty? styles.buttonText: {color:"grey"}:{color:"grey"}}>SAVE & SUBMIT</Text>
-            </TouchableOpacity> : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />}
-        </ScrollView>
-        // </FormContext>
-     );
+      // <FormContext {...methods}>
+      <ScrollView style={{backgroundColor:'#E0E8FC'}}>
+          <Text style={styles.header}>REJECTED FORM</Text>
+          <View style={{marginHorizontal:"10%", backgroundColor:"white", borderWidth:2, borderRadius:10, borderColor:'#81171b', paddingBottom:10}}>
+            <Text style={{backgroundColor:'#81171b', color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10, borderTopRightRadius:5, borderTopLeftRadius:5, elevation:1}}>Rejection Reasons</Text>
+            <Text style={{color:"#5e0b15", fontSize:16, marginHorizontal:10}}>This form was rejected for the following reason(s):</Text>
+            {/* <Text>{reasons}</Text> */}
+            {reasons.map((reason, idx)=>{
+              return <Text key={idx} style={{padding:5, marginLeft:30, marginRight:10,fontSize:16, backgroundColor: (idx%2!=0)? 'white' : '#f8f9fa'}}><Text style={{marginHorizontal:10, color:"#5e0b15", fontSize:16}}>{idx+1}.       </Text>{reasons[idx]}</Text>
+            })}
+          </View>
+          {/* <FarmSummary props={{Farm, House}}/> */}
+          {/* {console.log(form.formState.isValid)} */}
+          <RenderForm formFields={formFields} retrievedForm={retrievedForm} form={form} farm={farm} house={House}/>
+          {/* Change the below VIEW component to a Category control function which toggles visibilty and saves the values accordingly */}
+          {/* <CategoryController categorySchema={formFields[2]} retrievedData={retrievedForm["Miscellaneous"]} form={form}/>
+          <CategoryController categorySchema={formFields[4]} retrievedData={retrievedForm["Vaccination"]} form={form}/> */}
+          {/* <Button disabled={!formState.isValid} title="Submit" onPress={(e)=>form.handleSubmit(onSubmit)(e)} />
+          <Button title="Save" onPress={() => console.log(form.getValues())} /> */}
+          {!loading ? <TouchableOpacity style={formState.isValid ? formState.isDirty? styles.button: styles.saveButtonDisabled:styles.saveButtonDisabled} disabled={!formState.isValid || !formState.isDirty} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
+            <Text style={formState.isValid ? formState.isDirty? styles.buttonText: {color:"grey"}:{color:"grey"}}>SAVE & SUBMIT</Text>
+          </TouchableOpacity> : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />}
+      </ScrollView>
+      // </FormContext>
+    );
 }
 
 export default EditRejectedForm;
@@ -273,22 +274,20 @@ export default EditRejectedForm;
 
 const RenderForm = ({ formFields, retrievedForm, form, farm, house }) => {
   // console.log({...farm, house:house});
-    return(
-        <View>
-            {
-              Object.keys(formFields).map((key, index)=>{
-                return(
-                    <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, house:house}}/>
-                )
-                //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
-              })
-            }
-        </View>
-    )
+  return(
+    <View>
+        {
+          Object.keys(formFields).map((key, index)=>{
+            return(
+              <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, house:house}}/>
+            )
+            //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
+          })
+        }
+    </View>
+  )
 }
 
-
-;
 // const CategoryController = ({ categorySchema, retrievedData, form, farm }) => {
 //     // consider implementing a load animation
 //     const [visible, setVisibility] = useState(true);

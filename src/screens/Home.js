@@ -45,7 +45,7 @@ const formFields = [
     type: 'common',
     fields: [
         //Feed Inventory
-        {label: 'Feed Brought Forward (lbs)', type: 'float', regex:{min:0, max:50000,isRequired:true}, farmType:'common'},
+        {label: 'Feed Brought Forward (lbs)', type: 'float', regex:{min:0, max:60000,isRequired:true}, farmType:'common'},
         // {label: 'Feed Recieved (lbs)', type: 'float', regex:{min:0, max:null,isRequired:true}, farmType:'common'},
         {label: 'Feed Transferred (lbs)', type: 'float', regex:{min:0, max:50000,isRequired:false}, farmType:'common'},
         {label: 'Feed Spoilage (lbs)', type: 'float', regex:{min:0, max:50000,isRequired:false}, farmType:'common'},
@@ -321,7 +321,7 @@ const Home = ({navigation, back}) => {
 // Button end --------------------------------------------
 
 // Button Panel
-const ButtonPanel =()=>{
+  const ButtonPanel =()=>{
   if (Object.keys(APP_ROLES).includes(role)){
     return(
       <View style={{backgroundColor:'#EFF5FF',  justifyContent:'space-evenly', alignContent:'center', elevation:10}}>
@@ -331,7 +331,7 @@ const ButtonPanel =()=>{
         </View>
         <View style={{backgroundColor:'#EFF5FF', marginBottom:10, justifyContent:'space-evenly', flexDirection: 'row', alignContent:'center',}}>
           {(role == APP_ROLES[0] || role == APP_ROLES[3] || role == APP_ROLES[4]) ? <RoundButtonNew path="Edit Form Select" farms={farms} props={{label:'Create & Edit'}}/>:null}
-          {(role == APP_ROLES[0] || role == APP_ROLES[3] || role == APP_ROLES[4]) ? <RoundButtonEdit path="Review Form" farms={farms} props={{label:'Submission Review'}}/>:null}
+          {(role == APP_ROLES[0] || role == APP_ROLES[4] ) ? <RoundButtonEdit path="Review Form" farms={farms} props={{label:'Submission Review'}}/>:null}
           {(role == APP_ROLES[0] || role == APP_ROLES[1] || role == APP_ROLES[2]) ? <RoundButtonTick path="Review Form" farms={farms} props={{label:'Review Forms'}}/>: null}
           {(role == APP_ROLES[0] || role == APP_ROLES[3] || role == APP_ROLES[4]) ? <RoundButtonX path="Rejected Forms" farms={farms} props={{label:'Rejected Forms'}}/>: null}
         </View>
@@ -354,18 +354,18 @@ const ButtonPanel =()=>{
       </View>
     );
   }
-}
-// Internet state
-useEffect(() => {
+  }
+  // Internet state
+  useEffect(() => {
   const unsubscribe = NetInfo.addEventListener(state => {
     setNetInfo(state.isConnected && state.isInternetReachable ? 'Online' : 'Offline');
     global.setInternetAvailable(state.isConnected && state.isInternetReachable);
   });
 
   return () => unsubscribe();
-}, []);
-
-useEffect(() => {
+  }, []);
+  
+  useEffect(() => {
   if (farms) {
     // console.log(farms);
     // global.setFarms(farms);
@@ -375,9 +375,9 @@ useEffect(() => {
     console.log("NOT LOADED");
   }
   // console.log('run once');
-}, [farms]);
-
-const getFarms = async () => {
+  }, [farms]);
+  
+  const getFarms = async () => {
   const config = {
     headers: {
       Authorization: `Bearer ${auth.authData.token}`
@@ -480,15 +480,15 @@ const getFarms = async () => {
     // });
 
     setLoading(false);
-};
-
-useEffect(() => { 
+  };
+  
+  useEffect(() => { 
   // console.log(netInfo);
   getFarms();
-}, [netInfo]);
-
-// Internet Status Bar
-const InternetStatus = () => {
+  }, [netInfo]);
+  
+  // Internet Status Bar
+  const InternetStatus = () => {
   const bgColor =
     netInfo == 'Online'
       ? '#0C5A40'
@@ -504,9 +504,9 @@ const InternetStatus = () => {
       <Text style={{color: 'white'}}>{netInfo}</Text>
     </View>
   );
-};
-
-// console.log(auth.authData.token);
+  };
+  
+  // console.log(auth.authData.token);
 
 // useEffect(() => {
 //   if (firstLogon == 1)
