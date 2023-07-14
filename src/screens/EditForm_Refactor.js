@@ -15,7 +15,7 @@ import {
   } from 'react-native';
 import { ActivityIndicator, RadioButton } from 'react-native-paper';
 // import DateTimePicker from '@react-native-community/datetimepicker';
-import {FarmSummary, Category, executeApiQuery, timeConvert, timeConverter, WhitePlus} from '../services/Helpers';
+import {FarmSummary, Category, executeApiQuery, timeConvert, timeConverter, WhitePlus, ShowAlert} from '../services/Helpers';
 // import {Category} from '../components/formComponents/EditFormCategory';
 import axios from 'axios';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
@@ -36,7 +36,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
     // const reasons = JSON.parse(rejectReasons)
     const form = useForm({mode: "onChange",});
     const { formState } = form;
-    console.log(retrievedForm);
+    // console.log(retrievedForm);
     // const FarmSummary = () => {
     //     return (
     //       <View
@@ -214,21 +214,14 @@ const EditForm_Refactored = ({ route, navigation }) => {
     };
 
     const SubmitForm = async (form) => {
-      // console.log(`========================================`);
-      // console.log(`=================Normal=======================`);
-      // console.log(form);
-      // console.log(`========================================`);
-      // console.log(`==================String======================`);
-      // console.log(JSON.stringify(form));
-      // console.log(`========================================`);
-      // console.log(`========================================`);
       console.log("============================ Execute Query ==========================");
       console.log(JSON.stringify(form));
       executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',undefined,{_object:JSON.stringify(form)})
       .then((response) => {
-        console.log(JSON.stringify(response));
         if(response.status == 200 ) {
+          // console.log('======================== SUCCESS RESPONSE ============================');
+          console.log(response.data);
           Alert.alert(
             `Success`, 
             `Your form has been successfully SUBMITTED`,
@@ -239,32 +232,19 @@ const EditForm_Refactored = ({ route, navigation }) => {
               style: "cancel"
             },
             { text: "OK", onPress: () => navigation.goBack() }
-          ]
-        )}else{
+            ]
+          )
+        }else{
           console.log("============================ Failed ==========================");
-          // console.log(JSON.stringify(form));
+          console.log(response.response.toJSON());
           const adjustedForm ={...form,'Date Submitted':new Date().toJSON()}
           adjustedForm.Status = FORM_STATUS_OBJ[-1];
           console.log("On Submit Fail: ");
           saveForm(adjustedForm);
-          // console.log(response.toJSON());
-          // console.log(JSON.stringify(response));
-          // console.log(response.toJSON().status);
-          Alert.alert(`Falied`, `Your form could NOT be submitted, please try again later.\nError:${response.message}`);
+          ShowAlert(`Falied`, `${response.response.data.message}`);
         }
         setloading(false);
-      })
-      // .catch((error) => {
-      //   console.log("============================ Failed ==========================");
-      //   // console.log(JSON.stringify(form));
-      //   const adjustedForm ={...form,'Date Submitted':new Date().toJSON()}
-      //   adjustedForm.Status = FORM_STATUS_OBJ[-1];
-      //   console.log("On Submit Fail: ");
-      //   saveForm(adjustedForm);
-      //   console.log(error.toJSON());
-      //   console.log(error.toJSON().status);
-      //   Alert.alert(`Falied`, `Your form could NOT be submitted, please try again later.\nError:${error}`);
-      // })
+      });
     } 
 
     const onSave = (data) => {

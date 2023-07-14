@@ -86,8 +86,8 @@ const formFields = [
     title: 'Birds',
     type: 'common',
     fields: [
-      {label: 'Bird Weight (grams) - Male', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
-      {label: 'Bird Weight (grams) - Female', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
+      {label: 'Bird Weight (grams) - Male', type: 'float', regex:{min:0, max:5000, isRequired:false}, farmType:'common'},
+      {label: 'Bird Weight (grams) - Female', type: 'float', regex:{min:0, max:5000, isRequired:false}, farmType:'common'},
       {label: 'Uniformity (%) - Male', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
       {label: 'Uniformity (%) - Female', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
       {label: 'Birds Added - Male', type: 'float', regex:{min:0, max:null, isRequired:false}, farmType:'common'},

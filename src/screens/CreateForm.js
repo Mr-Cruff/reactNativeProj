@@ -32,7 +32,7 @@ const CreateForm = ({ route, navigation }) => {
     const [feedRecieved, setFeedRecieved] = useState("");
     const [eggsDelivered, setEggsDelivered] = useState("");
 
-    console.log(route.params);
+    // console.log(route.params);
 
     const setMinDate = () =>{
       var date = new Date();

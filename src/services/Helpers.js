@@ -487,6 +487,9 @@ export const nth = function(d) {
 }
 
 export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm }) => {
+  useEffect(()=>{
+    console.log('Welcome to the Category Component\'s UseEffect');
+  },[]);
   // ToDo: Time fields need to be fixed- currently not saving state change or rerender
   const {
     register,
@@ -533,358 +536,723 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                 Object.keys(retrievedData).map((field, fieldIndex) => {
                   if(item.label===field && retrievedData[field] !== ""){
                     defaultVal=retrievedData[field];
+                    // if("Birds" === field){
+                    //   console.log(field);
+                    // }
+                    // console.log(field);
                   }
                 });
+                // console.log(item.fields[subIndex].label);
+                // console.log(retrievedData[item.label][subItem.label]);
+                // console.log(item.fields[subIndex].type);
+                // console.log(subItem.type);
+                // console.log(validateInitValue(retrievedData[item.label][subItem.label], item.fields[subIndex].type));
+                // console.log("===========================================");
+
+
                   //Nested Fields Conditional Function
                   if (typeof item.fields !== 'undefined') { // Check for fields array
                     //Since there in a fields array, further checks must be made to determine what type of field group is to be populated
                     //Nested Calculated (Tally Total) Fields Function
-                    if (item.type == 'multi-field') { //Refector this section to run in a loop and accept more fields
-                        const [val1,setVal1] =useState(typeof defaultVal[item.fields[0].label] == "undefined" ? 0 : defaultVal[item.fields[0].label]);
-                        const [date1, setDate1]= useState(typeof defaultVal[`${item.fields[0].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[0].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[0].label} Time Captured`]));
-                        const [isVisible1, setIsVisible1]= useState(false);
+                    // if (item.type == 'multi-field') { //Refector this section to run in a loop and accept more fields
+                    //     const [val1,setVal1] =useState(typeof defaultVal[item.fields[0].label] == "undefined" ? 0 : defaultVal[item.fields[0].label]);
+                    //     const [date1, setDate1]= useState(typeof defaultVal[`${item.fields[0].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[0].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[0].label} Time Captured`]));
+                    //     const [isVisible1, setIsVisible1]= useState(false);
                   
-                        const [val2,setVal2] =useState(typeof defaultVal[item.fields[1].label] == "undefined" ? 0 : defaultVal[item.fields[1].label]);
-                        const [date2, setDate2]= useState(typeof defaultVal[`${item.fields[1].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[1].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[1].label} Time Captured`]));
-                        const [isVisible2, setIsVisible2]= useState(false);
+                    //     const [val2,setVal2] =useState(typeof defaultVal[item.fields[1].label] == "undefined" ? 0 : defaultVal[item.fields[1].label]);
+                    //     const [date2, setDate2]= useState(typeof defaultVal[`${item.fields[1].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[1].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[1].label} Time Captured`]));
+                    //     const [isVisible2, setIsVisible2]= useState(false);
                   
-                        const [val3,setVal3] =useState(typeof defaultVal[item.fields[2].label] == "undefined" ? 0 : defaultVal[item.fields[2].label]);
-                        const [date3, setDate3]=useState(typeof defaultVal[`${item.fields[2].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[2].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[2].label} Time Captured`]));
-                        const [isVisible3, setIsVisible3]= useState(false);
+                    //     const [val3,setVal3] =useState(typeof defaultVal[item.fields[2].label] == "undefined" ? 0 : defaultVal[item.fields[2].label]);
+                    //     const [date3, setDate3]=useState(typeof defaultVal[`${item.fields[2].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[2].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[2].label} Time Captured`]));
+                    //     const [isVisible3, setIsVisible3]= useState(false);
                   
-                        const [val4,setVal4] =useState(typeof defaultVal[item.fields[3].label] == "undefined" ? 0 : defaultVal[item.fields[3].label]);
-                        const [date4, setDate4]= useState(typeof defaultVal[`${item.fields[3].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[3].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[3].label} Time Captured`]));
-                        const [isVisible4, setIsVisible4]= useState(false);
+                    //     const [val4,setVal4] =useState(typeof defaultVal[item.fields[3].label] == "undefined" ? 0 : defaultVal[item.fields[3].label]);
+                    //     const [date4, setDate4]= useState(typeof defaultVal[`${item.fields[3].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[3].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[3].label} Time Captured`]));
+                    //     const [isVisible4, setIsVisible4]= useState(false);
                   
-                        // console.log(defaultVal[item.fields[3].label])
+                    //     // console.log(defaultVal[item.fields[3].label])
                   
-                        const [total,setTotal] =useState(val1+val2+val3+val4);
+                    //     const [total,setTotal] =useState(val1+val2+val3+val4);
 
-                        useEffect(()=>{setTotal(Number(val1)+Number(val2)+Number(val3)+Number(val4));})
-                        useEffect(()=>{setValue(baseFormLabel+"."+item.label+" Total",total);},[total])
-                        // parseFloat(defaultVal[subItem.label])>=0?""+defaultVal[subItem.label]:""
-                        // console.log(defaultVal[item.fields[0].label]);
-                        return (
-                          <View style={{marginVertical: 12}} key={index}>
-                     <Text style={{color: '#282C50', fontSize: 18}}>
-                       {item.label}
-                       <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
-                     </Text>
-                     <View
-                       style={{
-                         height:100,
-                         flexDirection: 'row',
-                         justifyContent: 'space-between',
-                         alignItems: 'center',
-                       }}>
-                         {/* Entry 1 */}
-                         <View>  
-                         {/* ERROR BORDER COLOR  */}
-                         {/* <View style={{flexDirection:'column', height:'100%', alignContent:'flex-start', alignSelf:'flex-start'}}>  */}
-                           <Controller        
-                              control={control}   
-                              defaultValue={""+defaultVal[item.fields[0].label]}  
-                              name={baseFormLabel +"."+item.fields[0].label} 
-                              rules={(()=>rules(item.fields[0].type, item.fields[0].regex))()}        
-                              render={({field: {onChange, value1, onBlur}}) => (            
-                                <TextInput  
-                                  editable={globalEdit}                  
-                                  style={styles.input}
-                                  placeholder="Enter 1st Entry"            
-                                  value={value1} 
-                                  defaultValue={parseFloat(defaultVal[item.fields[0].label])>=0? ""+defaultVal[item.fields[0].label]:""}          
-                                  onBlur={onBlur}          
-                                  keyboardType="number-pad"  
-                                  onChangeText={value => {
-                                   onChange(value); 
-                                   setValue(`${baseFormLabel}.${item.fields[0].label} Time Captured`, date1.toJSON());
-                                   setValue(`${baseFormLabel}.${item.fields[0].label}`, Number(value));
-                                   setVal1(Number(value));
-                                   setDate1(new Date());
-                                   defaultVal[`${item.fields[0].label} Time Captured`]=new Date().toJSON();
-                                 }}          
-                                />        
-                              )} 
-                           />
-                           {/* {
-                            //  (()=>{
-                            //   console.log(categorySchema.title);
-                            //   console.log(errors[`${categorySchema.title}`] &&errors[`${categorySchema.title}`][item.label] && errors[`${categorySchema.title}`][item.label][item.fields[0].label]);
-                            //    let err, r;
-                            //    err = errors[`${item.label}`]
-                            //    err? r = Object.keys(err)[0]:"";
-                            //    err? console.log("=================="+json.stringify(errors[baseFormLabel +"."+item.fields[0].label])):"";
-                            //  })()
-                           } */}
-                           <Controller
-                               control={control}
-                               name={baseFormLabel + "." + item.fields[0].label + " Time Captured"}
-                               defaultValue={date1}
-                               value={date1}
-                               render={({ field }) => (
-                               <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible1(true)}  style={{padding:5, backgroundColor:'beige'}}>
-                                   <Text style={{color:'black'}}>Time: {timeConvert(date1.toLocaleTimeString('en-US', { hour12: true }))}</Text>
-                                   {
-                                     isVisible1 && 
-                                     <DateTimePicker 
-                                       value={date1} 
-                                       defaultValue={date1} 
-                                       is24Hour={false} 
-                                       onChange={(event, selectedDate)=>{
-                                         setIsVisible1(false);
-                                         setDate1(selectedDate);
-                                         setValue(`${baseFormLabel}.${item.fields[0].label} Time Captured`, date1.toJSON())
-                                         defaultVal[`${item.fields[0].label} Time Captured`]=selectedDate;
-                                         }
-                                       } 
-                                       mode="time" display="spinner" 
-                                     />
-                                   }
-                               </TouchableOpacity>
-                               )}
-                           />  
-                           { 
-                             errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[0].label] && (
-                               errors[categorySchema.title][item.label][item.fields[0].label].type != 'required' && 
-                               (
-                               <Text style={{ color: "red", flexWrap:'wrap' }}>
-                                 {errors[categorySchema.title][item.label][item.fields[0].label].type} ERORR
-                               </Text>
-                               )
-                             )
-                           }
-                         </View>
-                         {/* Entry 2 */}
-                         <View>
-                           <Controller        
-                              control={control}  
-                              defaultValue={defaultVal[item.fields[1].label]}        
-                              name={baseFormLabel+"."+item.fields[1].label}  
-                              rules={(()=>rules(item.fields[1].type))()}      
-                              render={({field: {onChange, value2, onBlur}}) => (            
-                                <TextInput
-                                  editable={globalEdit}                    
-                                  style={styles.input}
-                                  placeholder="Enter 2nd Entry" 
-                                  defaultValue={parseFloat(defaultVal[item.fields[1].label])>=0? ""+defaultVal[item.fields[1].label]:""}             
-                                  value={value2}            
-                                  onBlur={onBlur}        
-                                  keyboardType="number-pad"    
-                                  onChangeText={value => {
-                                   onChange(value);
-                                   setValue(`${baseFormLabel}.${item.fields[1].label} Time Captured`, date2.toJSON());
-                                   setValue(`${baseFormLabel}.${item.fields[1].label}`, Number(value));
-                                   setVal2(Number(value));
-                                   setDate2(new Date());
-                                   defaultVal[`${item.fields[1].label} Time Captured`]=new Date().toJSON();
-                                 }}          
-                                />        
-                              )} 
-                           />
-                           <Controller
-                             control={control}
-                             name={baseFormLabel+"."+item.fields[1].label+ " Time Captured"}
-                             value={date2}
-                             defaultValue={date2} 
-                             render={({ field }) => (
-                             <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible2(true)}  style={{padding:5, backgroundColor:'beige'}}>
-                                 <Text style={{color:'black'}}>Time: {timeConvert(date2.toLocaleTimeString('en-US', { hour12: true }))}</Text>
-                                 {
-                                   isVisible2 && 
-                                   <DateTimePicker 
-                                     value={date2} 
-                                     defaultValue={date2} 
-                                     is24Hour={false} 
-                                     onChange={(event, selectedDate)=>{
-                                         setIsVisible2(false);
-                                         setDate2(selectedDate);
-                                         setValue(`${baseFormLabel}.${item.fields[1].label} Time Captured`, date2.toJSON())
-                                         defaultVal[`${item.fields[1].label} Time Captured`]=selectedDate;
-                                       }
-                                     } 
-                                     mode="time" display="spinner" 
-                                   />
-                                 }
-                             </TouchableOpacity>
-                               )}
-                           />
-                           {/* {
-                             (()=>{
-                               let err, r;
-                               err = errors[`${item.label}`]
-                               err? r = Object.keys(err)[0]:"";
-                               // err? console.log(err[r]):"";
-                               err? console.log(errors[item.label][item.fields[1].label]):"";
+                    //     useEffect(()=>{setTotal(Number(val1)+Number(val2)+Number(val3)+Number(val4));})
+                    //     useEffect(()=>{setValue(baseFormLabel+"."+item.label+" Total",total);},[total])
+                    //     // parseFloat(defaultVal[subItem.label])>=0?""+defaultVal[subItem.label]:""
+                    //     // console.log(defaultVal[item.fields[0].label]);
+                    //     return (
+                    //       <View style={{marginVertical: 12}} key={index}>
+                    //  <Text style={{color: '#282C50', fontSize: 18}}>
+                    //    {item.label}
+                    //    <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
+                    //  </Text>
+                    //  <View
+                    //    style={{
+                    //      height:100,
+                    //      flexDirection: 'row',
+                    //      justifyContent: 'space-between',
+                    //      alignItems: 'center',
+                    //    }}>
+                    //      {/* Entry 1 */}
+                    //      <View>  
+                    //      {/* ERROR BORDER COLOR  */}
+                    //      {/* <View style={{flexDirection:'column', height:'100%', alignContent:'flex-start', alignSelf:'flex-start'}}>  */}
+                    //        <Controller        
+                    //           control={control}   
+                    //           defaultValue={parseFloat(defaultVal[item.fields[0].label])>0? defaultVal[item.fields[0].label]:parseFloat(defaultVal[item.fields[0].label])===0?0:null}  
+                    //           name={baseFormLabel +"."+item.fields[0].label} 
+                    //           rules={(()=>rules(item.fields[0].type, item.fields[0].regex))()}        
+                    //           render={({field: {onChange, value1, onBlur}}) => (            
+                    //             <TextInput  
+                    //               editable={globalEdit}                  
+                    //               style={styles.input}
+                    //               placeholder="Enter 1st Entry"            
+                    //               value={value1} 
+                    //               defaultValue={parseFloat(defaultVal[item.fields[0].label])>0? defaultVal[item.fields[0].label]:parseFloat(defaultVal[item.fields[0].label])===0?"0":""}          
+                    //               onBlur={onBlur}          
+                    //               keyboardType="number-pad"  
+                    //               onChangeText={value => {
+                    //                console.log('this is onChange');
+                    //                const newDate = new Date();
+                    //                onChange(value); 
+                    //                setValue(`${baseFormLabel}.${item.fields[0].label} Time Captured`, newDate.toJSON());
+                    //                setValue(`${baseFormLabel}.${item.fields[0].label}`, Number(value));
+                    //                setVal1(Number(value));
+                    //                setDate1(newDate);
+                    //                defaultVal[`${item.fields[0].label} Time Captured`]=newDate.toJSON();
+                    //              }}          
+                    //             />        
+                    //           )} 
+                    //        />
+                    //        {/* {
+                    //         //  (()=>{
+                    //         //   console.log(categorySchema.title);
+                    //         //   console.log(errors[`${categorySchema.title}`] &&errors[`${categorySchema.title}`][item.label] && errors[`${categorySchema.title}`][item.label][item.fields[0].label]);
+                    //         //    let err, r;
+                    //         //    err = errors[`${item.label}`]
+                    //         //    err? r = Object.keys(err)[0]:"";
+                    //         //    err? console.log("=================="+json.stringify(errors[baseFormLabel +"."+item.fields[0].label])):"";
+                    //         //  })()
+                    //        } */}
+                    //        <Controller
+                    //            control={control}
+                    //            name={baseFormLabel + "." + item.fields[0].label + " Time Captured"}
+                    //            defaultValue={date1}
+                    //            value={date1}
+                    //            render={({ field }) => (
+                    //            <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible1(true)}  style={{padding:5, backgroundColor:'beige'}}>
+                    //                <Text style={{color:'black'}}>Time: {timeConvert(date1.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //                {
+                    //                  isVisible1 && 
+                    //                  <DateTimePicker 
+                    //                    value={date1} 
+                    //                    defaultValue={date1} 
+                    //                    is24Hour={false} 
+                    //                    onChange={(event, selectedDate)=>{
+                    //                      setIsVisible1(false);
+                    //                      setDate1(selectedDate);
+                    //                      setValue(`${baseFormLabel}.${item.fields[0].label} Time Captured`, date1.toJSON())
+                    //                      defaultVal[`${item.fields[0].label} Time Captured`]=selectedDate;
+                    //                      }
+                    //                    } 
+                    //                    mode="time" display="spinner" 
+                    //                  />
+                    //                }
+                    //            </TouchableOpacity>
+                    //            )}
+                    //        />  
+                    //        {console.log(baseFormLabel, defaultVal[`${item.fields[0].label} Time Captured`])}
+                    //        { 
+                    //          errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[0].label] && (
+                    //            errors[categorySchema.title][item.label][item.fields[0].label].type != 'required' && 
+                    //            (
+                    //            <Text style={{ color: "red", flexWrap:'wrap' }}>
+                    //              {errors[categorySchema.title][item.label][item.fields[0].label].type} ERORR
+                    //            </Text>
+                    //            )
+                    //          )
+                    //        }
+                    //      </View>
+                    //      {/* Entry 2 */}
+                    //      <View>
+                    //        <Controller        
+                    //         control={control}  
+                    //         defaultValue={""+defaultVal[item.fields[1].label]}        
+                    //         name={baseFormLabel+"."+item.fields[1].label}  
+                    //         rules={(()=>rules(item.fields[1].type))()}      
+                    //         render={({field: {onChange, value2, onBlur}}) => (            
+                    //           <TextInput
+                    //             editable={globalEdit}                    
+                    //             style={styles.input}
+                    //             placeholder="Enter 2nd Entry"
+                    //             value={value2}            
+                    //             defaultValue={parseFloat(defaultVal[item.fields[1].label])>=0? ""+defaultVal[item.fields[1].label]:""}             
+                    //             onBlur={onBlur}        
+                    //             keyboardType="number-pad"    
+                    //             onChangeText={value => {
+                    //              onChange(value);
+                    //              setValue(`${baseFormLabel}.${item.fields[1].label} Time Captured`, date2.toJSON());
+                    //              setValue(`${baseFormLabel}.${item.fields[1].label}`, Number(value));
+                    //              setVal2(Number(value));
+                    //              setDate2(new Date());
+                    //              defaultVal[`${item.fields[1].label} Time Captured`]=new Date().toJSON();
+                    //            }}          
+                    //           />        
+                    //         )} 
+                    //        />
+                    //        <Controller
+                    //         control={control}
+                    //         name={baseFormLabel+"."+item.fields[1].label+ " Time Captured"}
+                    //         defaultValue={date2} 
+                    //         value={date2}
+                    //         render={({ field }) => (
+                    //         <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible2(true)}  style={{padding:5, backgroundColor:'beige'}}>
+                    //          <Text style={{color:'black'}}>Time: {timeConvert(date2.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //          {
+                    //           isVisible2 && 
+                    //           <DateTimePicker 
+                    //             value={date2} 
+                    //             defaultValue={date2} 
+                    //             is24Hour={false} 
+                    //             onChange={(event, selectedDate)=>{
+                    //                 setIsVisible2(false);
+                    //                 setDate2(selectedDate);
+                    //                 setValue(`${baseFormLabel}.${item.fields[1].label} Time Captured`, date2.toJSON())
+                    //                 defaultVal[`${item.fields[1].label} Time Captured`]=selectedDate;
+                    //               }
+                    //             } 
+                    //             mode="time" display="spinner" 
+                    //           />
+                    //          }
+                    //         </TouchableOpacity>
+                    //         )}
+                    //        />
+                    //        {/* {
+                    //          (()=>{
+                    //            let err, r;
+                    //            err = errors[`${item.label}`]
+                    //            err? r = Object.keys(err)[0]:"";
+                    //            // err? console.log(err[r]):"";
+                    //            err? console.log(errors[item.label][item.fields[1].label]):"";
 
-                             })()
-                           } */}
-                           { 
-                             errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[1].label] && (
-                               errors[categorySchema.title][item.label][item.fields[1].label].type != 'required' && 
-                               (
-                               <Text style={{ color: "red", flexWrap:'wrap' }}>
-                                 {errors[categorySchema.title][item.label][item.fields[1].label].type} ERORR
-                               </Text>
-                               )
-                             )
-                           }
-                         </View>
-                         {/* Entry 3 */}
-                         <View>
-                           <Controller        
-                              control={control}  
-                              defaultValue={defaultVal[item.fields[2].label]}         
-                              name={baseFormLabel+"."+item.fields[2].label}   
-                              rules={(()=>rules(item.fields[2].type))()}     
-                              render={({field: {onChange, value3, onBlur}}) => (            
-                                <TextInput 
-                                  editable={globalEdit}
-                                  style={styles.input}                   
-                                  placeholder="Enter 3rd Entry" 
-                                  defaultValue={parseFloat(defaultVal[item.fields[2].label])>=0? ""+defaultVal[item.fields[2].label]:""}             
-                                  value={value3}            
-                                  onBlur={onBlur}  
-                                  keyboardType="number-pad"          
-                                  onChangeText={value => {
-                                   onChange(value);
-                                   setValue(`${baseFormLabel}.${item.fields[2].label} Time Captured`, date3.toJSON());
-                                   setValue(`${baseFormLabel}.${item.fields[2].label}`, Number(value));
-                                   setVal3(Number(value));
-                                   setDate3(new Date());
-                                   defaultVal[`${item.fields[2].label} Time Captured`]=new Date().toJSON();
-                                 }}          
-                                />        
-                              )} 
-                           />
-                           <Controller
-                             control={control}
-                             name={baseFormLabel+"."+item.fields[2].label + " Time Captured"}
-                             defaultValue={date3}
-                             value={date3}
-                             render={({ field }) => (
-                             <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible3(true)}  style={{padding:5, backgroundColor:'beige'}}>
-                                 <Text style={{color:'black'}}>Time: {timeConvert(date3.toLocaleTimeString('en-US', { hour12: true }))}</Text>
-                                 {
-                                   isVisible3 && 
-                                   <DateTimePicker 
-                                     value={date3} 
-                                     defaultValue={date3} 
-                                     is24Hour={false} 
-                                     onChange={(event, selectedDate)=>{
-                                          setIsVisible3(false);
-                                          setDate3(selectedDate);
-                                          setValue(`${baseFormLabel}.${item.fields[2].label} Time Captured`, date3.toJSON())
-                                          defaultVal[`${item.fields[2].label} Time Captured`]=selectedDate;
-                                       }
-                                     } 
-                                     mode="time" display="spinner" 
-                                   />
-                                 }
-                             </TouchableOpacity>
-                               )}
-                           />
-                           {/* {
-                             (()=>{
-                               let err, r;
-                               err = errors[`${item.label}`]
-                               err? r= Object.keys(err)[0]:"";
-                               // err? console.log(err[r]):"";
-                               err? console.log(errors[item.label][item.fields[2].label]):"";
+                    //          })()
+                    //        } */}
+                    //        { 
+                    //          errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[1].label] && (
+                    //            errors[categorySchema.title][item.label][item.fields[1].label].type != 'required' && 
+                    //            (
+                    //            <Text style={{ color: "red", flexWrap:'wrap' }}>
+                    //              {errors[categorySchema.title][item.label][item.fields[1].label].type} ERORR
+                    //            </Text>
+                    //            )
+                    //          )
+                    //        }
+                    //      </View>
+                    //      {/* Entry 3 */}
+                    //      <View>
+                    //        <Controller        
+                    //           control={control}  
+                    //           defaultValue={""+defaultVal[item.fields[2].label]}         
+                    //           name={baseFormLabel+"."+item.fields[2].label}   
+                    //           rules={(()=>rules(item.fields[2].type))()}     
+                    //           render={({field: {onChange, value3, onBlur}}) => (            
+                    //             <TextInput 
+                    //               editable={globalEdit}
+                    //               style={styles.input}                   
+                    //               placeholder="Enter 3rd Entry" 
+                    //               value={value3}            
+                    //               defaultValue={parseFloat(defaultVal[item.fields[2].label])>=0? ""+defaultVal[item.fields[2].label]:""}             
+                    //               onBlur={onBlur}  
+                    //               keyboardType="number-pad"          
+                    //               onChangeText={value => {
+                    //                onChange(value);
+                    //                setValue(`${baseFormLabel}.${item.fields[2].label} Time Captured`, date3.toJSON());
+                    //                setValue(`${baseFormLabel}.${item.fields[2].label}`, Number(value));
+                    //                setVal3(Number(value));
+                    //                setDate3(new Date());
+                    //                defaultVal[`${item.fields[2].label} Time Captured`]=new Date().toJSON();
+                    //              }}          
+                    //             />        
+                    //           )} 
+                    //        />
+                    //        <Controller
+                    //          control={control}
+                    //          name={baseFormLabel+"."+item.fields[2].label + " Time Captured"}
+                    //          defaultValue={date3}
+                    //          value={date3}
+                    //          render={({ field }) => (
+                    //          <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible3(true)}  style={{padding:5, backgroundColor:'beige'}}>
+                    //              <Text style={{color:'black'}}>Time: {timeConvert(date3.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //              {
+                    //                isVisible3 && 
+                    //                <DateTimePicker 
+                    //                  value={date3} 
+                    //                  defaultValue={date3} 
+                    //                  is24Hour={false} 
+                    //                  onChange={(event, selectedDate)=>{
+                    //                       setIsVisible3(false);
+                    //                       setDate3(selectedDate);
+                    //                       setValue(`${baseFormLabel}.${item.fields[2].label} Time Captured`, date3.toJSON())
+                    //                       defaultVal[`${item.fields[2].label} Time Captured`]=selectedDate;
+                    //                    }
+                    //                  } 
+                    //                  mode="time" display="spinner" 
+                    //                />
+                    //              }
+                    //          </TouchableOpacity>
+                    //            )}
+                    //        />
+                    //        {/* {
+                    //          (()=>{
+                    //            let err, r;
+                    //            err = errors[`${item.label}`]
+                    //            err? r= Object.keys(err)[0]:"";
+                    //            // err? console.log(err[r]):"";
+                    //            err? console.log(errors[item.label][item.fields[2].label]):"";
 
-                             })()
-                           } */}
-                           { 
-                             errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[2].label] && (
-                               errors[categorySchema.title][item.label][item.fields[2].label].type != 'required' && 
-                               (
-                               <Text style={{ color: "red", flexWrap:'wrap' }}>
-                                 {errors[categorySchema.title][item.label][item.fields[2].label].type} ERORR
-                               </Text>
-                               )
-                             )
-                           }
-                         </View>
-                         {/* Entry 4 */}
-                         <View>
-                           <Controller        
-                              control={control} 
-                              defaultValue={defaultVal[item.fields[3].label]}           
-                              name={baseFormLabel+"."+item.fields[3].label}
-                              rules={(()=>rules(item.fields[3].type))()}        
-                              render={({field: {onChange, value4, onBlur}}) => (            
-                                <TextInput 
-                                  editable={globalEdit}     
-                                  style={styles.input}              
-                                  placeholder="Enter 4th Entry" 
-                                  defaultValue={parseFloat(defaultVal[item.fields[3].label])>=0? ""+defaultVal[item.fields[3].label]:""}             
-                                  value={value4}            
-                                  onBlur={onBlur} 
-                                  keyboardType="number-pad"           
-                                  onChangeText={value => {
-                                   onChange(value);
-                                   setValue(`${baseFormLabel}.${item.fields[3].label} Time Captured`, date4.toJSON()); 
-                                   setValue(`${baseFormLabel}.${item.fields[3].label}`, Number(value)); 
-                                   setVal4(Number(value));
-                                   setDate4(new Date());
-                                   defaultVal[`${item.fields[3].label} Time Captured`]=new Date().toJSON();
-                                 }}          
-                           />   
-                              )} 
-                           />
-                           <Controller
-                             control={control}
-                             name={baseFormLabel+"."+item.fields[3].label+" Time Captured"}
-                             defaultValue={date4} 
-                             value={date4}
-                             render={({ field }) => (
-                             <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible4(true)}  style={{padding:5, backgroundColor:'beige'}}>
-                                 <Text style={{color:'black'}}>Time: {timeConvert(date4.toLocaleTimeString('en-US', { hour12: true }))}</Text>
-                                 {
-                                   isVisible4 && 
-                                   <DateTimePicker 
-                                     value={date4} 
-                                     defaultValue={date4} 
-                                     is24Hour={false} 
-                                     onChange={(event, selectedDate)=>{
-                                          setIsVisible4(false);
-                                          setDate4(selectedDate);
-                                          setValue(`${baseFormLabel}.${item.fields[3].label} Time Captured`, date4.toJSON())
-                                          defaultVal[`${item.fields[3].label} Time Captured`]=selectedDate;
-                                       }
-                                     } 
-                                     mode="time" display="spinner" 
-                                   />
-                                 }
-                             </TouchableOpacity>
-                               )}
-                           />
-                           {/* {
-                             (()=>{
-                               let err, r;
-                               err = errors[`${item.label}`]
-                               err? r= Object.keys(err)[0]:"";
-                               err? console.log(err[r]):"";
-                               err? console.log(errors[item.label][item.fields[3].label]):"";
+                    //          })()
+                    //        } */}
+                    //        { 
+                    //          errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[2].label] && (
+                    //            errors[categorySchema.title][item.label][item.fields[2].label].type != 'required' && 
+                    //            (
+                    //            <Text style={{ color: "red", flexWrap:'wrap' }}>
+                    //              {errors[categorySchema.title][item.label][item.fields[2].label].type} ERORR
+                    //            </Text>
+                    //            )
+                    //          )
+                    //        }
+                    //      </View>
+                    //      {/* Entry 4 */}
+                    //      <View>
+                    //        <Controller        
+                    //           control={control} 
+                    //           defaultValue={""+defaultVal[item.fields[3].label]}           
+                    //           name={baseFormLabel+"."+item.fields[3].label}
+                    //           rules={(()=>rules(item.fields[3].type))()}        
+                    //           render={({field: {onChange, value4, onBlur}}) => (            
+                    //             <TextInput 
+                    //               editable={globalEdit}     
+                    //               style={styles.input}              
+                    //               placeholder="Enter 4th Entry" 
+                    //               value={value4}            
+                    //               defaultValue={parseFloat(defaultVal[item.fields[3].label])>=0? ""+defaultVal[item.fields[3].label]:""}             
+                    //               onBlur={onBlur} 
+                    //               keyboardType="number-pad"           
+                    //               onChangeText={value => {
+                    //                onChange(value);
+                    //                setValue(`${baseFormLabel}.${item.fields[3].label} Time Captured`, date4.toJSON()); 
+                    //                setValue(`${baseFormLabel}.${item.fields[3].label}`, Number(value)); 
+                    //                setVal4(Number(value));
+                    //                setDate4(new Date());
+                    //                defaultVal[`${item.fields[3].label} Time Captured`]=new Date().toJSON();
+                    //              }}          
+                    //        />   
+                    //           )} 
+                    //        />
+                    //        <Controller
+                    //          control={control}
+                    //          name={baseFormLabel+"."+item.fields[3].label+" Time Captured"}
+                    //          defaultValue={date4} 
+                    //          value={date4}
+                    //          render={({ field }) => (
+                    //          <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible4(true)}  style={{padding:5, backgroundColor:'beige'}}>
+                    //              <Text style={{color:'black'}}>Time: {timeConvert(date4.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //              {
+                    //                isVisible4 && 
+                    //                <DateTimePicker 
+                    //                  value={date4} 
+                    //                  defaultValue={date4} 
+                    //                  is24Hour={false} 
+                    //                  onChange={(event, selectedDate)=>{
+                    //                       setIsVisible4(false);
+                    //                       setDate4(selectedDate);
+                    //                       setValue(`${baseFormLabel}.${item.fields[3].label} Time Captured`, date4.toJSON())
+                    //                       defaultVal[`${item.fields[3].label} Time Captured`]=selectedDate;
+                    //                    }
+                    //                  } 
+                    //                  mode="time" display="spinner" 
+                    //                />
+                    //              }
+                    //          </TouchableOpacity>
+                    //            )}
+                    //        />
+                    //        {/* {
+                    //          (()=>{
+                    //            let err, r;
+                    //            err = errors[`${item.label}`]
+                    //            err? r= Object.keys(err)[0]:"";
+                    //            err? console.log(err[r]):"";
+                    //            err? console.log(errors[item.label][item.fields[3].label]):"";
 
-                             })()
-                           } */}
-                           { 
-                             errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[3].label] && (
-                               errors[categorySchema.title][item.label][item.fields[3].label].type != 'required' && 
-                               (
-                               <Text style={{ color: "red", flexWrap:'wrap' }}>
-                                 {errors[categorySchema.title][item.label][item.fields[3].label].type} ERORR
-                               </Text>
-                               )
-                             )
-                           }
-                         </View>
+                    //          })()
+                    //        } */}
+                    //        { 
+                    //          errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][item.fields[3].label] && (
+                    //            errors[categorySchema.title][item.label][item.fields[3].label].type != 'required' && 
+                    //            (
+                    //            <Text style={{ color: "red", flexWrap:'wrap' }}>
+                    //              {errors[categorySchema.title][item.label][item.fields[3].label].type} ERORR
+                    //            </Text>
+                    //            )
+                    //          )
+                    //        }
+                    //      </View>
 
-                         <Text style={{fontSize:18}}>= {total}</Text>
-                     </View>
+                    //      <Text style={{fontSize:18}}>= {total}</Text>
+                    //  </View>
+                    //     </View>
+                    //   );
+                    // }
+                    // =====================================================================================================================
+                    if (item.type === 'multi-field') {  
+                      let total = 0;
+                      const fieldFunc = item.fields.map((subItem, subIndex) => {
+                          const initVal = validateInitValue(defaultVal[`${item.fields[subIndex].label}`], subItem.type);
+                          const [valueState, setValueState] = useState(initVal);
+                          const [date, setDate] = useState(defaultVal[`${item.fields[subIndex].label} Time Captured`] == "" ? new Date() : isNaN(new Date(defaultVal[`${item.fields[subIndex].label} Time Captured`])) ? new Date() : new Date(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
+                          const [isVisible, setIsVisible] = useState(false);
+                          // console.log('initVal', initVal);
+                          // console.log('valuestate', valueState);
+
+                          // Add the initial value to the total
+                          total += Number(valueState);
+
+                          return(
+                              <View style={{width:'24%'}} key={subIndex}>
+                                <View>
+                                <Controller
+                                  key={subIndex}
+                                  control={control}
+                                  defaultValue={initVal}
+                                  // value={valueState}
+                                  name={baseFormLabel + '.' + subItem.label}
+                                  // rules={{required:true}}
+                                  rules={(()=>rules(item.fields[subIndex].type, item.fields[subIndex].regex))()}
+                                  render={({ field: { onChange, onBlur, value }}) => {
+                                    useEffect(() => {
+                                      // console.log('use effect called');
+                                      // console.log(value, typeof Number(value));
+                                      const updatedTotal = Number(total) - Number(valueState) + Number(value);
+                                      total = updatedTotal;
+                                      setValue(baseFormLabel + '.' + item.label + ' Total', updatedTotal);
+                                      
+                                      // console.log(typeof value, value);
+                                      if (value === 0)
+                                        setValueState("0");
+                                      else if (value) 
+                                        setValueState(value+"");
+                                      else
+                                        setValueState("");
+                                    }, [value]);
+                      
+                                    return (
+                                      <>
+                                        <TextInput
+                                          editable={globalEdit}
+                                          style={styles.input}
+                                          placeholder={subItem.label}
+                                          // defaultValue={initVal !== null ? '' + initVal : ''}
+                                          onBlur={onBlur}
+                                          onChangeText={value => {
+                                            // console.log(typeof value, value);
+                                            const newDate = new Date();
+                                            onChange(value);
+                                            setValue(`${baseFormLabel}.${subItem.label} Time Captured`, newDate.toJSON());
+                                            value === "" ? setValue(`${baseFormLabel}.${subItem.label}`, null) : setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
+                                            // setValueState(Number(value));
+                                            setDate(newDate);
+                                            // defaultVal[`${item.fields[subIndex].label} Time Captured`] = newDate.toJSON();
+                                            
+                                            // // Calculate the updated total
+                                            // const updatedTotal = Number(total) - Number(valueState) + Number(value);
+                                            // total = updatedTotal;
+                                            // setValue(baseFormLabel + '.' + item.label + ' Total', updatedTotal);
+                                          }}
+                                          value={valueState}
+                                          keyboardType={subItem.type === 'int' || subItem.type === 'float' ? 'number-pad' : 'default'}
+                                        />
+                                      </>
+                                    );
+                                  }}
+                                  />
+                                  <Controller
+                                    control={control}
+                                    name={baseFormLabel + '.' +subItem.label+' Time Captured'}
+                                    value={date}
+                                    defaultValue={date}
+                                    render={({ field:{onChange}}) => (
+                                      <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)} style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                        <Text style={{color:'black', textAlign:'center'}}>Time: {timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                                        {
+                                          isVisible && 
+                                          <DateTimePicker 
+                                            value={date} 
+                                            is24Hour={false}
+                                            defaultValue={defaultVal[subItem.label+" Time Captured"]}
+                                            onChange={(event, selectedDate)=>{
+                                              setIsVisible(false);
+                                              setDate(selectedDate);
+                                              // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, date.toJSON())
+                                              onChange(selectedDate)
+                                              }
+                                            } 
+                                            mode="time" display="spinner" 
+                                          />
+                                        }
+                                      </TouchableOpacity>
+                                    )}
+                                  />
+                                  </View>
+                                  { 
+                                    errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
+                                      ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
+                                         {errors[categorySchema.title][item.label][subItem.label].type} ERORR
+                                      </Text>
+                                    )
+                                  }
+                              </View>
+                          );
+                      }); 
+                      // const total = fieldFunc.reduce((acc, field) => acc + Number(field.props.children[0].props.value), 0);
+                      // const total = fieldFunc.reduce((acc, field) => acc + field.valueState, 0);
+                    
+                      useEffect(() => {
+                        setValue(baseFormLabel + '.' + item.label + ' Total', total);
+                      }, [total]);   
+                      
+                      // console.log(fieldFunc[0].props.children[0].props);            
+                      return(
+                        <View style={{marginVertical: 12}} key={index}>
+                          <Text style={{color: '#282C50', fontSize: 18}}>
+                            {item.label}
+                            <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
+                          </Text>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}>
+                              {fieldFunc}
+                          </View>
+                          <Text>Total {item.label}: {total}</Text>
                         </View>
-                      );
-                    }else if(item.type == 'multi-time-only'){                     
+                      )
+                    }
+                    // =====================================================================================================================
+                    // if (item.type === 'multi-field') {
+                      
+                    // return(
+                    //   <View style={{marginVertical: 12}} key={index}>
+                    //     <Text style={{color: '#282C50', fontSize: 18}}>
+                    //       {item.label}
+                    //       <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
+                    //     </Text>
+                    //     <View
+                    //       style={{
+                    //         flexDirection: 'row',
+                    //         justifyContent: 'space-between',
+                    //         alignItems: 'center',
+                    //       }}>
+                    //       {
+                    //         item.fields.map((subItem, subIndex) => {
+                    //             const [date, setDate] = useState(defaultVal[`${item.fields[subIndex].label} Time Captured`] == "" ? new Date() : isNaN(new Date(defaultVal[`${item.fields[subIndex].label} Time Captured`])) ? new Date() : new Date(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
+                    //             const [isVisible, setIsVisible] = useState(false);
+                    //             return(
+                    //               <View style={{width:'24%'}} key={subIndex}>
+                    //                 <Controller
+                    //                   key={subIndex}
+                    //                   control={control}
+                    //                   defaultValue={validateInitValue(defaultVal[`${item.fields[subIndex].label}`], subItem.type)}
+                    //                   name={baseFormLabel + '.' + subItem.label}
+                    //                   rules={(()=>rules(subItem.type))()}
+                    //                   render={({field: {onChange, onBlur, value}}) => (
+                    //                     <>
+                    //                       <TextInput
+                    //                         editable={globalEdit}
+                    //                         style={styles.input}
+                    //                         placeholder={subItem.label}
+                    //                         defaultValue={parseFloat(defaultVal[subItem.label])>=0?""+defaultVal[subItem.label]:""}
+                    //                         // defaultValue={defaultVal[subItem.label]? ""+defaultVal[subItem.label]:""}
+                    //                         onBlur={onBlur}
+                    //                         // onChangeText={(e) => {
+                    //                         //   onChange(e); 
+                    //                         //   if(e !== ""){
+                    //                         //     setValue(`${baseFormLabel}.${subItem.label} Time Captured`, (new Date).toJSON()); 
+                    //                         //     setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));
+                    //                         //   }else{
+                    //                         //     defaultVal[subItem.label]=e
+                    //                         //   }
+                    //                         // }}
+                    //                         onChangeText={value => {
+                    //                           // console.log('this is onChange');
+                    //                           const newDate = new Date();
+                    //                           onChange(value); 
+                    //                           setValue(`${baseFormLabel}.${subItem.label} Time Captured`, newDate.toJSON());
+                    //                           setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
+                    //                           // setVal1(Number(value));
+                    //                           setDate(newDate);
+                    //                           defaultVal[`${item.fields[subIndex].label} Time Captured`]=newDate.toJSON();
+                    //                         }}  
+                    //                         value={value}
+                    //                         keyboardType={(subItem.type=='int' || subItem.type=='float') ? "number-pad":"default"}
+                    //                         />
+                    //                     </>
+                    //                   )}
+                    //                   />
+                    //                   <Controller
+                    //                     control={control}
+                    //                     name={baseFormLabel + '.' +subItem.label+' Time Captured'}
+                    //                     value={date}
+                    //                     defaultValue={date}
+                    //                     render={({ field:{onChange}}) => (
+                    //                     <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)} style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                    //                         <Text style={{color:'black', textAlign:'center'}}>Time: {timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //                         {
+                    //                           isVisible && 
+                    //                           <DateTimePicker 
+                    //                             value={date} 
+                    //                             is24Hour={false}
+                    //                             defaultValue={defaultVal[subItem.label+" Time Captured"]}
+                    //                             onChange={(event, selectedDate)=>{
+                    //                               setIsVisible(false);
+                    //                               setDate(selectedDate);
+                    //                               // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, date.toJSON())
+                    //                               onChange(selectedDate)
+                    //                               }
+                    //                             } 
+                    //                             mode="time" display="spinner" 
+                    //                           />
+                    //                         }
+                    //                     </TouchableOpacity>
+                    //                       )}
+                    //                   />
+                    //                   { 
+                    //                     errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
+                    //                       ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
+                    //                          {errors[categorySchema.title][item.label][subItem.label].type} ERORR
+                    //                       </Text>
+                    //                     )
+                    //                   }
+                    //               </View>
+                    //             );
+                    //         })
+                    //       }
+                    //     </View>
+                    //   </View>
+                    // )}
+                    // =====================================================================================================================
+                    // if (item.type === 'multi-field') {
+                    //   const fields = item.fields.map((field, index) => {
+                    //     const defaultValue = defaultVal[field.label] !== undefined ? defaultVal[field.label] : 0;
+                    //     const defaultTime = typeof defaultVal[`${item.fields[0].label} Time Captured`] == "undefined" ? new Date(): defaultVal[item.fields[0].label] == "" ? new Date() : new Date(defaultVal[`${item.fields[0].label} Time Captured`])
+                    
+                    //     const [value, setValue] = useState(defaultValue);
+                    //     const [date, setDate] = useState(new Date());
+                    //     const [isVisible, setIsVisible] = useState(false);
+                    
+                    //     useEffect(() => {
+                    //       setValue(typeof defaultValue === 'number' ? defaultValue : 0);
+                    //     }, [defaultValue]);
+                    
+                    //     useEffect(() => {
+                    //       setValue(baseFormLabel + '.' + field.label, value);
+                    //       const updatedDate = new Date(date);
+                    //       const updatedDateJSON = updatedDate.toJSON();
+                    //       setDate(baseFormLabel + '.' + field.label + ' Time Captured', updatedDate);
+                    //       defaultVal[field.label] = Number(value);
+                    //       defaultVal[`${field.label} Time Captured`] = updatedDateJSON;
+                    //     }, [value, date]);
+                    //       console.log(date);
+                    //     return (
+                    //       <View key={index} style={{flex:0.9}}>
+                    //         {/* <View style={{ height: 100, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}> */}
+                    //           <View>
+                    //             <Controller
+                    //               control={control}
+                    //               defaultValue={defaultValue > 0 ? defaultValue : null}
+                    //               name={baseFormLabel + '.' + field.label}
+                    //               rules={(() => rules(field.type, field.regex))()}
+                    //               render={({ field: { onChange, value, onBlur } }) => (
+                    //                 <TextInput
+                    //                   editable={globalEdit}
+                    //                   style={[styles.input, {marginRight:10}]}
+                    //                   placeholder="Enter Entry"
+                    //                   value={value}
+                    //                   defaultValue={defaultValue > 0 ? defaultValue.toString() : ''}
+                    //                   onBlur={onBlur}
+                    //                   keyboardType="number-pad"
+                    //                   onChangeText={value => {
+                    //                     const newDate = new Date();
+                    //                     onChange(value);
+                    //                     setValue(Number(value));
+                    //                     setDate(newDate);
+                    //                     defaultVal[field.label] = Number(value);
+                    //                     defaultVal[`${field.label} Time Captured`] = newDate.toJSON();
+                    //                   }}
+                    //                 />
+                    //               )}
+                    //             />
+                    //           <Controller
+                    //            control={control}
+                    //            name={baseFormLabel + "." + item.fields[0].label + " Time Captured"}
+                    //            defaultValue={date}
+                    //            value={date}
+                    //            render={({ field }) => (
+                    //            <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:5, backgroundColor:'beige'}}>
+                    //                <Text style={{color:'black'}}>Time: {timeConvert(defaultTime.toLocaleTimeString('en-US', { hour12: true }))}</Text>
+                    //                {
+                    //                  isVisible && 
+                    //                  <DateTimePicker 
+                    //                    value={date} 
+                    //                    defaultValue={date} 
+                    //                    is24Hour={false} 
+                    //                    onChange={(event, selectedDate)=>{
+                    //                      setIsVisible(false);
+                    //                      setDate(selectedDate);
+                    //                      setValue(`${baseFormLabel}.${item.fields[0].label} Time Captured`, date.toJSON())
+                    //                     //  defaultVal[`${item.fields[0].label} Time Captured`]=selectedDate;
+                    //                      }
+                    //                    } 
+                    //                    mode="time" display="spinner" 
+                    //                  />
+                    //                }
+                    //            </TouchableOpacity>
+                    //            )}
+                    //        /> 
+                    //             {/* ...additional code for time captured and error handling */}
+                    //           {/* </View> */}
+                    //         </View>
+                    //       </View>
+                    //     );
+                    //   });
+                    
+                    //   const total = fields.reduce((acc, field) => acc + field.value, 0);
+                    
+                    //   useEffect(() => {
+                    //     setValue(baseFormLabel + '.' + item.label + ' Total', total);
+                    //   }, [total]);
+                    
+                    //   return (
+                    //     <View style={{ marginVertical: 12 }}>
+                    //         <Text style={{ color: '#282C50', fontSize: 18 }}>
+                    //           {item.label}
+                    //           <Text style={{ color: 'red' }}>{item.fields[0].regex.isRequired ? ' *' : ''}</Text>
+                    //         </Text>
+                    //       <View style={{
+                    //         flex:1,
+                    //         flexDirection: 'row',
+                    //         justifyContent: 'space-between',
+                    //         alignItems: 'center',
+                    //       }}>
+                    //         {fields}
+                    //       </View>
+                    //       <Text style={{ fontSize: 18 }}>Total {item.label}: {total}</Text>
+                    //     </View>
+                    //   );
+                    // }
+                    
+                      else if(item.type == 'multi-time-only'){                     
                       return(
                         <View style={{marginVertical: 12}} key={index}>
                           <Text style={{color: '#282C50', fontSize: 18}}>
@@ -980,7 +1348,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                       <Controller
                                         key={subIndex}
                                         control={control}
-                                        defaultValue={defaultVal[subItem.label]}
+                                        defaultValue={validateInitValue(defaultVal[subItem.label], subItem.type)}
                                         name={baseFormLabel + '.' + subItem.label}
                                         rules={(()=>rules(subItem.type))()}
                                         render={({field: {onChange, onBlur, value}}) => (
@@ -992,7 +1360,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               defaultValue={parseFloat(defaultVal[subItem.label])>=0?""+defaultVal[subItem.label]:""}
                                               // defaultValue={defaultVal[subItem.label]? ""+defaultVal[subItem.label]:""}
                                               onBlur={onBlur}
-                                              onChangeText={(e) => {onChange(e); if(e !== ""){setValue(`${baseFormLabel}.${subItem.label} Time Captured`, (new Date).toJSON()); setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));}else{defaultVal[subItem.label]=e}}}
+                                              onChangeText={(e) => {onChange(e); if(e !== ""){setDate(new Date());setValue(`${baseFormLabel}.${subItem.label} Time Captured`, (new Date).toJSON()); setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));}else{defaultVal[subItem.label]=e}}}
                                               value={value}
                                               keyboardType={(subItem.type=='int' || subItem.type=='float') ? "number-pad":"default"}
                                               />
@@ -1171,7 +1539,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                       );
                     }else{ 
                       //Typical Input Field Function  
-                      const defaultVal1=useRef(defaultVal); 
+                      const defaultVal1=useRef(validateInitValue(retrievedData[item.label])); 
                       return(
                       <View style={{marginVertical: 12}} key={index}>
                         <Text style={{color: '#282C50', fontSize: 18}}>
@@ -1189,6 +1557,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                               style={item.type=="description"? styles.description:styles.input}
                               placeholder={item.label}
                               onBlur={onBlur}
+                              maxLength={(()=>maxLengthFilter(item.type))()}
                               onChangeText={(e) => {
                                 (item.type=='float' || item.type=='int') ? (()=>{
                                   // console.log("is not float: "+isNaN(parseFloat(e)));
@@ -1201,12 +1570,12 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                   }
                                 })()
                                 :(()=>{
-                                  console.log("else252:   " + e);
+                                  // console.log("else252:   " + e);
                                   onChange(e)
                                 })()
                               }}
                               value={value}
-                              defaultValue={defaultVal1.current === null ? "" : ""+defaultVal1.current}
+                              defaultValue={defaultVal1.current !== null? ""+defaultVal1.current:""}
                               // defaultValue={""+defaultVal1.current}
                               multiline={item.type=="description"? true : false}
                               keyboardType={(item.type=='int' || item.type=='float') ? "number-pad":"default"}
@@ -1269,6 +1638,21 @@ const rules = (type, regex={}) => {
     })
   }
 }
+
+const maxLengthFilter = (type) => {
+  if(type === 'int'){
+    return 10;
+  }
+  else if(type === 'float'){
+    return 10;
+  }
+  else if(type === 'description'){
+    return 80;
+  }
+  else
+    return null;
+}
+
 const errorMessage = (type, regex={}) => {
   if(type === 'min'){
     return "The entered value is too SMALL";
@@ -1571,12 +1955,59 @@ export const executeApiQuery = async (url, token, method = 'get', data = {}, par
     return await axios(config);
     // return response;
   } catch (error) {
-    // console.log(error.toJSON());
+    // console.log(error.response.data);
     return error;
   }
 };
 
 
+// export const validateInitValue = (value, valueType) => {
+//   if (value !== null) {
+//     if (valueType === 'float'){
+//       let y =  parseFloat(value);
+//       if (!isNaN(y))
+//         return y;
+//     } 
+//     if(valueType === 'int'){
+//       let y =  parseInt(value);
+//       if (!isNaN(y))
+//         return y;
+//     }
+//   }else{
+//     return null;
+//   }
+//   return value;
+// }
+
+const validateInitValue = (value, valueType) => {
+  if (value === null || value === undefined) {
+    return valueType === "string" ? "" : null;
+  }
+
+  if (valueType === "float") {
+    const parsedValue = parseFloat(value);
+    return !isNaN(parsedValue) ? parsedValue : null;
+  }
+
+  if (valueType === "int") {
+    const parsedValue = parseInt(value, 10);
+    return !isNaN(parsedValue) ? parsedValue : null;
+  }
+
+  if (valueType === "string") {
+    return typeof value === "string" ? value : null;
+  }
+
+  return value;
+};
+
+export const ShowAlert =(title, message, buttonArray = undefined) =>{
+  Alert.alert(
+    `${title}`,
+    `${message}`,
+    buttonArray
+  );
+}
 
 export const getFarmsFromGlobalByName = async (name="") => {
 
