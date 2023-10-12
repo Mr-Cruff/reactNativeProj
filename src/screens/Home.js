@@ -86,8 +86,8 @@ const formFields = [
     title: 'Birds',
     type: 'common',
     fields: [
-      {label: 'Bird Weight (grams) - Male', type: 'float', regex:{min:0, max:5000, isRequired:false}, farmType:'common'},
-      {label: 'Bird Weight (grams) - Female', type: 'float', regex:{min:0, max:5000, isRequired:false}, farmType:'common'},
+      {label: 'Bird Weight (grams) - Male', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
+      {label: 'Bird Weight (grams) - Female', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
       {label: 'Uniformity (%) - Male', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
       {label: 'Uniformity (%) - Female', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
       {label: 'Birds Added - Male', type: 'float', regex:{min:0, max:null, isRequired:false}, farmType:'common'},
@@ -269,6 +269,7 @@ const Home = ({navigation, back}) => {
   // console.log(auth.authData);
   const { role, firstLogon, name, email, uuid } = useAuth().authData;
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefresh] = useState(false);
   const global = useContext(GlobalContext);
   const pkg = require('../../package.json');
 
@@ -280,9 +281,9 @@ const Home = ({navigation, back}) => {
 
   const RoundButtonNew =({ path, farms,props })=>{
     return (
-      <TouchableOpacity style={{width:120, margin:10}} onPress= {()=> navigation.navigate(path, {farms})}>
-          <LinearGradient colors={['#5c9ead', '#326273']} style={{height:120, width:120, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
-            <NewFormIcon size={68} />
+      <TouchableOpacity style={{width:100, margin:10}} onPress= {()=> navigation.navigate(path, {farms})}>
+          <LinearGradient colors={['#5c9ead', '#326273']} style={{height:100, width:100, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
+            <NewFormIcon size={58} />
           </LinearGradient>
         <Text style={{textAlign:'center', color:'#282C50', fontSize:16, fontWeight:"400"}}>{props.label}</Text>
       </TouchableOpacity>
@@ -290,9 +291,9 @@ const Home = ({navigation, back}) => {
   }
   const RoundButtonEdit =({ path, farms,props })=>{
     return (
-      <TouchableOpacity style={{width:120, margin:10}} onPress= {()=> navigation.navigate(path, {farms:farms, reviewType:'submission'})}>
-          <LinearGradient colors={['#fec89a', '#ef8354']} style={{height:120, width:120, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
-            <EditFormIcon size={64} />
+      <TouchableOpacity style={{width:100, margin:10}} onPress= {()=> navigation.navigate(path, {farms:farms, reviewType:'submission'})}>
+          <LinearGradient colors={['#fec89a', '#ef8354']} style={{height:100, width:100, padding:10, alignItems:'center',justifyContent:'center', borderRadius:50,}}>
+            <EditFormIcon size={54} />
           </LinearGradient>
         <Text style={{textAlign:'center', color:'#282C50', fontSize:16, fontWeight:"400"}}>{props.label}</Text>
       </TouchableOpacity>
@@ -300,9 +301,9 @@ const Home = ({navigation, back}) => {
   }
   const RoundButtonTick =({ path, farms,props })=>{
     return (
-      <TouchableOpacity style={{width:120, margin:10}} onPress= {()=> navigation.navigate(path, {farms:farms, reviewType:'review'})}>
-          <LinearGradient colors={['#3a6ea5','#004e98']} style={{height:120, width:120, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
-            <WhiteTick size={64} />
+      <TouchableOpacity style={{width:100, margin:10}} onPress= {()=> navigation.navigate(path, {farms:farms, reviewType:'review'})}>
+          <LinearGradient colors={['#3a6ea5','#004e98']} style={{height:100, width:100, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
+            <WhiteTick size={54} />
           </LinearGradient>
         <Text style={{textAlign:'center', color:'#282C50', fontSize:16, fontWeight:"400"}}>{props.label}</Text>
       </TouchableOpacity>
@@ -310,9 +311,9 @@ const Home = ({navigation, back}) => {
   }
   const RoundButtonX =({ path, farms,props })=>{
     return (
-      <TouchableOpacity style={{width:120, margin:10}} onPress= {()=> navigation.navigate(path, {...farms})}>
-          <LinearGradient colors={['#f87060', '#D34848']} style={{height:120, width:120, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
-            <WhiteX size={64} />
+      <TouchableOpacity style={{width:100, margin:10}} onPress= {()=> navigation.navigate(path, {...farms})}>
+          <LinearGradient colors={['#f87060', '#D34848']} style={{height:100, width:100, padding:10, alignItems:'center',justifyContent:'center', borderRadius:60,}}>
+            <WhiteX size={54} />
           </LinearGradient>
         <Text style={{textAlign:'center', color:'#282C50', fontSize:16, fontWeight:"400"}}>{props.label}</Text>
       </TouchableOpacity>
@@ -324,18 +325,18 @@ const Home = ({navigation, back}) => {
   const ButtonPanel =()=>{
   if (Object.keys(APP_ROLES).includes(role)){
     return(
-      <View style={{backgroundColor:'#EFF5FF',  justifyContent:'space-evenly', alignContent:'center', elevation:10}}>
+      <View style={{backgroundColor:'#EFF5FF',  justifyContent:'space-evenly', alignContent:'center', elevation:10,}}>
         <View>
-          <Text style={{textAlign:'center', fontSize:20, color:'#282C50', marginTop:10, fontWeight:'bold'}}>FORMS PANEL</Text> 
+          <Text style={{textAlign:'center', fontSize:20, color:'#282C50', marginTop:5, fontWeight:'bold'}}>FORMS PANEL</Text> 
           <Text style={{textAlign:'center', fontSize:14, color:'#8AB4CD', fontWeight:'400'}}>All form actions can be done here</Text> 
         </View>
-        <View style={{backgroundColor:'#EFF5FF', marginBottom:10, justifyContent:'space-evenly', flexDirection: 'row', alignContent:'center',}}>
+        <View style={{backgroundColor:'#EFF5FF', marginBottom:0, justifyContent:'space-evenly', flexDirection: 'row', alignContent:'center',}}>
           {(role == APP_ROLES[0] || role == APP_ROLES[3] || role == APP_ROLES[4]) ? <RoundButtonNew path="Edit Form Select" farms={farms} props={{label:'Create & Edit'}}/>:null}
           {(role == APP_ROLES[0] || role == APP_ROLES[4] ) ? <RoundButtonEdit path="Review Form" farms={farms} props={{label:'Submission Review'}}/>:null}
           {(role == APP_ROLES[0] || role == APP_ROLES[1] || role == APP_ROLES[2]) ? <RoundButtonTick path="Review Form" farms={farms} props={{label:'Review Forms'}}/>: null}
           {(role == APP_ROLES[0] || role == APP_ROLES[3] || role == APP_ROLES[4]) ? <RoundButtonX path="Rejected Forms" farms={farms} props={{label:'Rejected Forms'}}/>: null}
         </View>
-        <Text style={{paddingHorizontal:10, textAlign:'right'}}>V. {pkg.version}</Text>
+        <Text style={{paddingHorizontal:10, textAlign:'right', marginTop:-20}}>V. {pkg.version}</Text>
       </View>
     )
   }else{
@@ -409,13 +410,14 @@ const Home = ({navigation, back}) => {
             type: farm.FarmStage === 1 ? "Grow" : "Production",
             flockAge: house.FlockAge,
             flockNumber: house.FlockNumber.trim(),
+            complexEntityNo: house.ComplexEntityNo.trim(),
             flockHoused: house.FlockHoused,
             flockHousedMale: house.FlockHousedMale,
             flockHousedFemale: house.FlockHousedFemale,
             flockStarted: house.FlockStarted,
             flockStartedMale: house.FlockStartedMale,
             flockStartedFemale: house.FlockStartedFemale,
-            birdsBroughForward: house.BirdsBroughForward,
+            birdsBroughtForward: house.BirdBroughForward,
             birdsBroughForwardMale: house.BirdsBroughForwardMale,
             birdsBroughForwardFemale: house.BirdsBroughForwardFemale,
             flockBreed: house.BreedName.trim(),
@@ -480,6 +482,7 @@ const Home = ({navigation, back}) => {
     // });
 
     setLoading(false);
+    setRefresh(false);
   };
   
   useEffect(() => { 
@@ -505,23 +508,6 @@ const Home = ({navigation, back}) => {
     </View>
   );
   };
-  
-  // console.log(auth.authData.token);
-
-// useEffect(() => {
-//   if (firstLogon == 1)
-//     return <ResetPassword />;
-  
-//   if(!auth.isTokenValid && global.internetAvailable){
-//     auth.signOut();
-//   }
-// })
-  // console.log(Object.keys(APP_ROLES).includes(role));
-  // console.log(getFarmsFromGlobalByName());
-  // console.log(auth.authData);
-  // console.log(netInfo);
-  // console.log(global);
-  // netInfo?.toLowerCase() == "online" ? console.log('Internet is here'):console.log('No internet');
 
   const TestButton = ({ func }) => {
     return (
@@ -567,12 +553,7 @@ const Home = ({navigation, back}) => {
       </TouchableOpacity>
     )
   }
-
-  // First Logon Condition
-  // Bug : blank after logon
-  // if (firstLogon == 1)
-  //   return <ResetPassword />;
-  // else{  
+//  console.log(farms);
   return (
     !loading?   
     <View style={styles.container}>
@@ -591,20 +572,13 @@ const Home = ({navigation, back}) => {
       {/* <LinearGradient colors={["#E0E8FC","#748FD3","#33519D","#1A3069",]}> */}
       <ScrollView  
           refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={()=>{setLoading(true); getFarms()}} />
+          <RefreshControl refreshing={refreshing} onRefresh={()=>{setRefresh(true); getFarms()}} />
         }>
         <View style={{paddingBottom:50}}>
           <Text style={{marginLeft:'10%', marginTop:10, fontSize: 34, fontWeight:'500', color:'black'}}>DASHBOARD</Text>
           <View style={{paddingHorizontal:10,flexDirection:'row', justifyContent:'space-between',}}>
               <Text style={{marginLeft:'10%', marginTop:20, fontSize: 24, color:'black'}}>Welcome, </Text>
-          {/* <TestButton func={{func:global.addQuery, }} />
-          <TestButton5 func={{func:global.addQuery, }}/>*/}
-          {/* <TestButton2 /> */}
-          {/* <TestButton3 />
-          <TestButton4 />
-          <TestButton6 /> */}
           </View>
-          {/* <TouchableOpacity style={styles.actionButton} onPress={()=>{jamaicanDateFormat()}}></TouchableOpacity> */}
           <View style={{backgroundColor:'#282C50', width:'auto', justifyContent:'space-around', alignSelf:'center',borderRadius:10,marginBottom:30}}>
             <View
             style={{
@@ -673,6 +647,7 @@ const Home = ({navigation, back}) => {
       </View>
       <ButtonPanel />
     </View>:<Loading />
+    // : refreshing ? <ActivityIndicator size='large' color='red'/> 
   );
 }
 // };

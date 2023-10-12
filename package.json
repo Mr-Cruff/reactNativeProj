@@ -1,6 +1,6 @@
 {
   "name": "reactNativeProj",
-  "version": "1.0.5 - UAT",
+  "version": "1.0.6 - UAT",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

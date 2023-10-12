@@ -42,7 +42,7 @@ const Routes = () => {
   const RouteValidation = () => {
     if (authData?.token && tokenValidation(authData?.token)) {
       if(authData?.firstLogon === 1){
-        console.log("Reset Password Block: "+authData?.firstLogon);
+        // console.log("Reset Password Block: "+authData?.firstLogon);
         return <ResetPasswordStack />;
       }
       else

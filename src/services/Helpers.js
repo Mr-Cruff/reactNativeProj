@@ -94,7 +94,7 @@ export function timeConverter (dateJSON) {
 export const jamaicanDateFormat = (dateParam) =>{
   const date = dateParam || new Date();
   let dd = date.getDate()<10?`0${date.getDate()}`:date.getDate();
-  let mm = date.getMonth()<10?`0${date.getMonth()+1}`:date.getMonth()+1;
+  let mm = date.getMonth()<9?`0${date.getMonth()+1}`:date.getMonth()+1;
   let yyyy = date.getFullYear();
   const formattedDate = `${dd}/${mm}/${yyyy}`
   return formattedDate;
@@ -196,6 +196,12 @@ export const CalnderIcon = ({ size=32 }) => {
 }
 // -----------
 
+export const setMinDate = () =>{
+  var date = new Date();
+  // var firstDay= date.getDate() - date.getDay()
+  var minDate= new Date(date.setDate(date.getDate()-6))
+  return minDate;
+}
 
 
 
@@ -1540,12 +1546,17 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                     }else{ 
                       //Typical Input Field Function  
                       const defaultVal1=useRef(validateInitValue(retrievedData[item.label])); 
+                      const isDescription = item.type ==="description"?true:false;
+                      const MAX_LENGTH = maxLengthFilter(item.type);
+                      const [charsLeft, setCharsLeft] = useState(MAX_LENGTH);
+                      
                       return(
                       <View style={{marginVertical: 12}} key={index}>
                         <Text style={{color: '#282C50', fontSize: 18}}>
                           {item.label}
                           <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
                         </Text>
+                        {isDescription && <Text>Characters left: <Text style={{color:charsLeft < 10?"red":'', fontWeight:'bold'}}>{charsLeft}</Text></Text>}
                         <Controller
                           control={control}
                           name={baseFormLabel}
@@ -1554,10 +1565,10 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           render={({field: {onChange, onBlur, value}}) => (
                             <TextInput
                               editable={globalEdit}
-                              style={item.type=="description"? styles.description:styles.input}
+                              style={isDescription? styles.description:styles.input}
                               placeholder={item.label}
                               onBlur={onBlur}
-                              maxLength={(()=>maxLengthFilter(item.type))()}
+                              maxLength={MAX_LENGTH}
                               onChangeText={(e) => {
                                 (item.type=='float' || item.type=='int') ? (()=>{
                                   // console.log("is not float: "+isNaN(parseFloat(e)));
@@ -1570,7 +1581,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                   }
                                 })()
                                 :(()=>{
-                                  // console.log("else252:   " + e);
+                                  setCharsLeft(MAX_LENGTH - e.length);
                                   onChange(e)
                                 })()
                               }}

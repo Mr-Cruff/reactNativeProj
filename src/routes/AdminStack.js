@@ -18,6 +18,7 @@ import EditForm_Refactored from '../screens/EditForm_Refactor';
 import CreateForm from '../screens/CreateForm';
 import ReviewAndEdit from '../screens/ReviewAndEdit';
 import EggDelivery from '../screens/EggDelivery';
+import BirdsCapitalized from '../screens/BirdsCapitalized';
 
 const Stack = createStackNavigator();
 export const AppStackContext = createContext();
@@ -110,6 +111,11 @@ const AppStack = () => {
       <Stack.Screen
         name="Egg Delivery"
         component={EggDelivery}
+        options={{title: ''}}
+      />
+      <Stack.Screen
+        name="Birds Capitalized"
+        component={BirdsCapitalized}
         options={{title: ''}}
       />
     </Stack.Navigator>

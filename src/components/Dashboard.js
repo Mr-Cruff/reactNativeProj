@@ -67,7 +67,7 @@ export const FarmTile = ({farm}) => {
                 <View style={{flexDirection: 'row',flexWrap:'wrap', justifyContent:'space-evenly'}}>
                   <View style={{marginTop:5,flexDirection:'row',alignItems:'center', color:'white'}}><Text style={{color:'white',}}>Feed Received: </Text><RenderValue value={farm.feedReceived} bgColor={bgColor} /></View>
                   <View style={{marginTop:5,flexDirection:'row',alignItems:'center', color:'white'}}><Text style={{color:'white',}}>Days in Inventory: </Text><RenderValue value={farm.daysInInventory} bgColor={bgColor} /></View>
-                  <View style={{marginTop:5,flexDirection:'row',alignItems:'center', color:'white'}}><Text style={{color:'white',}}>Birds Brought Forward: </Text><RenderValue value={farm.birdsBroughtForwardFemale} bgColor={bgColor} /><RenderValue value={farm.birdsBroughForwardMale} bgColor={bgColor} /><RenderValue value={farm.birdsBroughForward} bgColor={bgColor} /></View>
+                  {/* <View style={{marginTop:5,flexDirection:'row',alignItems:'center', color:'white'}}><Text style={{color:'white',}}>Birds Brought Forward: </Text><RenderValue value={farm.birdsBroughtForwardFemale} bgColor={bgColor} /><RenderValue value={farm.birdsBroughForwardMale} bgColor={bgColor} /><RenderValue value={farm.birdsBroughForward} bgColor={bgColor} /></View> */}
                 </View>
                {!touched && 
                <View style={{flexDirection: 'row',alignItems:'center'}}>
@@ -105,6 +105,7 @@ export const FarmTile = ({farm}) => {
                 <RenderLabelValue label={"Flock Number: "} value={house.flockNumber} bgColor={bgColor} />
                 <RenderLabelValue label={"Age of Birds: "} value={house.flockAge} suffix={"Weeks"} bgColor={bgColor}/>
                 <RenderLabelValue label={"Flock Breed: "} value={house.flockBreed} bgColor={bgColor} />
+                {farm.type.toLowerCase()!="grow" &&<RenderLabelValue label={"Birds Brought Forward: "} value={house.birdsBroughtForward} bgColor={bgColor} />}
                 {/* <RenderLabelValue label={"Flock Started: "} value={house.flockStarted} bgColor={bgColor} /> */}
                 <View style={{flexDirection:'row', marginTop:10, justifyContent:'center'}}>
                   <Text style={styles.listText}>Flock Started: </Text>

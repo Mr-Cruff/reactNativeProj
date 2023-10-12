@@ -33,10 +33,19 @@ const ResetPassword = ({ navigation }) => {
         console.log(auth);
     },[]);
 
+    const passwordValidation = (newPassword, confirmNewPassword) => {
+        
+        "Passwords must be at least 8 characters and contain the following: upper case (A-Z), lower case (a-z) and number (0-9)", MinimumLength = 8
+        "^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])).{8,}$",
+        "Passwords must be at least 8 characters and contain the following: upper case (A-Z), lower case (a-z) and number (0-9)"
+    }
+
     const onPress = async () => {
         setLoading(true);
         if(newPassword === "" || confirmNewPassword === "")
             Alert.alert('ERROR',"Fields CANNOT be empty", [{ text: "OK", onPress: () => setLoading(false) }]);
+        else if(newPassword.length < 8)
+            Alert.alert('ERROR',"Password must be at least 8 characters",  [{ text: "OK", onPress: () => setLoading(false) }]);
         else if(newPassword !== confirmNewPassword)
             Alert.alert('ERROR',"Passwords MUST be the same",  [{ text: "OK", onPress: () => setLoading(false) }]);
         else if(newPassword === confirmNewPassword && newPassword !== ""){  

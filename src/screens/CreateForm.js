@@ -288,7 +288,24 @@ const CreateForm = ({ route, navigation }) => {
           </View>
         )}
         {farmSelected != 'none' && <HouseSelect />}
-        <TouchableOpacity disabled={farmSelected == 'none' || houseSelected == 'none'} style={{maxWidth:250, alignSelf:'flex-end', width:200, marginTop:'5%'}} onPress={()=> {console.log(houseSelected);setLoading(true); confirmNewForm();}}>
+
+        {farmSelected != 'none'&& farms[farmSelected].type.toLowerCase() != "grow" && houseSelected !== 'none' && (
+          <View style={{backgroundColor:'beige', marginTop:40}}>
+            <View>
+              <Text  style={{paddingLeft:10, backgroundColor:'#d4cc47', color:'#565214', fontSize:18, fontWeight:'500'}}>Birds Capitalized</Text>
+              <Text style={{paddingLeft:10, marginTop:10}}>Would you like to create a <Text style={{fontWeight:'bold'}}>Birds Capitalized</Text> transaction for {farms[farmSelected].name}, {farms[farmSelected]?.houses[houseSelected].name}, on {MONTH[date.getMonth()]} {date.getDate()}{nth(date.getDate())}?</Text>
+            </View>
+            <View style={{flexDirection:"row", justifyContent:'flex-end'}}>
+              {/* <RadioOption /> */}
+              {/* {showFeedRec && EggsDelivered()} */}
+              <TouchableOpacity style={{textAlign:'center', backgroundColor:'#282C50', borderRadius:5,padding:10, margin:10}} onPress={()=>navigation.navigate('Birds Capitalized', {farmSelected:farms[farmSelected], house:farms[farmSelected]?.houses[houseSelected]})}>
+                  <Text style={{color:'white', fontSize:16}}>Create Transaction</Text>
+              </TouchableOpacity>
+              {/* <Button title="Log Delivery" onPress={()=>navigation.navigate('Egg Delivery', {farmSelected:farms[farmSelected]})}/> */}
+            </View>
+          </View>
+        )}
+        <TouchableOpacity disabled={farmSelected == 'none' || houseSelected == 'none'} style={{maxWidth:250, alignSelf:'flex-end', width:200, marginTop:'5%'}} onPress={()=> {setLoading(true); confirmNewForm();}}>
            <Text style={{textAlign:'center', backgroundColor:farmSelected == 'none' || houseSelected == 'none'?'grey':'#282C50', borderRadius:5,padding:10, fontSize:17, color:'white', elevation:5}}>CONFIRM</Text>
         </TouchableOpacity>
       </View>
