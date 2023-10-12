@@ -2,15 +2,15 @@
   <library name="Gradle: com.facebook.flipper:flipper:0.125.0@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/252cb2a23c49042eb937faf76f487d04/transformed/jetified-flipper-0.125.0/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d4f40093e379855b7ab0decd92b6fac2/transformed/jetified-flipper-0.125.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/48872f9bd683976c504e911fcb9846c3/transformed/jetified-flipper-0.125.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/252cb2a23c49042eb937faf76f487d04/transformed/jetified-flipper-0.125.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/252cb2a23c49042eb937faf76f487d04/transformed/jetified-flipper-0.125.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/252cb2a23c49042eb937faf76f487d04/transformed/jetified-flipper-0.125.0/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d4f40093e379855b7ab0decd92b6fac2/transformed/jetified-flipper-0.125.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d4f40093e379855b7ab0decd92b6fac2/transformed/jetified-flipper-0.125.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d4f40093e379855b7ab0decd92b6fac2/transformed/jetified-flipper-0.125.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/48872f9bd683976c504e911fcb9846c3/transformed/jetified-flipper-0.125.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/48872f9bd683976c504e911fcb9846c3/transformed/jetified-flipper-0.125.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/48872f9bd683976c504e911fcb9846c3/transformed/jetified-flipper-0.125.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.flipper/flipper/0.125.0/5b7b814df64471a42b838771490735d1d407c7ea/flipper-0.125.0-javadoc.jar!/" />

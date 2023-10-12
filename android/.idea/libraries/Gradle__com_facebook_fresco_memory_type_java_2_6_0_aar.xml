@@ -5,9 +5,10 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/393661beeb96e01df48bf4b0ca17d187/transformed/jetified-memory-type-java-2.6.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/393661beeb96e01df48bf4b0ca17d187/transformed/jetified-memory-type-java-2.6.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/393661beeb96e01df48bf4b0ca17d187/transformed/jetified-memory-type-java-2.6.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/199cc73b79c4462a36ae2eb729d845bc/transformed/jetified-memory-type-java-2.6.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/199cc73b79c4462a36ae2eb729d845bc/transformed/jetified-memory-type-java-2.6.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/199cc73b79c4462a36ae2eb729d845bc/transformed/jetified-memory-type-java-2.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b252b52858ce8776ac21d29d2f580d37/transformed/jetified-memory-type-java-2.6.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b252b52858ce8776ac21d29d2f580d37/transformed/jetified-memory-type-java-2.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b252b52858ce8776ac21d29d2f580d37/transformed/jetified-memory-type-java-2.6.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/memory-type-java/2.6.0/d761b2d877e21cd7564a729a3c5e5fe82f1358d5/memory-type-java-2.6.0-javadoc.jar!/" />

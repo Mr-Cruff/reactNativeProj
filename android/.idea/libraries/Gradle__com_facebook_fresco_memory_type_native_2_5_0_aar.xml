@@ -6,8 +6,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/324fcbb4bd6a5107cc134d07aa462176/transformed/jetified-memory-type-native-2.5.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/324fcbb4bd6a5107cc134d07aa462176/transformed/jetified-memory-type-native-2.5.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1cdea890549c2fd4673d81f499cff187/transformed/jetified-memory-type-native-2.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1cdea890549c2fd4673d81f499cff187/transformed/jetified-memory-type-native-2.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1cdea890549c2fd4673d81f499cff187/transformed/jetified-memory-type-native-2.5.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/26b48a0a4eb8458b4c0591e7aa581c3b/transformed/jetified-memory-type-native-2.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/26b48a0a4eb8458b4c0591e7aa581c3b/transformed/jetified-memory-type-native-2.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/26b48a0a4eb8458b4c0591e7aa581c3b/transformed/jetified-memory-type-native-2.5.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.fresco/memory-type-native/2.5.0/edfa18f773d7c5cae02e680d33d66febff824e11/memory-type-native-2.5.0-javadoc.jar!/" />
