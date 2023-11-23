@@ -140,6 +140,7 @@ import { FORM_STATUS_OBJ } from '../Constants';
 const EditFormSelect = ({navigation, back, route}) => {
     const [loading, setLoading] = useState(true);
     const [allForms, setAllForms] = useState([]);
+    const [formsToView, setFormsToVIew] = useState(FORM_STATUS_OBJ[-1])
     const farms = route.params.farms;
     
     useEffect(() => {
@@ -151,6 +152,17 @@ const EditFormSelect = ({navigation, back, route}) => {
       return focusHandler;
     }, [navigation]);
 
+    const clearAllForms = async () => {
+      try{
+        await AsyncStorage.setItem('@forms', JSON.stringify([]));
+      }catch(e){
+        Alert.alert(e);
+      }
+    }
+
+    const toggleFormView = () => {
+      setFormsToVIew((current)=>current===FORM_STATUS_OBJ[-1]?"Submitted":FORM_STATUS_OBJ[-1])
+    }
     //Gets Forms all forms from async storage and returns an array of forms
     const getFromsFromAsync = async () => {
         await AsyncStorage.getItem('@forms').then(
@@ -265,56 +277,65 @@ const EditFormSelect = ({navigation, back, route}) => {
         <View style={styles.container}>{
         (!loading) ?
         (<>
-            <Text style={{fontSize:32, color:'#282C50', fontWeight:'bold', alignSelf:'center', marginTop:10,}}>SAVED FORMS</Text>
-            <Text style={{fontSize:18, color:'#9EADD3', fontWeight:'400', alignSelf:'center', marginBottom:20}}>All forms saved on this device can be found below</Text>
-            <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-around',marginHorizontal:-20, paddingVertical:10}}>
-              <View style={{justifyContent:'center', marginRight:50}}>
-                <Text style={{color:'#9d9549'}}>Want to enter value for a new form?</Text>
-                <Text style={{fontSize:24, color:'#282C50', fontWeight:'bold',}}>Create a new form here</Text>
-              </View>
-              <CreateFormButton farms={farms} />
+          <Text style={{fontSize:32, color:'#282C50', fontWeight:'bold', alignSelf:'center', marginTop:10,}}>SAVED FORMS</Text>
+          <Text style={{fontSize:18, color:'#9EADD3', fontWeight:'400', alignSelf:'center', marginBottom:20}}>All forms saved on this device can be found below</Text>
+          <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-around',marginHorizontal:-20, paddingVertical:10}}>
+            <View style={{justifyContent:'center', marginRight:50}}>
+              <Text style={{color:'#9d9549'}}>Want to enter values for a new form?</Text>
+              <Text style={{fontSize:24, color:'#282C50', fontWeight:'bold',}}>Create a new form here</Text>
             </View>
-            <View style={{height:'76%', paddingTop:10}}>
-            <ScrollView style={styles.innerContainer}>
-              {allForms !== null ?
-                Object.keys(allForms).map((form, formIndex)=>{
-                  if(allForms[formIndex]["Status"] === FORM_STATUS_OBJ[-1]){
-                    tempCount+=1;
-                    return(
-                    <View key={formIndex}>
-                        <TouchableOpacity  onPress={() => {formSelected(allForms[formIndex])}}>
-                            <View style={{flexDirection:'row', backgroundColor:"#ffff", alignItems:'center', justifyContent:'space-between', elevation:3, borderRadius:10, padding:10, margin:10}}>
-                              <View style={{ width:'88%',}}>
-                                <View style={{flexDirection:'row',justifyContent:'space-between',}}>
-                                  <View style={{flexDirection:'row',}}>
-                                    <Text style={{fontSize:16, color:'grey',marginLeft:10}}>{tempCount}.</Text>
-                                    <Text style={{fontSize:16, color:'black',fontWeight:'bold',marginHorizontal:10, width:170}}>{allForms[formIndex]["Farm"]}</Text>
-                                  </View>
-                                  <Text style={{fontSize:16, color:'black',marginHorizontal:10}}>{allForms[formIndex]["House"]?.toUpperCase()}</Text>
-                                  <Text style={{fontSize:16,marginHorizontal:10}}>Created By: {allForms[formIndex]["Created By"]}</Text>
-                                  <Text style={{fontSize:16,marginHorizontal:10}}><Text style={{color:'black', fontWeight:'bold'}}>{jamaicanDateFormat(new Date(allForms[formIndex]["Date Created"]))}</Text></Text>
+            <CreateFormButton farms={farms} />
+          </View>
+          {/*  
+          <TouchableOpacity onPress={()=>clearAllForms()}>
+            <Text>Clear all</Text>
+          </TouchableOpacity>
+          */}
+          <TouchableOpacity style={{marginTop:20, paddingHorizontal:25, justifyContent:'flex-start',flexDirection:'row'}} onPress={()=>toggleFormView()}>
+            <Text style={{fontSize:20, fontWeight:"normal", color:"#282C50"}}>{(formsToView === FORM_STATUS_OBJ[0])? FORM_STATUS_OBJ[1]:formsToView} Forms</Text>
+            {/* <Text style={{alignSelf:'center'}}>Toggle Form View</Text> */}
+          </TouchableOpacity>
+          <View style={{height:'72%',}}>
+          <ScrollView style={styles.innerContainer}>
+            {allForms !== null ?
+              Object.keys(allForms).map((form, formIndex)=>{
+                if(allForms[formIndex]["Status"].toLowerCase().includes(formsToView.toLowerCase())){
+                  tempCount+=1;
+                  return(
+                  <View key={formIndex}>
+                      <TouchableOpacity  onPress={() => {formSelected(allForms[formIndex])}}>
+                          <View style={{flexDirection:'row', backgroundColor:"#ffff", alignItems:'center', justifyContent:'space-between', elevation:3, borderRadius:10, padding:10, margin:10}}>
+                            <View style={{ width:'88%',}}>
+                              <View style={{flexDirection:'row',justifyContent:'space-between',}}>
+                                <View style={{flexDirection:'row',}}>
+                                  <Text style={{fontSize:16, color:'grey',marginLeft:10}}>{tempCount}.</Text>
+                                  <Text style={{fontSize:16, color:'black',fontWeight:'bold',marginHorizontal:10, width:170}}>{allForms[formIndex]["Farm"]}</Text>
                                 </View>
-                                {/* <Text style={{fontSize:16}}>{allForms[formIndex]["Status"]}</Text> */}
+                                <Text style={{fontSize:16, color:'black',marginHorizontal:10}}>{allForms[formIndex]["House"]?.toUpperCase()}</Text>
+                                <Text style={{fontSize:16,marginHorizontal:10}}>Created By: {allForms[formIndex]["Created By"]}</Text>
+                                <Text style={{fontSize:16,marginHorizontal:10}}><Text style={{color:'black', fontWeight:'bold'}}>{jamaicanDateFormat(new Date(allForms[formIndex]["Date Created"]))}</Text></Text>
                               </View>
-                              <TouchableOpacity style={{margin:5,alignSelf:'flex-end'}} onPress={()=>deleteFormConfirmation(allForms[formIndex]["Form Id"])}><RedTrashCan /></TouchableOpacity>
+                              {/* <Text style={{fontSize:16}}>{allForms[formIndex]["Status"]}</Text> */}
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                    )}
-                }):<Text style={{fontSize:18, color:'#6C82BB', fontWeight:'400', alignSelf:'center', marginBottom:10}}>No Forms Found, create a new form to begin.</Text>
-              }
-            </ScrollView>
-            </View>
-            <NumberOfFormsSaved size={tempCount}/>
-            <Text style={{fontSize:18, color:'#6C82BB', fontWeight:'400', alignSelf:'center', marginBottom:10}}>Please remember to SUBMIT all completed forms</Text>
-          </>
-        )
+                            <TouchableOpacity style={{margin:5,alignSelf:'flex-end'}} onPress={()=>deleteFormConfirmation(allForms[formIndex]["Form Id"])}><RedTrashCan /></TouchableOpacity>
+                          </View>
+                      </TouchableOpacity>
+                  </View>
+                  )
+                }
+              }):<Text style={{fontSize:18, color:'#6C82BB', fontWeight:'400', alignSelf:'center', marginVertical:10}}>No Forms Found, create a new form to begin.</Text>
+            }
+          </ScrollView>
+          </View>
+          <NumberOfFormsSaved size={tempCount}/>
+          <Text style={{fontSize:18, color:'#6C82BB', fontWeight:'400', alignSelf:'center', marginBottom:10}}>Please remember to SUBMIT all completed forms</Text>
+        </>)
         : 
         (
-            <View>
-                <Text>Loading, Pease Wait</Text>
-                <ActivityIndicator size="large" color="red" />
-            </View>
+          <View>
+              <Text>Loading, Pease Wait</Text>
+              <ActivityIndicator size="large" color="red" />
+          </View>
         )}
     </View>
     )

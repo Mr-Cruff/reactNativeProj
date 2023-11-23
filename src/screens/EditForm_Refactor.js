@@ -31,6 +31,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
     const [loading, setloading] = useState(false);
     const [canSubmit, setEnableSubmit] = useState(false);
     const retrievedForm = route.params.formSelected;
+    const { Status:formStatus } = retrievedForm;
     const {Farm, House} = route.params.farmSelected;
     // let rejectReasons = route.params.reasons;
     // const reasons = JSON.parse(rejectReasons)
@@ -201,47 +202,64 @@ const EditForm_Refactored = ({ route, navigation }) => {
     const onSubmit = data => {
       setloading(true);
       const adjustedForm ={...baseFormDetails, ...data,'Date Submitted':new Date().toJSON()}
-      // Farm.type?.toLowerCase() === "grow" ? adjustedForm.Status = FORM_STATUS_OBJ[1]: adjustedForm.Status = FORM_STATUS_OBJ[0];
-      // adjustedForm.Status = setFormStatus(Farm);
-      adjustedForm.Status = setFormStatus(Farm);
-      // console.log("On Submit: ");
-      // console.log(JSON.stringify(adjustedForm));
-      // console.log("Get Fields: ");
-      // console.log(JSON.stringify(getFormFields()));
-      // saveForm(adjustedForm).then((updatedForm)=>{console.log(updatedForm)}).then(()=>setloading(false));
-      saveForm(adjustedForm).then((updatedForm)=>{console.log(updatedForm); 
-      SubmitForm(updatedForm)});
+      if(adjustedForm.Status != FORM_STATUS_OBJ[0] || adjustedForm.Status != FORM_STATUS_OBJ[1]){
+        // Farm.type?.toLowerCase() === "grow" ? adjustedForm.Status = FORM_STATUS_OBJ[1]: adjustedForm.Status = FORM_STATUS_OBJ[0];
+        // adjustedForm.Status = setFormStatus(Farm);
+  
+        // ===========================================
+        adjustedForm.Status = setFormStatus(Farm);
+        // ===========================================
+
+        // console.log("On Submit: ");
+        // console.log(JSON.stringify(adjustedForm));
+        // console.log("Get Fields: ");
+        // console.log(JSON.stringify(getFormFields()));
+        // saveForm(adjustedForm).then((updatedForm)=>{console.log(updatedForm)}).then(()=>setloading(false));
+        saveForm(adjustedForm).then((updatedForm)=>{
+          SubmitForm(updatedForm)
+        });
+      }else{
+        // ===========================================
+        adjustedForm.Status = setFormStatus(Farm);
+        // ===========================================
+        SubmitForm(adjustedForm)
+      }
     };
 
     const SubmitForm = async (form) => {
-      console.log("============================ Execute Query ==========================");
-      console.log(JSON.stringify(form));
+      // console.log("============================ Execute Query ==========================");
+      // form.Status = setFormStatus(Farm);
+      // console.log(JSON.stringify(form));
       executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',undefined,{_object:JSON.stringify(form)})
       .then((response) => {
         if(response.status == 200 ) {
           // console.log('======================== SUCCESS RESPONSE ============================');
-          console.log(response.data);
+          // console.log(response.data);
           Alert.alert(
             `Success`, 
             `Your form has been successfully SUBMITTED`,
             [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => navigation.goBack() }
+              {
+                text: "Cancel",
+                style: "cancel"
+              },
+              {text: "OK", onPress: () => navigation.goBack() }
             ]
           )
         }else{
-          console.log("============================ Failed ==========================");
-          console.log(response.response.toJSON());
-          const adjustedForm ={...form,'Date Submitted':new Date().toJSON()}
-          adjustedForm.Status = FORM_STATUS_OBJ[-1];
-          console.log("On Submit Fail: ");
-          saveForm(adjustedForm);
-          ShowAlert(`Falied`, `${response.response.data.message}`);
+          // console.log("============================ Failed ==========================");
+          console.log(form);
+          const isSubmitted = response?.response?.data?.message === "Error -> A record was already created for that Flock and Date. Please check your information and try again" || response?.response?.data?.message === "Error -> That Form ID was already submitted. Please check your details and try again";
+          let adjustedForm ={...form}
+          if (!isSubmitted){
+            adjustedForm = {...form, 'Date Submitted':" - ", Status:FORM_STATUS_OBJ[-1]};
+            saveForm(adjustedForm);
+          }else{
+            adjustedForm.Status = FORM_STATUS_OBJ[0];
+          }
+          // saveForm(adjustedForm);
+          ShowAlert(`Failed`, `${response?.response?.data?.message? response.response.data.message:response || "NO Error Code Found"}`);
         }
         setloading(false);
       });
@@ -251,8 +269,8 @@ const EditForm_Refactored = ({ route, navigation }) => {
       // console.log(data);
       const adjustedForm = {...baseFormDetails, ...data}
       adjustedForm.Status = FORM_STATUS_OBJ[-1];
-      // console.log("On Save: ");
-      // console.log(adjustedForm);
+      console.log("On Save: ");
+      console.log(adjustedForm);
       saveForm(adjustedForm).then(() => {
        Alert.alert(
           `Success`, 
@@ -323,6 +341,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
     // const baseFormDetails = getFormFields();  
     // console.log(Object.keys({}).map((key,idx)=>key))
     // console.log(retrievedForm)
+    // console.log(formStatus);
     return(
         // <FormContext {...methods}>
         <ScrollView style={{backgroundColor:'#E0E8FC'}}>
@@ -346,16 +365,16 @@ const EditForm_Refactored = ({ route, navigation }) => {
           {
            !loading ? 
             <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
-              <TouchableOpacity style={!formState.isDirty? styles.saveButtonDisabled : !formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={formState.isValid || !formState.isDirty} onPress={(e)=>{setloading(true); onSave(form.getValues());}}>
+              {formStatus != FORM_STATUS_OBJ[0] && <TouchableOpacity style={!formState.isDirty? styles.saveButtonDisabled : !formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={formState.isValid || !formState.isDirty} onPress={(e)=>{setloading(true); onSave(form.getValues());}}>
                   <Text style={!formState.isDirty ?  {color:"grey"} : !formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>}
               {/* <TouchableOpacity style={!formState.isValid ? styles.button: styles.saveButtonDisabled} onPress={(e)=>getFormFields}>
                   <Text style={!formState.isValid ? styles.buttonText: {color:"grey"}}>Get Values</Text>
               </TouchableOpacity> */}
               {/* {console.log("IS THE FORM VALID? "+formState.isValid)}
               {console.log("IS THE FORM VALID? "+JSON.stringify(formState.errors))} */}
               <TouchableOpacity style={formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={!formState.isValid} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
-                <Text style={formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE & SUBMIT</Text>
+                <Text style={formState.isValid ? styles.buttonText: {color:"grey"}}>{formStatus != FORM_STATUS_OBJ[0] ? "SAVE & SUBMIT" : "SUBMIT"}</Text>
               </TouchableOpacity> 
             </View>
            : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />

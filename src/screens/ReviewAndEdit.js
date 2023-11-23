@@ -15,7 +15,7 @@ import {
   } from 'react-native';
 import { ActivityIndicator, RadioButton } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Category, CategoryController, EditFormIcon, executeApiQuery, timeConvert, timeConverter, WhitePlus, WhiteX, WhiteTick} from '../services/Helpers';
+import {Category, CategoryController, EditFormIcon, executeApiQuery, timeConvert, timeConverter, WhitePlus, WhiteX, WhiteTick, ShowAlert} from '../services/Helpers';
 // import {Category} from '../components/formComponents/EditFormCategory';
 import axios from 'axios';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
@@ -26,12 +26,13 @@ import { GlobalContext } from '../contexts/GlobalContext';
 const ReviewAndEdit = ({ route, navigation:nav }) => {
     const { formSchema:formFields } = useContext(GlobalContext);
     const { token, name } = useAuth().authData;
+    const [submitting, setSubmitting] = useState(false);
     // const [loading, setloading] = useState(false);
     const [allowEdit, setAllowEdit] = useState(false);
     const [allowRejection, setRejection] = useState(false);
     const retrievedForm = JSON.parse(route.params.retrievedForm.Data);
     // console.log("=======================================================================");
-    console.log(route.params.retrievedForm.Data);
+    // console.log(route.params.retrievedForm.Data);
     const { "Form Id":formId, Farm, House } = retrievedForm;
     const farm = {farm:Farm, type:"Eggs" in retrievedForm? "Production" : "Grow", house:House}
     const form = useForm({mode: "onChange"});
@@ -56,20 +57,42 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
       executeApiQuery('/api/FormDetails/re-submitFormDetails',token,'post',JSON.stringify(form),params)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       .then((response) => {
-        console.log(response.data);
+      //   console.log('Response Data: =================================');
+      //   console.log(response);
+      //   Alert.alert(
+      //     `Success`, 
+      //     `Your form has been successfully SUBMITTED`,
+      //     [
+      //       {text:'OK, Close Form', onPress: ()=> nav.goBack()}
+      //     ]
+      //   )
+      // })
+      // .catch((error) => {
+      //   console.log('Error Message: =================================');
+      //   console.log(error.message);
+      //   Alert.alert(`Falied`, `Your form could NOT be submitted, please try again later. \nERROR MESSAGE:${error.message}`)
+      // })
+      if(response.status == 200 ) {
+        // console.log('======================== SUCCESS RESPONSE ============================');
+        // console.log(response.data);
         Alert.alert(
           `Success`, 
           `Your form has been successfully SUBMITTED`,
           [
-            {text:'OK, Close Form', onPress: ()=> nav.goBack()}
+            {
+              text: "Cancel",
+              style: "cancel"
+            },
+            {text: "OK", onPress: () => nav.goBack() }
           ]
         )
-      })
-      .catch((error) => {
-        console.log(error.message);
-        Alert.alert(`Falied`, `Your form could NOT be submitted, please try again later. \nERROR MESSAGE:${error.message}`)
-      })
-    } 
+      }else{
+        // console.log("============================ Failed ==========================");
+        // console.log(response.data);
+        ShowAlert(`Failed`, `${response?.response?.data?.message? response.response.data.message:response || "NO Error Code Found"}`);
+      }
+    }); 
+  }
 
     // const saveForm = async (form) => {
     //   let found=false;
@@ -197,13 +220,13 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
     }
 
     const submitRejection = async (reasons) => {
-        console.log(formId, token, name);
+        // console.log(formId, token, name);
         //Make Rejection Query Here *************        
         executeApiQuery(`/api/FormDetails/formID?formId=${formId}`,token,'patch',{statusId:FORM_STATUS_OBJ["Rejected"], approverComments:[...reasons], rejectedBy:name},undefined)
         .then(function (response) {
         //   console.log(reasons);
         //   console.log(response.status);
-          // console.log(response.data);
+        //   console.log(response.data);
           Alert.alert(
             'Success',
             `Form review submitted successfully`,
@@ -234,7 +257,11 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
             <RenderForm formFields={formFields} retrievedForm={retrievedForm} form={form} allowEdit={allowEdit} farm={farm} />
             {!allowEdit && allowRejection && <RejectMenu />}
             {!allowEdit && !allowRejection && <ButtonMenu />}
-            {allowEdit && <View style={{width:'auto', alignSelf:'center',marginBottom:'5%',marginTop:'2%'}}><ActionButton props={{"function":null, label:"Final Submission", icon:WhiteTick, size:42}}/></View>}
+            {allowEdit && 
+              <View style={{width:'auto', alignSelf:'center',marginBottom:'5%',marginTop:'2%'}}>
+                {!submitting ?<ActionButton props={{"function":null, label:"Final Submission", icon:WhiteTick, size:42}}/> : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />}
+              </View>
+            }
             {/* {allowEdit && <View style={{width:180, alignSelf:'center',marginBottom:'5%',marginTop:'2%'}}>
                             <TouchableOpacity style={[styles.actionButton,{justifyContent:'space-between', width:'auto'}]} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
                             <WhiteTick size={40} />

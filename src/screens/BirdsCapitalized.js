@@ -15,25 +15,25 @@ import { executeApiQuery, jamaicanDateFormat, nth, setMinDate } from '../service
 
 const BirdsCapitalized =({ route, navigation })=>{
   const {farmSelected, house}=route.params;
+  const bOH = house?.birdsBroughtForward;
   const {token} = useAuth().authData;
   const [loading, setLoading] = useState(true);
-  const [malesCap, setMalesCap] = useState("");
-  const [hensCap, setHensCap] = useState("");
-  const [capAge, setCapAge] = useState("");
-  const [polDate, setPolDate] = useState(false);
+  const [qLoading, setQLoading] = useState(false);
+  const [malesCap, setMalesCap] = useState(null);
+  const [hensCap, setHensCap] = useState(null);
+  const [capAge, setCapAge] = useState(null);
   const [dateTimeCap, setDateTimeCap] = useState(false);
-  const [maleInventory, setMaleInventory] = useState("");
-  const [femaleInventory, setFemaleInventory] = useState("");
   const [isVisible1, setIsVisible1] = useState(false);
   const [errors, setErrors] = useState({});
+  const totalCap = malesCap+hensCap;
 
+  
   useEffect(()=>{
-    console.log(farmSelected, house);
     setLoading(false);
   },[]);
   
   const areFieldsValid = () => {
-    return malesCap > 0 && hensCap > 0 && capAge > 0 && maleInventory > 0 && femaleInventory > 0 && polDate && dateTimeCap;
+    return malesCap > 0 && hensCap > 0 && capAge > 0 && dateTimeCap && totalCap<=bOH;
   };
 
   const validateFields = () => {
@@ -41,6 +41,7 @@ const BirdsCapitalized =({ route, navigation })=>{
       if (malesCap <= 0 || !malesCap) tempErrors.malesCap = "Value should be greater than 0";
       if (hensCap <= 0 || !hensCap) tempErrors.hensCap = "Value should be greater than 0";
       if (capAge <= 0 || !capAge) tempErrors.capAge = "Value should be greater than 0";
+      if (house.birdsBroughtForward < hensCap+malesCap) tempErrors.birdsCap = "Total birds capitalized must be less than birds on hand";
 
       setErrors(tempErrors);
       return Object.keys(tempErrors).length === 0;  // Returns true if no errors
@@ -68,8 +69,11 @@ const BirdsCapitalized =({ route, navigation })=>{
   };
 
   const submitBirdsCapitalized = async () => {
+    setQLoading(true);
     if (!validateFields()) {
-      Alert.alert("Validation Error", "Please correct the input fields before submitting.");
+      Alert.alert("Validation Error", `Please correct the following fields before submitting:${Object.keys(errors).map((i,idx)=>`\n ${idx + 1}. ${errors[i]}`)}`, [
+        { text: "OK", onPress: () => setQLoading(false) }
+        ]);
       return;
     }
     const url = '/api/BirdsCapitalization/NewBirdsCapitizationRecord';
@@ -90,17 +94,20 @@ const BirdsCapitalized =({ route, navigation })=>{
       } else {
           throw new Error(capitalizationData.status);
       }
+      setQLoading(false)
     } catch (error) {
+      setQLoading(false)
       Alert.alert("Failed", `Bird Capitalization record submission failed.\nError: ${error.message}`);
     }
   }
+  const isValid = () => totalCap>bOH;
 
   return(
     <ScrollView  style={styles.container}>
       <Text style={styles.pageTitle}>BIRDS CAPITALIZED</Text>
       {!loading?
-        <View style={{marginHorizontal:10}}>
-          <View style={{flexDirection:'row', justifyContent:'space-around', backgroundColor:'beige', padding:30, marginHorizontal:10, marginBottom:10}}>
+        <View style={{margin:10}}>
+          <View style={{flexDirection:'row', justifyContent:'space-around', flexWrap:'wrap', backgroundColor:'beige', padding:30, marginHorizontal:10, marginBottom:30}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <Text style={{fontSize:20, color:'grey'}}>FARM: </Text>
               <Text style={{paddingHorizontal:5, fontSize:20, fontWeight:'500',color:'#282C50'}}>{farmSelected.name}</Text>
@@ -109,8 +116,12 @@ const BirdsCapitalized =({ route, navigation })=>{
               <Text style={{fontSize:20, color:'grey'}}>HOUSE: </Text>
               <Text style={{paddingHorizontal:5, fontSize:20, fontWeight:'500', color:'#282C50'}}>{house.name.toUpperCase()}</Text>
             </View>
+            {house.birdsBroughtForward && <View style={{flexDirection:'row', alignItems:'center'}}>
+              <Text style={{fontSize:20, color:'grey'}}>BIRDS ON-HAND: </Text>
+              <Text style={{paddingHorizontal:5, fontSize:20, fontWeight:'500', color:'#282C50'}}>{house.birdsBroughtForward}</Text>
+            </View>}
           </View>
-            <View style={{padding:10}}>
+          <View style={{padding:10}}>
             <Text style={{color: '#282C50', fontSize: 18}}>Date Capitalized</Text>
             <TouchableOpacity onPress={()=>setIsVisible1(true)}  style={{padding:20, backgroundColor:'beige'}}>
             <Text style={{color:'black'}}>{!dateTimeCap?" -  Select Date Capitalized - ":`${jamaicanDateFormat(dateTimeCap)}`}</Text>
@@ -134,6 +145,7 @@ const BirdsCapitalized =({ route, navigation })=>{
             }
             </TouchableOpacity> 
           </View>
+          {isValid() && <Text style={{marginTop:20,color:'red', textAlign:'center', fontSize:18}}>* Total birds capitalized must NOT be more than BIRDS ON-HAND *</Text>}
           <View style={{padding:10}}>
             <Text style={{color: '#282C50', fontSize: 18}}>Males Capitalized</Text>
             <TextInput
@@ -165,24 +177,26 @@ const BirdsCapitalized =({ route, navigation })=>{
               keyboardType={"number-pad"}
             />
           </View>
+
+          <Text style={{paddingHorizontal:10, textAlign:'right', fontSize:15}}>Total birds capitalized: <Text style={{color:isValid()?'red':'#282C50', fontWeight:isValid()?'bold':"normal", fontSize:16}}>{totalCap}</Text></Text>
           <View style={{padding:10}}>
             <Text style={{color: '#282C50', fontSize: 18}}>Capitalization Age</Text>
             <TextInput
               style={styles.input}
               placeholder={'Capitalization Age'}
-            onChangeText={(text) => {
-              const newValue = handleTextChangeFloat(text);
-              if (newValue !== undefined) {
-                setCapAge(newValue);
-              }
-            }}
+              onChangeText={(text) => {
+                const newValue = handleTextChangeFloat(text);
+                if (newValue !== undefined) {
+                  setCapAge(newValue);
+                }
+              }}
             value={capAge === null ? '' : String(capAge)}
               keyboardType={"decimal-pad"}
             />  
           </View>
-          <TouchableOpacity disabled={!areFieldsValid()} onPress={submitBirdsCapitalized} style={!areFieldsValid()? styles.saveButtonDisabled : styles.button}>
+          {!qLoading ? <TouchableOpacity disabled={!areFieldsValid()} onPress={submitBirdsCapitalized} style={!areFieldsValid()? styles.saveButtonDisabled : styles.button}>
             <Text style={areFieldsValid() ? styles.buttonText: {color:"grey"}}>Submit</Text>
-          </TouchableOpacity>            
+          </TouchableOpacity>:<ActivityIndicator size={'large'}/> }           
         </View>
         :
         <View style={{alignItems:'center'}}>
@@ -211,7 +225,7 @@ const styles = StyleSheet.create({
       fontSize: 32,
       textAlign: 'center',
       fontWeight: 'bold',
-      marginBottom: 10,
+      marginVertical: 20,
     },
     button: {
       backgroundColor: '#282C50',
