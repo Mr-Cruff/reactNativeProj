@@ -8,7 +8,6 @@ import { Text, View, Button, Platform,PermissionsAndroid, Alert } from 'react-na
 PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATION);
 
 const App = () => {
-
   // async function requestUserPermission() {
   //   const authStatus = await messaging().requestPermission();
   //   const enabled =
