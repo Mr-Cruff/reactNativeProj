@@ -24,7 +24,7 @@ const signIn = async (email, _password): Promise<AuthData> => {
 
   console.log('attempting to access auth endpoint');
   await axios.post(`${AUTH_API}/api/Auth/login`, {"username":email,"password":_password, "appID":APP_ID}).then(res=>{
-    console.log(res)
+    console.log(res.data)
     data = res.data;
     decoded = jwt_decode(data.token);
     name="";

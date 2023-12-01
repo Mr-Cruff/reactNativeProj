@@ -120,7 +120,7 @@ const RejectedForms = ({route, navigation, back}) => {
               farmId: farmId 
             } 
         }
-        return await axios.get("https://devipbformdata.jabgl.com:84/api/FormDetails/getformdetailsSubmittedByFarm",config).then((response)=>{
+        return await axios.get(`${APP_API}/api/FormDetails/getformdetailsSubmittedByFarm`,config).then((response)=>{
           // console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
           // console.log(JSON.stringify(formInfo(response.data[0]["TblFlockMt"])));
           // console.log(response.status);

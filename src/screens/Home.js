@@ -17,14 +17,12 @@ import {FarmTile} from '../components/Dashboard';
 import NetInfo from '@react-native-community/netinfo';
 import axios from 'axios';
 import { APP_API } from '../Constants.tsx';
-import ResetPassword from './ResetPassword';
+
 import { APP_ROLES, WEEKDAY } from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
-import { NewFormIcon, EditFormIcon, WhiteTick, WhiteX, UserProfileIcon, ClockIcon, timeConvert, CalnderIcon, jamaicanDateFormat, executeQuery, getFarmsFromGlobalByName } from '../services/Helpers';
+import { NewFormIcon, EditFormIcon, WhiteTick, WhiteX, UserProfileIcon, CalnderIcon, jamaicanDateFormat,} from '../services/Helpers';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { doesFormExist, getAllFormIds, getAllForms, getFarmFromAsync, getFarmsFromAsync, storeFarms } from '../services/AsyncStorage';
-import { Button } from 'react-native-paper';
-import { postQuery } from '../services/Helpers';
+import {  getFarmsFromAsync, storeFarms } from '../services/AsyncStorage';
 import { Loading } from '../components/Loading';
 //Mock Form MetaData
 const formFields = [
@@ -447,6 +445,9 @@ const Home = ({navigation, back}) => {
     // console.log(!farmFromAsync);
 
     if(farmArray){
+      // if (farmArray.length === 0)
+      //   farmArray = null;
+
       setFarms(farmArray);
       global.setFarms(farmArray);
       // console.log('Storing Farms');
@@ -458,7 +459,6 @@ const Home = ({navigation, back}) => {
     }
     else if(!farmArray && !asyncFarmArray)
       setFarms(null);
-
     // const farmData = response.data;
     // const farmArray = farmData.map(farm => {
     //   return {
@@ -511,50 +511,6 @@ const Home = ({navigation, back}) => {
   );
   };
 
-  const TestButton = ({ func }) => {
-    return (
-      <TouchableOpacity onPress={async ()=>{func.func([`https://jsonplaceholder.typicode.com/todos/1`,undefined,undefined,undefined])}}>
-        <Text>Add Query</Text>
-      </TouchableOpacity>
-    )
-  }
-  const TestButton5 = ({ func }) => {
-    return (
-      <TouchableOpacity onPress={async ()=>{func.func([`https://jsonplaceholder.typicode.com/tos/1`,undefined,undefined,undefined])}}>
-        <Text>Add Bad Query</Text>
-      </TouchableOpacity>
-    )
-  }
-  const TestButton2 = () => {
-    return (
-      <TouchableOpacity onPress={()=>{setLoading(true);getFarms()}}>
-        <Text>Refresh</Text>
-      </TouchableOpacity>
-    )
-  }
-  const TestButton3 = () => {
-    return (
-      <TouchableOpacity onPress={()=>{global.processQuery()}}>
-        <Text>Process Queries</Text>
-      </TouchableOpacity>
-    )
-  }
-  const TestButton6 = () => {
-    return (
-      // <TouchableOpacity onPress={()=>{executeQuery([`https://jsonplaceholder.typicode.com/todos/1`,undefined,undefined,undefined]).then((e)=>console.log(e))}}>
-      <TouchableOpacity onPress={async ()=>{console.log( await getFarmFromAsync(uuid, "MARYLAND FARM 2"))}}>
-        <Text>Get Farms from async</Text>
-      </TouchableOpacity>
-    )
-  }
-  const TestButton4 = () => {
-    return (
-      // <TouchableOpacity onPress={()=>{executeQuery([`https://jsonplaceholder.typicode.com/todos/1`,undefined,undefined,undefined]).then((e)=>console.log(e))}}>
-      <TouchableOpacity onPress={async ()=>{const b = await executeQuery([`https://jsonplaceholder.typicode.com/toodos/1`]);console.log(b.data);}}>
-        <Text>execute Queries</Text>
-      </TouchableOpacity>
-    )
-  }
 //  console.log(farms);
   return (
     !loading?   
@@ -570,8 +526,6 @@ const Home = ({navigation, back}) => {
       </View>
       <View style={{flex:1,}}>
       <LinearGradient colors={["#edf2fb","#ccdbfd",]}>
-      {/* <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={["#FFEBBC","#d8f3dc"]}> */}
-      {/* <LinearGradient colors={["#E0E8FC","#748FD3","#33519D","#1A3069",]}> */}
       <ScrollView  
           refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={()=>{setRefresh(true); getFarms()}} />
@@ -632,14 +586,26 @@ const Home = ({navigation, back}) => {
               MY FARMS
             </Text>
             <View style={{flex:1, marginHorizontal:30}}>
+            <View style={{minHeight:550,}}>
             { 
               loading ?
                <ActivityIndicator size="large" color="red" /> 
                :
-                farms ? farms.map((farm, index) => {
-                return <FarmTile farm={farm} key={index} />;
-              }):<View style={{minHeight:600}}><Text>We're having some trouble loading your farms</Text></View>
+                farms ? farms.length > 0? farms.map((farm, index) => {
+                  return <FarmTile farm={farm} key={index} />;
+                }):  
+                // <View style={{minHeight:550,}}>
+                  <View style={{backgroundColor:'#ced4da',justifyContent:'center',alignItems:'center', padding:20,marginTop:30, borderRadius:20,}}>
+                    <Text style={{fontSize: 20, color:'#495057', fontWeight: 'bold', marginBottom:10}}>NO FARMS</Text>
+                    <Text style={{textAlign:'center',flexWrap:'wrap', width:550}}>You don't seem to have any farms assigned to you, please contact your System Administrator for assistance.</Text>
+                  </View>
+                // </View>
+                :
+                // <View style={{minHeight:600}}>
+                  <Text>We're having some trouble loading your farms</Text>
+                // </View>
             }
+            </View>
             </View>
           </View>
           {/* <EditFormDetails /> */}
@@ -649,10 +615,8 @@ const Home = ({navigation, back}) => {
       </View>
       <ButtonPanel />
     </View>:<Loading />
-    // : refreshing ? <ActivityIndicator size='large' color='red'/> 
   );
 }
-// };
 export default Home;
 
 const styles = StyleSheet.create({

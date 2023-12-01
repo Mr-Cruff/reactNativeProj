@@ -123,7 +123,8 @@ const ReviewForm = ({route, navigation, back}) => {
               farmId: farmId 
             } 
         }
-        return await axios.get("https://devipbformdata.jabgl.com:84/api/FormDetails/getformdetailsSubmittedByFarm",config).then((response)=>{
+        console.log(config)
+        return await axios.get(`${APP_API}/api/FormDetails/getformdetailsSubmittedByFarm`,config).then((response)=>{
           console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
           // console.log(JSON.stringify(formInfo(response.data[0]["TblFlockMt"])));
           // console.log(response.status);
@@ -167,35 +168,35 @@ const ReviewForm = ({route, navigation, back}) => {
               {forms.map((form, formIndex) => { 
                 if(form.house.trim().toUpperCase() !== "HOUSE"){
                   return (
-                        <View style={{marginBottom:10}} key={formIndex}>
-                          <Text style={{fontSize:17, marginTop:0, marginBottom:5, color:'#495057'}}>{form.house.toUpperCase()}</Text>
-                          <View>
-                            {
-                              form.forms.length > 0 ?                             
-                                form.forms.map((i, idx)=>{
-                                // console.log(form.forms.length);
-                                // console.log({house: form.house.toUpperCase(), ...i});
-                                return FormTile({house: form.house.toUpperCase(), ...i});
-                                })
-                              :<Text style={{fontSize:15, color:'#adb5bd', backgroundColor:'#dee2e6', width:'100%', textAlign:'center', textAlignVertical:'center', height:40}}>No forms available for REVIEW for this house</Text>
-                              //)   (() => {
-                              //   // console.log(form.forms.length)
-                              //   // for(let formObj of form.forms){
-                              //   for(let i=0;i<form.forms.length;i++){
-                              //     console.log(form.forms[i].formId);
-                              //     return(
-                              //       FormTile(form.forms[i])
-                              //     //   <View>
-                                    
-                              //     //       // console.log(formObj)
-                              //     //     }
-                                    
-                              //     // </View>
-                              //     )}
-                              // })()
-                            }
-                          </View>
-                        </View>
+                    <View style={{marginBottom:10}} key={formIndex}>
+                      <Text style={{fontSize:17, marginTop:0, marginBottom:5, color:'#495057'}}>{form.house.toUpperCase()}</Text>
+                      <View>
+                        {
+                          form.forms.length > 0 ?                             
+                            form.forms.map((i, idx)=>{
+                            // console.log(form.forms.length);
+                            // console.log({house: form.house.toUpperCase(), ...i});
+                            return FormTile({house: form.house.toUpperCase(), ...i});
+                            })
+                          :<Text style={{fontSize:15, color:'#adb5bd', backgroundColor:'#dee2e6', width:'100%', textAlign:'center', textAlignVertical:'center', height:40}}>No forms available for REVIEW for this house</Text>
+                          //)   (() => {
+                          //   // console.log(form.forms.length)
+                          //   // for(let formObj of form.forms){
+                          //   for(let i=0;i<form.forms.length;i++){
+                          //     console.log(form.forms[i].formId);
+                          //     return(
+                          //       FormTile(form.forms[i])
+                          //     //   <View>
+                                
+                          //     //       // console.log(formObj)
+                          //     //     }
+                                
+                          //     // </View>
+                          //     )}
+                          // })()
+                        }
+                      </View>
+                    </View>
                   );
                 }
               })}

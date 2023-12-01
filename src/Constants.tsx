@@ -6,8 +6,10 @@ export enum APP_ROLES {
    "Data Supervisor",  
 };
 export const APP_ID ='BB691C6B-6357-4101-AE67-08DA96D9ABF9';
-export const AUTH_API ='https://devjbgauthservices.jabgl.com:6006';
-export const APP_API ='https://devipbformdata.jabgl.com:84';
+export const AUTH_API ='https://jbgauthservices.jabgl.com';
+// export const AUTH_API ='https://devjbgauthservices.jabgl.com:6006';
+export const APP_API ='https://ipbformdata.jabgl.com';
+// export const APP_API ='https://devipbformdata.jabgl.com:84';
 export enum FORM_STATUS_OBJ {
    "Incomplete"=-1,  
    "Presubmitted", 

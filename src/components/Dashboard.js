@@ -154,6 +154,31 @@ export const FarmTile = ({farm}) => {
         )}
       </View> 
     );
+  else{
+    return(
+      <View
+       style={{
+         alignItems: 'center',
+         backgroundColor: '#282C50',
+         padding: 20,
+         borderRadius: 10,
+         justifyContent:'space-around',
+         margin:20
+       }}>
+          <Image source={require('../resources/FarmLogo.png')} style={{ width: 90, height: 75, zIndex:-1}} />
+          <View style={styles.farmNameContainer}>
+            <Text style={styles.farmName}> {farm.name} </Text>
+             <View style={{alignItems:'center'}}>
+              <View style={{marginVertical:10}}>
+                <Text style={highlightText}>{farm.type}</Text>
+              </View>
+            </View>
+          </View>
+              <Text style={[styles.highlightText,{color:'grey'}]}>No Flock data is available for this farm</Text>
+        </View>        
+ 
+    )
+  }
 };
 
 // export const FarmTile_refactor =({farm}) => {
