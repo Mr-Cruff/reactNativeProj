@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 17,
-      "versionName": "1.0.16 - UAT",
+      "versionCode": 18,
+      "versionName": "1.1.0 - PROD",
       "outputFile": "resources-release.ap_"
     }
   ],
