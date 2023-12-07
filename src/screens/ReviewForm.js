@@ -104,7 +104,7 @@ const ReviewForm = ({route, navigation, back}) => {
         // const recievedData = getForm(item.formId);
         // await getForm(item.formId).then((e)=>{navigation.navigate('Form Review', {farm:farmSelected, house:item.house, form:e, createdBy:item.createdBy})})
         if(reviewType === "submission")
-          await getForm(item.formId).then((e)=>{console.log('\n form ======');console.log(e); navigation.navigate('Review and Edit', { retrievedForm:e })});
+          await getForm(item.formId).then((e)=>{console.log('\n form ======');console.log(e.Data); navigation.navigate('Review and Edit', { retrievedForm:e })});
         else
           await getForm(item.formId).then((e)=>{console.log('\n form ======');console.log(e); navigation.navigate('Form Review', { recievedData:e })});
         // await getForm(item.formId).then((e)=>{navigation.navigate('Form Review', { recievedData:e })})
@@ -124,7 +124,7 @@ const ReviewForm = ({route, navigation, back}) => {
             } 
         }
         return await axios.get("https://devipbformdata.jabgl.com:84/api/FormDetails/getformdetailsSubmittedByFarm",config).then((response)=>{
-          console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
+          // console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
           // console.log(JSON.stringify(formInfo(response.data[0]["TblFlockMt"])));
           // console.log(response.status);
           setFormList(formInfo(response.data[0]["TblFlockMt"], reviewType))
@@ -203,8 +203,6 @@ const ReviewForm = ({route, navigation, back}) => {
       )
     }
 
-
-  
     return (
         <View style={styles.container}>
           <Text

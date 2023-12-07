@@ -15,7 +15,7 @@ import {
   } from 'react-native';
 import { ActivityIndicator, RadioButton } from 'react-native-paper';
 // import DateTimePicker from '@react-native-community/datetimepicker';
-import {FarmSummary, Category, executeApiQuery, timeConvert, timeConverter, WhitePlus, ShowAlert} from '../services/Helpers';
+import {FarmSummary, Category, executeApiQuery, timeConvert, timeConverter, WhitePlus, ShowAlert, convertToCSharpCompatibleFormat} from '../services/Helpers';
 // import {Category} from '../components/formComponents/EditFormCategory';
 import axios from 'axios';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
@@ -227,9 +227,9 @@ const EditForm_Refactored = ({ route, navigation }) => {
     };
 
     const SubmitForm = async (form) => {
-      // console.log("============================ Execute Query ==========================");
+      console.log("============================ Execute Query ==========================");
       // form.Status = setFormStatus(Farm);
-      // console.log(JSON.stringify(form));
+      console.log(JSON.stringify(form));
       executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',undefined,{_object:JSON.stringify(form)})
       .then((response) => {
@@ -248,8 +248,9 @@ const EditForm_Refactored = ({ route, navigation }) => {
             ]
           )
         }else{
-          // console.log("============================ Failed ==========================");
-          console.log(form);
+          console.log("============================ Failed ==========================");
+          console.warn(response.response.data);
+          // console.log(form);
           const isSubmitted = response?.response?.data?.message === "Error -> A record was already created for that Flock and Date. Please check your information and try again" || response?.response?.data?.message === "Error -> That Form ID was already submitted. Please check your details and try again";
           let adjustedForm ={...form}
           if (!isSubmitted){
@@ -340,7 +341,27 @@ const EditForm_Refactored = ({ route, navigation }) => {
     const baseFormDetails = header;  
     // const baseFormDetails = getFormFields();  
     // console.log(Object.keys({}).map((key,idx)=>key))
-    // console.log(retrievedForm)
+    console.log(retrievedForm);
+  //   function convertToCSharpCompatibleFormat(dateString) {
+  //     let date = new Date(dateString);
+  //     let offset = 0; // UTC-5 for Eastern Time
+  //     let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+      
+  //     let year = localDate.getFullYear();
+  //     let month = String(localDate.getMonth() + 1).padStart(2, '0');
+  //     let day = String(localDate.getDate()).padStart(2, '0');
+  //     let hours = String(localDate.getHours()).padStart(2, '0');
+  //     let minutes = String(localDate.getMinutes()).padStart(2, '0');
+  //     let seconds = String(localDate.getSeconds()).padStart(2, '0');
+  
+  //     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  // }
+
+      let date = retrievedForm['Date Created'];
+      // console.log(new Date(date).toISOString());
+      // console.log(new Date(date).toString());
+      // console.log(convertToCSharpCompatibleFormat(date));
+
     // console.log(formStatus);
     return(
         // <FormContext {...methods}>
@@ -523,18 +544,18 @@ export const setFormStatus = ({type, name}) => {
 
 const RenderForm = ({ formFields, retrievedForm, form, farm, house }) => {
   // console.log(farm, house);
-    return(
-      <View>
-        {
-          Object.keys(formFields).map((key, index)=>{
-            return(
-              <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, ...{house:house}}}/>
-            )
-            //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
-          })
-        }
-      </View>
-    )
+  return(
+    <View>
+      {
+        Object.keys(formFields).map((key, index)=>{
+          return(
+            <CategoryController categorySchema={formFields[key]} retrievedData={retrievedForm[formFields[key].title]} form={form} key={index} farm={{...farm, ...{house:house}}}/>
+          )
+          //   console.log(formFields[key].title, retrievedForm[formFields[key].title])
+        })
+      }
+    </View>
+  )
 }
 
 export const CategoryController = ({ categorySchema, retrievedData, form, farm }) => {  

@@ -123,6 +123,71 @@ export function calculateTimeDifference(start="", end="") {
   return `${hours}h ${minutes}m`;
 }   
 
+export function convertToCSharpCompatibleFormat(dateString) {
+  let date = new Date(dateString);
+  let offset = 0; // UTC-5 for Eastern Time
+  let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+  
+  let year = localDate.getFullYear();
+  let month = String(localDate.getMonth() + 1).padStart(2, '0');
+  let day = String(localDate.getDate()).padStart(2, '0');
+  let hours = String(localDate.getHours()).padStart(2, '0');
+  let minutes = String(localDate.getMinutes()).padStart(2, '0');
+  let seconds = String(localDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
+}
+
+// Egg collection entry for 4 times
+export const fourFieldTime = (idx)=>{
+  let str = "";
+  let currentDate = new Date();
+
+  switch (idx){
+    case 0:
+      str="8:30:00";
+      break;
+    case 1:
+      str="10:00:00";
+      break;
+    case 2:
+      str="13:30:00";
+      break;
+    case 3:
+      str="15:30:00";
+      break;
+  } 
+  let [hours, minutes, seconds] = str.split(':').map(Number);
+
+  currentDate.setHours(hours);
+  currentDate.setMinutes(minutes);
+  currentDate.setSeconds(seconds);
+
+  return currentDate;
+}
+
+// Time specific collection for 2 entries
+export const doubleFieldTime = (idx)=>{
+  let str = "";
+  let currentDate = new Date();
+
+  switch (idx){
+    case 0:
+      str="6:00:00";
+      break;
+    case 1:
+      str="3:00:00";
+      break;
+  } 
+  let [hours, minutes, seconds] = str.split(':').map(Number);
+
+  currentDate.setHours(hours);
+  currentDate.setMinutes(minutes);
+  currentDate.setSeconds(seconds);
+
+  return currentDate;
+}
+
 
 // weight conversions
 export const poundsToTons = (lbs) => {
@@ -516,6 +581,7 @@ export const nth = function(d) {
 }
 
 export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm }) => {
+  // console.log(farm.type);
   // useEffect(()=>{
   //   console.log('Welcome to the Category Component\'s UseEffect');
   // },[]);
@@ -546,6 +612,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
     <ScrollView>
           <View style={styles.container}>
               {categorySchema.fields.map((item, index) => {
+                // console.log(farm);
                 if(farm?.type.toLowerCase() != "production"){
                   if (item.label.includes("Female"))
                     if (farm.house.includes("B"))
@@ -998,7 +1065,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               setValue(`${baseFormLabel}.${subItem.label} Time Captured`, "");
                                             }else{
                                               setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
-                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, newDate.toJSON());
+                                              // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, newDate.toISOString());
+                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, fourFieldTime(subIndex).toISOString());
                                             }
                                             // setValueState(Number(value));
                                             setDate(newDate);
@@ -1015,7 +1083,14 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                     );
                                   }}
                                   />
-                                  <Controller
+
+                                  <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                    <Text style={{color:'black', textAlign:'center'}}>
+                                      {timeConvert(fourFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
+                                    </Text>
+                                  </View>
+                                  
+                                  {/* <Controller
                                     control={control}
                                     name={baseFormLabel + '.' +subItem.label+' Time Captured'}
                                     value={validDefaultDate? date.toJSON():""}
@@ -1023,7 +1098,6 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                     render={({ field:{onChange}}) => (
                                       <TouchableOpacity disabled={globalEdit?!validDefaultDate:!globalEdit} onPress={()=>setIsVisible(true)} style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
                                         <Text style={{color:'black', textAlign:'center'}}>{validDefaultDate? `Time: ${timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}`:` - `}</Text>
-                                        {/* <Text style={{color:'black', textAlign:'center'}}>Time: {timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}</Text> */}
                                         {
                                           isVisible && 
                                           <DateTimePicker 
@@ -1034,7 +1108,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               setIsVisible(false);
                                               setDate(selectedDate);
                                               // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, selectedDate.toJSON())
-                                              onChange(selectedDate.toJSON());
+                                              onChange(selectedDate.toISOString());
+                                              // onChange(selectedDate.toJSON());
                                               }
                                             } 
                                             mode="time" display="spinner" 
@@ -1042,8 +1117,9 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                         }
                                       </TouchableOpacity>
                                     )}
-                                  />
+                                  /> */}
                                   </View>
+                                  
                                   { 
                                     errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
                                       ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
@@ -1080,6 +1156,9 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                         </View>
                       )
                     }
+
+
+
                     // =====================================================================================================================
                     // if (item.type === 'multi-field') {
                       
@@ -1293,6 +1372,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                     //   );
                     // }
                     
+
                     else if(item.type == 'multi-time-only'){ 
                       let startTime = useRef(validateInitDateTime(defaultVal[`${item.fields[0].label}`]) ? new Date(defaultVal[`${item.fields[0].label}`]) : "");
                       let endTime = useRef(validateInitDateTime(defaultVal[`${item.fields[1].label}`]) ? new Date(defaultVal[`${item.fields[1].label}`]) : "");
@@ -1336,7 +1416,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               defaultValue={date.toJSON()}
                                               // onChange={onChange}
                                               onChange={(event, selectedDate)=>{
-                                                const jsonDate= selectedDate.toJSON();
+                                                // const jsonDate= selectedDate.toJSON();
+                                                const jsonDate= selectedDate.toISOString();
                                                 setIsVisible(false);
                                                 setDate(selectedDate);
                                                 if(l && event.type === 'set'){
@@ -1355,7 +1436,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                       // type={"date"}
                                       name={baseFormLabel + '.' +subItem.label}
                                       defaultValue={defaultVal[subItem.label] || "" } 
-                                      value={date.toJSON()}
+                                      value={date.toISOString()}
                                       rules={{ required: true }}
                                       // rules={{ required: true, valueAsDate: true, validate:(value, formValues) => console.log("fsadfsdf"+value)}}
                                     />
@@ -1392,9 +1473,9 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                               alignItems: 'center',
                             }}>
                                 {item.fields.map((subItem, subIndex) => {
-                                  const [showDate, setShowDate] = useState(validateInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
-                                  const [date, setDate] = useState(setInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
-                                  const [isVisible, setIsVisible] = useState(false);
+                                  // const [showDate, setShowDate] = useState(validateInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
+                                  // const [date, setDate] = useState(setInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
+                                  // const [isVisible, setIsVisible] = useState(false);
                                   return(
                                     <View style={{width:'40%'}} key={subIndex}>
                                       <Controller
@@ -1402,7 +1483,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                         control={control}
                                         defaultValue={validateInitValue(defaultVal[subItem.label], subItem.type)}
                                         name={baseFormLabel + '.' + subItem.label}
-                                        rules={(()=>rules(subItem.type))()}
+                                        rules={(() => rules(subItem.type, subItem.regex))()}
+                                        // rules={(()=>rules(subItem.type))()}
                                         render={({field: {onChange, onBlur, value}}) => (
                                           <>
                                             <TextInput
@@ -1416,12 +1498,14 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                                 onChange(e); 
                                                 if(e !== ""){
                                                   const dateNow = new Date();
-                                                  setDate(dateNow);
-                                                  setShowDate(true);
-                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, dateNow.toJSON()); 
+                                                  // setDate(dateNow);
+                                                  // setShowDate(true);
+                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, fourFieldTime(subIndex).toISOString());
+                                                  // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, dateNow.toISOString()); 
+                                                  // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, dateNow.toJSON()); 
                                                   setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));
                                                 }else{
-                                                  setShowDate(false);
+                                                  // setShowDate(false);
                                                   setValue(`${baseFormLabel}.${subItem.label}`, null);
                                                   setValue(`${baseFormLabel}.${subItem.label} Time Captured`, null);
                                                 }}}
@@ -1431,11 +1515,20 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                           </>
                                         )}
                                         />
-                                        <Controller
+
+                                        <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                          <Text style={{color:'black', textAlign:'center'}}>
+                                            {timeConvert(doubleFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
+                                          </Text>
+                                        </View>
+
+                                        {/* <Controller
                                           control={control}
                                           name={baseFormLabel + '.' +subItem.label+' Time Captured'}
-                                          value={showDate?date.toJSON():null}
-                                          defaultValue={showDate?date.toJSON():null}
+                                          value={showDate?date.toISOString():null}
+                                          // value={showDate?date.toJSON():null}
+                                          defaultValue={showDate?date.toISOString():null}
+                                          // defaultValue={showDate?date.toJSON():null}
                                           render={({ field:{onChange}}) => (
                                           <TouchableOpacity disabled={globalEdit? !showDate : !globalEdit} onPress={()=>setIsVisible(true)} style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
                                               <Text style={{color:'black', textAlign:'center'}}>{showDate ? `Time: ${timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}` : ' - '}</Text>
@@ -1451,7 +1544,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                                       setDate(selectedDate);
                                                       // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, date.toJSON())
                                                     }
-                                                    onChange(selectedDate.toJSON())
+                                                    onChange(selectedDate.toISOString())
                                                     }
                                                   } 
                                                   mode="time" display="spinner" 
@@ -1459,7 +1552,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               }
                                           </TouchableOpacity>
                                             )}
-                                        />
+                                        /> */}
                                         { 
                                           errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
                                             ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
@@ -1544,7 +1637,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                         setL(false);
                                         // setValue(`${baseFormLabel}`, selectedDate.toJSON());
                                       }
-                                      onChange(selectedDate.toJSON());
+                                      onChange(selectedDate.toISOString());
+                                      // onChange(selectedDate.toJSON());
                                     }}  
                                     mode="time" display="spinner" 
                                   />
@@ -1554,7 +1648,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                             control={control}
                             name={baseFormLabel}
                             defaultValue={defaultVal || ""}
-                            value={date.toJSON()}
+                            value={date.toISOString()}
+                            // value={date.toJSON()}
                             rules={rules(item.type, item.regex)}
                           /> 
                       </View>
@@ -1589,7 +1684,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                         setL(false);
                                         // setValue(`${baseFormLabel}`, selectedDate.toJSON())
                                       }
-                                      onChange(selectedDate.toJSON());
+                                      onChange(selectedDate.toISOString());
+                                      // onChange(selectedDate.toJSON());
                                     }} 
                                     mode="time" display="spinner" 
                                   />
@@ -2027,7 +2123,7 @@ export const executeApiQuery = async (url, token, method = 'get', data = {}, par
     return await axios(config);
     // return response;
   } catch (error) {
-    // console.log(error.response.data);
+    // console.warn(error.response.data);
     return error;
   }
 };
