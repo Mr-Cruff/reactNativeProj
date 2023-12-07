@@ -1,13 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState, useContext} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ActivityIndicator,
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
   RefreshControl
 } from 'react-native';
@@ -373,36 +371,13 @@ const Home = ({navigation, back}) => {
     }
     else if(!farmArray && !asyncFarmArray)
       setFarms(null);
-    // const farmData = response.data;
-    // const farmArray = farmData.map(farm => {
-    //   return {
-    //     id: farm.FarmId,
-    //     farmNo: farm.FarmNo.trim(),
-    //     name: farm.FarmName.trim(),
-    //     type: farm.FarmStage === 1 ? "Grow" : "Production",
-    //     houses: farm.TblFlockMt
-    //       .filter(house => house.FarmId === farm.FarmId && house.HouseNo.trim() !== '')
-    //       .map(house => ({
-    //         house: house.HouseNo.trim(),
-    //         name: `house ${house.HouseNo.trim()}`,
-    //         type: farm.FarmStage === 1 ? "Grow" : "Production",
-    //         flockAge: house.FlockAge,
-    //         flockNumber: house.FlockNumber.trim(),
-    //         flockHoused: house.FlockHoused,
-    //         flockStarted: house.FlockStarted,
-    //         flockBreed: house.BreedName.trim(),
-    //         flockBreedNo: house.BreedNo.trim()
-    //       }))
-    //       .sort((a, b) => a.house.localeCompare(b.house))
-    //   };
-    // });
 
     setLoading(false);
     setRefresh(false);
   };
   
   useEffect(() => { 
-  // console.log(netInfo);
+
   getFarms();
   }, [netInfo]);
   
@@ -435,7 +410,7 @@ const Home = ({navigation, back}) => {
           backgroundColor: 'white',
         }}>
         <Header />
-        {/* <Text style={{paddingHorizontal:10, textAlign:'right'}}>V. {pkg.version}</Text> */}
+
         <InternetStatus />
       </View>
       <View style={{flex:1,}}>
