@@ -16,7 +16,7 @@ import { RadioButton } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAuth } from '../contexts/Auth';
 import { doesFormExist } from '../services/AsyncStorage';
-import { defaultFields, nth } from '../services/Helpers';
+import { convertToCSharpCompatibleFormat, defaultFields, nth } from '../services/Helpers';
 import { MONTH } from '../Constants';
 
 const CreateForm = ({ route, navigation }) => {
@@ -159,13 +159,12 @@ const CreateForm = ({ route, navigation }) => {
 
     const confirmNewForm = async () => {
       const newForm = createFormBody();
-      if (farmSelected != 'none' && houseSelected != 'none' &&farmHouse != null) { 
-        console.log(await doesFormExist(newForm["Form Id"]));
+      if (farmSelected != 'none' && houseSelected != 'none' && farmHouse != null) { 
         if(await doesFormExist(newForm["Form Id"]) === true){        
           Alert.alert('Error!', "This form has already been created. Go to `Edit Forms` to make changes to this form, otherwise the form has been submitted and cannot be re-created or edited.");
         }else{
           saveForm(newForm);
-            Alert.alert(`Notification`,`Would you like to edit this form now?`,
+          Alert.alert(`Notification`,`Would you like to edit this form now?`,
             [
               {
                 text: 'No, Close',
@@ -177,12 +176,14 @@ const CreateForm = ({ route, navigation }) => {
                 // onPress: () => console.log({formSelected:newForm, farmSelected:farmHouse}),
                 onPress: () => navigation.navigate('Edit Form', {formSelected:newForm, farmSelected:farmHouse}),
               },
-            ]);
+            ]
+          );
         }
       }
     }
 
     const createFormBody =()=>{   
+    // const createFormBody =({ Farm, House, name })=>{   
       const { Farm, House } = farmHouse;
       // console.log({...{"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete'}, ...defaultFields});
       // return {...{"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete'}, ...defaultFields}
@@ -191,7 +192,8 @@ const CreateForm = ({ route, navigation }) => {
       // if(showFeedRec)
       //   return {"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete', "Eggs":{"Eggs Delivered":parseInt(eggsDelivered)},"Feed Inventory":{"Feed Recieved (lbs)":parseFloat(feedRecieved)}}
       // else
-      return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete'}
+      // return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":convertToCSharpCompatibleFormat(date), "Status":'Incomplete'}
+      return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toISOString(), "Status":'Incomplete'}
     }
 
     useEffect(() => {

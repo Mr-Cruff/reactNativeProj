@@ -34,9 +34,9 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
     // console.log("=======================================================================");
     // console.log(route.params.retrievedForm.Data);
     const { "Form Id":formId, Farm, House } = retrievedForm;
-    const farm = {farm:Farm, type:"Eggs" in retrievedForm? "Production" : "Grow", house:House}
+    const farm = {farm:Farm, type:retrievedForm["Eggs"]? "Production" : "Grow", house:House}
     const form = useForm({mode: "onChange"});
-    
+
     const onSubmit = data => {
       console.log("On Submit: ");
       //   setloading(true);
@@ -140,33 +140,33 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
     }
 
     const EditView =()=>{
-        if(!allowEdit)
-            return(
-                <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-evenly',marginHorizontal:-20, paddingVertical:10}}>
-                  <View style={{justifyContent:'center', marginRight:50}}>
-                    <Text style={{color:'#9d9549'}}>See something wrong with this form submission?</Text>
-                    <Text style={{fontSize:26, color:'#282C50', fontWeight:'bold',}}>TURN EDITING ON</Text>
-                  </View>
-                  <TouchableOpacity style={[styles.actionButton,{width:'auto'}]} onPress={()=>setAllowEdit(!allowEdit)}>
-                    <EditFormIcon size={40} />
-                    <Text style={{color:'white', fontSize:18, fontWeight:'bold', marginLeft:'3%'}}>EDIT FORM</Text>
-                  </TouchableOpacity>
-                </View>
-            );
-        else{
-            return(
-                <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-around',marginHorizontal:-20, paddingVertical:10}}>
-                  <View style={{justifyContent:'center', marginRight:50}}>
-                    <Text style={{color:'#9d9549'}}>Dont't want to edit this form?</Text>
-                    <Text style={{fontSize:24, color:'#282C50', fontWeight:'bold',}}>TURN EDITING OFF</Text>
-                  </View>
-                  <TouchableOpacity style={[styles.actionButton,{width:'auto', backgroundColor:'#81171b'}]} onPress={()=>setAllowEdit(!allowEdit)}>
-                    <EditFormIcon size={40} />
-                    <Text style={{color:'white', fontSize:18, fontWeight:'bold', marginLeft:'3%'}}>STOP EDITING</Text>
-                  </TouchableOpacity>
-                </View>
-            );
-        }
+      if(!allowEdit)
+        return(
+            <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-evenly',marginHorizontal:-20, paddingVertical:10}}>
+              <View style={{justifyContent:'center', marginRight:50}}>
+                <Text style={{color:'#9d9549'}}>See something wrong with this form submission?</Text>
+                <Text style={{fontSize:26, color:'#282C50', fontWeight:'bold',}}>TURN EDITING ON</Text>
+              </View>
+              <TouchableOpacity style={[styles.actionButton,{width:'auto'}]} onPress={()=>setAllowEdit(!allowEdit)}>
+                <EditFormIcon size={40} />
+                <Text style={{color:'white', fontSize:18, fontWeight:'bold', marginLeft:'3%'}}>EDIT FORM</Text>
+              </TouchableOpacity>
+            </View>
+        );
+      else{
+        return(
+            <View style={{backgroundColor:'beige', flexDirection:'row', justifyContent:'space-around',marginHorizontal:-20, paddingVertical:10}}>
+              <View style={{justifyContent:'center', marginRight:50}}>
+                <Text style={{color:'#9d9549'}}>Dont't want to edit this form?</Text>
+                <Text style={{fontSize:24, color:'#282C50', fontWeight:'bold',}}>TURN EDITING OFF</Text>
+              </View>
+              <TouchableOpacity style={[styles.actionButton,{width:'auto', backgroundColor:'#81171b'}]} onPress={()=>setAllowEdit(!allowEdit)}>
+                <EditFormIcon size={40} />
+                <Text style={{color:'white', fontSize:18, fontWeight:'bold', marginLeft:'3%'}}>STOP EDITING</Text>
+              </TouchableOpacity>
+            </View>
+        );
+      }
     }
 
     // const approveForm = async () => { 
@@ -199,22 +199,22 @@ const ReviewAndEdit = ({ route, navigation:nav }) => {
         const auth = useAuth();
     
         return(
-            <View style={{backgroundColor:'#fbe9ea', borderRadius:10,}}>
-                <View style={{backgroundColor:'#81171b', flexDirection:'row',justifyContent:'space-between', elevation:1,}}>
-                    <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10,}}>Rejection Reasons</Text>
-                    <TouchableOpacity style={{alignSelf:'center', marginRight:"0.5%"}} onPress={toggleRejection}><WhiteX size={20}/></TouchableOpacity>
-                </View>
-                {reasons.map((reason, indx)=>
-                    <View style={{flexDirection:'row', alignItems:'center', paddingLeft:10, backgroundColor:indx%2==0?'#f9ddde':""}} key={indx}>
-                        <Text>{indx+1}. </Text>
-                        <TextInput placeholder="Enter Reason here" onChangeText={text => {text == ""? setIsEmpty(true):setIsEmpty(false); reasons[indx]=text}}>{reason}</TextInput>
-                    </View>)}
-                    <View style={{flexDirection:'row', backgroundColor:'#f9ddde', justifyContent:'center', padding:10,}}>
-                        <TouchableOpacity disabled={isEmpty} style={{width:150, minHeight:50, backgroundColor:reasons[0]=='' ? 'grey':'#17817d', marginRight:100, justifyContent:'center', alignItems:'center', borderRadius:8, flexDirection:'row'}} onPress={()=>{setReasons([...reasons, ""])}}><WhitePlus size={30} /><Text style={{color:'white',}}>REASON</Text></TouchableOpacity>
-                        <TouchableOpacity disabled={reasons[0]==''?true:false} style={{width:200, backgroundColor:reasons[0]=='' ? 'grey':'#81171b', justifyContent:'center', alignItems:'center',borderRadius:8}} onPress={()=>{submitRejection(reasons)}}><Text style={{color:'white', fontWeight:'500'}}>SUBMIT REJECTION</Text></TouchableOpacity>
-                    </View>
-                {/* {console.log(reasons)} */}
-            </View>
+          <View style={{backgroundColor:'#fbe9ea', borderRadius:10,}}>
+              <View style={{backgroundColor:'#81171b', flexDirection:'row',justifyContent:'space-between', elevation:1,}}>
+                  <Text style={{color:'white', fontSize:20, fontWeight:'bold', paddingHorizontal:10,}}>Rejection Reasons</Text>
+                  <TouchableOpacity style={{alignSelf:'center', marginRight:"0.5%"}} onPress={toggleRejection}><WhiteX size={20}/></TouchableOpacity>
+              </View>
+              {reasons.map((reason, indx)=>
+                  <View style={{flexDirection:'row', alignItems:'center', paddingLeft:10, backgroundColor:indx%2==0?'#f9ddde':""}} key={indx}>
+                      <Text>{indx+1}. </Text>
+                      <TextInput placeholder="Enter Reason here" onChangeText={text => {text == ""? setIsEmpty(true):setIsEmpty(false); reasons[indx]=text}}>{reason}</TextInput>
+                  </View>)}
+                  <View style={{flexDirection:'row', backgroundColor:'#f9ddde', justifyContent:'center', padding:10,}}>
+                      <TouchableOpacity disabled={isEmpty} style={{width:150, minHeight:50, backgroundColor:reasons[0]=='' ? 'grey':'#17817d', marginRight:100, justifyContent:'center', alignItems:'center', borderRadius:8, flexDirection:'row'}} onPress={()=>{setReasons([...reasons, ""])}}><WhitePlus size={30} /><Text style={{color:'white',}}>REASON</Text></TouchableOpacity>
+                      <TouchableOpacity disabled={reasons[0]==''?true:false} style={{width:200, backgroundColor:reasons[0]=='' ? 'grey':'#81171b', justifyContent:'center', alignItems:'center',borderRadius:8}} onPress={()=>{submitRejection(reasons)}}><Text style={{color:'white', fontWeight:'500'}}>SUBMIT REJECTION</Text></TouchableOpacity>
+                  </View>
+              {/* {console.log(reasons)} */}
+          </View>
         );
     
     }
