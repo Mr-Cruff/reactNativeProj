@@ -8,7 +8,7 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "com.reactnativeproj";
   public static final String BUILD_TYPE = "debug";
   public static final int VERSION_CODE = 18;
-  public static final String VERSION_NAME = "1.1.0 - PROD";
+  public static final String VERSION_NAME = "1.0.17 - UAT";
   // Field from default config.
   public static final boolean IS_NEW_ARCHITECTURE_ENABLED = false;
 }

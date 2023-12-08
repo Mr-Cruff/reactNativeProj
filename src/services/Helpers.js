@@ -176,7 +176,7 @@ export const doubleFieldTime = (idx)=>{
       str="6:00:00";
       break;
     case 1:
-      str="3:00:00";
+      str="15:00:00";
       break;
   } 
   let [hours, minutes, seconds] = str.split(':').map(Number);
