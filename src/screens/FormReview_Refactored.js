@@ -26,9 +26,9 @@ const FormReview = ({ route, navigation }) => {
     const { Data } = route.params.recievedData;
     // console.log(Data);
     const sturctedForm = organizeFormFields(Data);
-    console.log("============================ Form Review Refactored =======================");
-    console.log(sturctedForm);
-    console.log("============================ ====================== =======================");
+    // console.log("============================ Form Review Refactored =======================");
+    // console.log(sturctedForm);
+    // console.log("============================ ====================== =======================");
 
     const FormDetailsTile = ({ header }) =>{
         const {Farm:farm, House:house, ["Date Created"]:dateCreated, ["Date Submitted"]:dateSubmitted,["Created By"]:createdBy} = header;
@@ -160,11 +160,11 @@ const submitRejection = async (formId, auth, reasons, nav) => {
     
     // await axios.patch(`${APP_API}/api/FormDetails/formID?formId=${formId}`, {statusId:3, approverComments:[...reasons]}, config)
     executeApiQuery(`/api/FormDetails/formID?formId=${formId}`,token,'patch',{statusId:FORM_STATUS_OBJ["Rejected"], approverComments:[...reasons], rejectedBy:name},undefined)
-    .then(function ({ response }) {
+    .then(function (response) {
       if(response.status == 200 ) {
         ShowAlert(`Success`, ("Form review submitted successfully" || "NO Error Code Found"),[{text: "Cancel", style: "cancel"},{text: "OK", onPress: () => nav.goBack() }]);
       }else{
-        ShowAlert(`Failed - ${response.status}`, `${response.data.message|| "NO Error Code Found"}`);
+        ShowAlert(`Failed - ${response.response.status}`, `${response.response.data.message|| "NO Error Code Found"}`);
       }
     }).catch((err)=>{
         Alert.alert(
@@ -177,14 +177,16 @@ const submitRejection = async (formId, auth, reasons, nav) => {
 const approveForm = async (formId, auth, nav) => { 
     const { token, name } = auth.authData;
     executeApiQuery(`/api/FormDetails/formID?formId=${formId}`,token,'patch',{statusId:2, approverComments:["Approved"], approvedBy:name},undefined)
-    .then(function ({ response }) {
+    .then(function ( response ) {
     //   console.log("================================== Response ===============================");
+    //   console.log(response);
     //   console.log(response.data);
+    //   console.log(response.status);
     //   console.log("============================ ====================== =======================");
       if(response.status == 200 ) {
         ShowAlert(`Success`, ("Form review submitted successfully" || "NO Error Code Found"),[{text: "Cancel", style: "cancel"},{text: "OK", onPress: () => nav.goBack() }]);
       }else{
-        ShowAlert(`Failed - ${response.status}`, `${response.data.message|| "NO Error Code Found"}`);
+        ShowAlert(`Failed - ${response.response.status}`, `${response.response.data.message || "NO Error Code Found"}`);
       }
     }).catch((err)=>{
         Alert.alert(
