@@ -123,9 +123,9 @@ const ReviewForm = ({route, navigation, back}) => {
               farmId: farmId 
             } 
         }
-        console.log(config)
+        // console.log(config)
         return await axios.get(`${APP_API}/api/FormDetails/getformdetailsSubmittedByFarm`,config).then((response)=>{
-          console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
+          // console.log(JSON.stringify(response.data[0]["TblFlockMt"]));
           // console.log(JSON.stringify(formInfo(response.data[0]["TblFlockMt"])));
           // console.log(response.status);
           setFormList(formInfo(response.data[0]["TblFlockMt"], reviewType))

@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useAuth } from '../contexts/Auth';
 import axios from 'axios';
-import { categoryParse, executeApiQuery, organizeFormFields, timeConvert, timeConverter, WhitePlus, WhiteTick, WhiteX } from '../services/Helpers';
+import { categoryParse, executeApiQuery, organizeFormFields, ShowAlert, timeConvert, timeConverter, WhitePlus, WhiteTick, WhiteX } from '../services/Helpers';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -24,11 +24,12 @@ const FormReview = ({ route, navigation }) => {
     // const [loading, setLoading] = useState(true);
     const [reject, setReject] = useState(false);
     const { Data } = route.params.recievedData;
-    console.log(Data);
+    // console.log(Data);
     const sturctedForm = organizeFormFields(Data);
     console.log("============================ Form Review Refactored =======================");
     console.log(sturctedForm);
     console.log("============================ ====================== =======================");
+
     const FormDetailsTile = ({ header }) =>{
         const {Farm:farm, House:house, ["Date Created"]:dateCreated, ["Date Submitted"]:dateSubmitted,["Created By"]:createdBy} = header;
         const status = (()=>{const x=JSON.parse(Data); return x.Status})();
@@ -159,20 +160,16 @@ const submitRejection = async (formId, auth, reasons, nav) => {
     
     // await axios.patch(`${APP_API}/api/FormDetails/formID?formId=${formId}`, {statusId:3, approverComments:[...reasons]}, config)
     executeApiQuery(`/api/FormDetails/formID?formId=${formId}`,token,'patch',{statusId:FORM_STATUS_OBJ["Rejected"], approverComments:[...reasons], rejectedBy:name},undefined)
-    .then(function (response) {
-    //   console.log(reasons);
-    //   console.log(response.status);
-      // console.log(response.data);
-      Alert.alert(
-        'Success',
-        `Form review submitted successfully`,
-        [{text:'Close Form', onPress: ()=> nav.goBack()}] // <- this part is optional, you can pass an empty string
-        
-        )
+    .then(function ({ response }) {
+      if(response.status == 200 ) {
+        ShowAlert(`Success`, ("Form review submitted successfully" || "NO Error Code Found"),[{text: "Cancel", style: "cancel"},{text: "OK", onPress: () => nav.goBack() }]);
+      }else{
+        ShowAlert(`Failed - ${response.status}`, `${response.data.message|| "NO Error Code Found"}`);
+      }
     }).catch((err)=>{
         Alert.alert(
         'Failed',
-        `${err.message}`, // <- this part is optional, you can pass an empty string
+        `ERROR: ${err.message}`, // <- this part is optional, you can pass an empty string
         )
     });
 }
@@ -180,13 +177,15 @@ const submitRejection = async (formId, auth, reasons, nav) => {
 const approveForm = async (formId, auth, nav) => { 
     const { token, name } = auth.authData;
     executeApiQuery(`/api/FormDetails/formID?formId=${formId}`,token,'patch',{statusId:2, approverComments:["Approved"], approvedBy:name},undefined)
-    .then(function (response) {
-      console.log(response.status);
-      Alert.alert(
-        'Success',
-        `Form review submitted successfully`, // <- this part is optional, you can pass an empty string
-        [{text:'OK, Close Form', onPress: ()=> nav.goBack()}]
-        )
+    .then(function ({ response }) {
+    //   console.log("================================== Response ===============================");
+    //   console.log(response.data);
+    //   console.log("============================ ====================== =======================");
+      if(response.status == 200 ) {
+        ShowAlert(`Success`, ("Form review submitted successfully" || "NO Error Code Found"),[{text: "Cancel", style: "cancel"},{text: "OK", onPress: () => nav.goBack() }]);
+      }else{
+        ShowAlert(`Failed - ${response.status}`, `${response.data.message|| "NO Error Code Found"}`);
+      }
     }).catch((err)=>{
         Alert.alert(
         'Failed',
