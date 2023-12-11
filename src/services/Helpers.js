@@ -17,6 +17,7 @@ import { ActivityIndicator, RadioButton } from 'react-native-paper';
 import { APP_API } from '../Constants';
 import { useAuth } from '../contexts/Auth';
 import axios from 'axios';
+import { DualTimeField, SingleTimeField, StopWatchTimeField, TimeField } from '../formFields/LightsOnOff_Time';
 // import { GlobalContext } from '../contexts/GlobalContext';
 
 // export const IconedButton = ({navigation}, x) => {
@@ -123,10 +124,34 @@ export function calculateTimeDifference(start="", end="") {
   return `${hours}h ${minutes}m`;
 }   
 
+const setInitDateTime = (defaultVal) => {
+  if (defaultVal === null || defaultVal === undefined) {
+    return new Date();
+  }
+  // date retrieved from storage converted to js syntax
+  // const date = new Date(defaultVal);
+
+  // Init date being returned
+
+  // console.log('\n\n============= default date being passed ================');
+  // console.log(defaultVal);
+  const date = new Date(convertToJSCompatibleFormat(defaultVal));
+  // console.log('=============Init date being returned ================');
+  // console.log(date.toString());
+  // console.log('================================================\n\n');
+
+  if (isNaN(date)) {
+    return new Date();
+  }
+
+  return date;
+}
+
 export function convertToCSharpCompatibleFormat(dateString) {
-  let date = new Date(dateString);
-  let offset = 0; // UTC-5 for Eastern Time
-  let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+  // let date = new Date(dateString);
+  // let offset = -5; // UTC-5 for Eastern Time
+  // let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+  let localDate = new Date(dateString);
   
   let year = localDate.getFullYear();
   let month = String(localDate.getMonth() + 1).padStart(2, '0');
@@ -134,8 +159,18 @@ export function convertToCSharpCompatibleFormat(dateString) {
   let hours = String(localDate.getHours()).padStart(2, '0');
   let minutes = String(localDate.getMinutes()).padStart(2, '0');
   let seconds = String(localDate.getSeconds()).padStart(2, '0');
+  // console.log('================== To C#Version ====================');
+  // console.log(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
+  // console.log('=====================================================');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
 
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
+export function convertToJSCompatibleFormat(dateString) {
+  let date = new Date(dateString);
+  let offset = 5; // UTC-5 for Eastern Time
+  let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+
+  return localDate;
 }
 
 // Egg collection entry for 4 times
@@ -162,7 +197,7 @@ export const fourFieldTime = (idx)=>{
   currentDate.setHours(hours);
   currentDate.setMinutes(minutes);
   currentDate.setSeconds(seconds);
-
+  
   return currentDate;
 }
 
@@ -675,13 +710,15 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                           onBlur={onBlur}
                                           onChangeText={value => {
                                             const newDate = new Date();
+                                            // const convertedDate = fourFieldTime(subIndex).toISOString();
+                                            const convertedDate = convertToCSharpCompatibleFormat(fourFieldTime(subIndex));
                                             onChange(value);
                                             if(value === ""){
                                               setValue(`${baseFormLabel}.${subItem.label}`, null);
-                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, "");
+                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, null);
                                             }else{
                                               setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
-                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, fourFieldTime(subIndex).toISOString());
+                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, convertedDate);
                                             }
                                             setDate(newDate);
                                           }}
@@ -692,21 +729,28 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                     );
                                   }}
                                   />
-
-                                  <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
-                                    <Text style={{color:'black', textAlign:'center'}}>
-                                      {timeConvert(fourFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
-                                    </Text>
-                                  </View>
-                                  
-
+                                  <Controller
+                                    control={control} 
+                                    name={baseFormLabel + '.' +subItem.label+' Time Captured'}
+                                    value={null}
+                                    defaultValue={defaultVal[`${item.fields[subIndex].label} Time Captured`] || null}
+                                    render={() =>(
+                                      <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                        <Text style={{color:'black', textAlign:'center'}}>
+                                          {timeConvert(fourFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
+                                        </Text>
+                                      </View>
+                                      )
+                                    }
+                                  />
                                 </View>
                                   
                                 { 
                                   errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
-                                    ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
-                                       {errors[categorySchema.title][item.label][subItem.label].type} ERORR
-                                    </Text>
+                                    ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && 
+                                      <Text style={{ color: "red" }}>
+                                         {errors[categorySchema.title][item.label][subItem.label].type} ERORR
+                                      </Text>
                                   )
                                 }
                               </View>
@@ -736,16 +780,16 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                         </View>
                       )
                     }
-
                     else if(item.type == 'multi-time-only'){ 
-                      let startTime = useRef(validateInitDateTime(defaultVal[`${item.fields[0].label}`]) ? new Date(defaultVal[`${item.fields[0].label}`]) : "");
-                      let endTime = useRef(validateInitDateTime(defaultVal[`${item.fields[1].label}`]) ? new Date(defaultVal[`${item.fields[1].label}`]) : "");
+                      let startTime = useRef((defaultVal[`${item.fields[0].label}`]) ? setInitDateTime(defaultVal[`${item.fields[0].label}`]) : "");
+                      let endTime = useRef((defaultVal[`${item.fields[1].label}`]) ? setInitDateTime(defaultVal[`${item.fields[1].label}`]) : "");
                       const [lightingHours, setLightingHours] = useState(calculateTimeDifference(startTime.current, endTime.current));    
+
                       return(
                         <View style={{marginVertical: 12}} key={index}>
                           <Text style={{color: '#282C50', fontSize: 18}}>
                             {item.label}
-                            <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
+                            {item.fields[0].regex.isRequired && <Text style={{color:'red'}}> *</Text>}
                           </Text>
                           <View
                             style={{
@@ -754,69 +798,33 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                               alignItems: 'center',
                             }}>
                             {item.fields.map((subItem, subIndex) => {
-                              const [l,setL]=useState(item.fields[subIndex].label === "" || isNaN(new Date(defaultVal[`${item.fields[subIndex].label}`])) ?true:false);
+                              const l = defaultVal[`${item.fields[subIndex].label}`]===null || item.fields[subIndex].label === "" || isNaN(new Date(defaultVal[`${item.fields[subIndex].label}`]) )?true:false;
                               const [date, setDate] = useState(setInitDateTime(defaultVal[`${item.fields[subIndex].label}`]));
-                              const [isVisible, setIsVisible] = useState(false);
+                              useEffect(()=>{
+                                subIndex === 0 ? startTime.current=date : endTime.current=date;
+                                setLightingHours(calculateTimeDifference(startTime.current, endTime.current));;
+                              },[date]);                        
                               return(
-                                <View style={{width:'40%'}} key={subIndex}>
-                                  <Text style={{fontWeight:'500', fontSize:16}}>{subItem.label.toUpperCase()}:</Text>
-                                  <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)} style={{ paddingVertical:20, paddingHorizontal:10, backgroundColor:'beige', fontSize:18}}>
-                                    <Text style={{color:'black', fontSize:16, textAlign:'center'}}>{l?" -  Select Time  - ":timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}</Text>
-                                    <Controller
-                                      render={({ field:{ onChange }}) =>{ 
-                                        useEffect(()=>{
-                                          subIndex === 0 ? startTime.current=date : endTime.current=date;
-                                          setLightingHours(calculateTimeDifference(startTime.current, endTime.current));
-                                        },[date]);
-                                        return(
-                                        <>
-                                          {
-                                            isVisible && 
-                                            <DateTimePicker 
-                                              style={{flex:1}}
-                                              value={date} 
-                                              is24Hour={false}
-                                              defaultValue={date.toJSON()}
-                                              onChange={(event, selectedDate)=>{
-                                                const jsonDate= selectedDate.toISOString();
-                                                setIsVisible(false);
-                                                setDate(selectedDate);
-                                                if(l && event.type === 'set'){
-                                                  setL(false);
-                                                }
-                                                onChange(jsonDate);
-                                                }
-                                              } 
-                                              mode="time" display="spinner" 
-                                            />
-                                          }
-                                        </>
-                                      )}}
-                                      control={control}
-                                      name={baseFormLabel + '.' +subItem.label}
-                                      defaultValue={defaultVal[subItem.label] || "" } 
-                                      value={date.toISOString()}
-                                      rules={{ required: true }}
-                                    />
-                                  </TouchableOpacity>
-                                  { 
-                                    errors 
-                                    && errors[baseFormLabel] && errors[baseFormLabel][subItem.label] 
-                                    && (
-                                          <Text style={{ color: "red" }}>
-                                         {errors[baseFormLabel][subItem.label].type}
-                                          ERORR
-                                      </Text>
-                                    )
+                                <Controller
+                                  key={subIndex}
+                                  control={control}
+                                  name={baseFormLabel + '.' +subItem.label}
+                                  render={({ field:{ onChange }})=>
+                                   <DualTimeField foundDate={l} onChange={onChange} form={form} label={item.fields[subIndex].label} initialDate={date} setDateFunction={setDate}/>
                                   }
-                                </View>
+                                  
+                                  defaultValue={defaultVal[subItem.label] || null } 
+                                  value={convertToCSharpCompatibleFormat(date)}
+                                  rules={{ required: true }}
+                                />
                               );
                             })}
                           </View>
-                          <Text>Lighting hours: {calculateTimeDifference(startTime.current, endTime.current)}</Text>
+                          <Text>Lighting hours: {lightingHours}</Text>
                         </View>
                       )
-                    }else{
+                    }
+                    else{
                       //Nested Time Fields Function
                       return(
                         <View style={{marginVertical: 12}} key={index}>
@@ -849,9 +857,11 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                               // defaultValue={defaultVal[subItem.label]? ""+defaultVal[subItem.label]:""}
                                               onBlur={onBlur}
                                               onChangeText={(e) => {
+                                                const convertedDate = convertToCSharpCompatibleFormat(doubleFieldTime(subIndex));
+                                                console.log(convertedDate);
                                                 onChange(e); 
                                                 if(e !== ""){
-                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, fourFieldTime(subIndex).toISOString());
+                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, convertedDate);
                                                   setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));
                                                 }else{
                                                   setValue(`${baseFormLabel}.${subItem.label}`, null);
@@ -863,12 +873,55 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                           </>
                                         )}
                                         />
+                                        <Controller
+                                          control={control} 
+                                          name={baseFormLabel + '.' +subItem.label+' Time Captured'}
+                                          value={null}
+                                          defaultValue={defaultVal[subItem.label+" Time Captured"] || null}
+                                          render={() =>(
+                                            <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                              <Text style={{color:'black', textAlign:'center'}}>
+                                              {timeConvert(doubleFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
+                                              </Text>
+                                            </View>
+                                            )
+                                          }
+                                        />   
 
-                                        <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
-                                          <Text style={{color:'black', textAlign:'center'}}>
-                                            {timeConvert(doubleFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
-                                          </Text>
-                                        </View>
+
+                                        {/* <Controller
+                                          control={control}
+                                          name={baseFormLabel + '.' +subItem.label+' Time Captured'}
+                                          value={showDate?date.toISOString():null}
+                                          // value={showDate?date.toJSON():null}
+                                          defaultValue={showDate?date.toISOString():null}
+                                          // defaultValue={showDate?date.toJSON():null}
+                                          render={({ field:{onChange}}) => (
+                                          <TouchableOpacity disabled={globalEdit? !showDate : !globalEdit} onPress={()=>setIsVisible(true)} style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
+                                              <Text style={{color:'black', textAlign:'center'}}>{showDate ? `Time: ${timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}` : ' - '}</Text>
+                                              {
+                                                isVisible && 
+                                                <DateTimePicker 
+                                                  value={date} 
+                                                  is24Hour={false}
+                                                  defaultValue={defaultVal[subItem.label+" Time Captured"]}
+                                                  onChange={(event, selectedDate)=>{
+                                                    setIsVisible(false);
+                                                    if(event.type === 'set'){
+                                                      setDate(selectedDate);
+                                                      // setValue(`${baseFormLabel}.${subItem.label} Time Captured`, date.toJSON())
+                                                    }
+                                                    onChange(selectedDate.toISOString())
+                                                    }
+                                                  } 
+                                                  mode="time" display="spinner" 
+                                                />
+                                              }
+                                          </TouchableOpacity>
+                                            )}
+                                        /> */}
+
+
 
                                         { 
                                           errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
@@ -928,57 +981,34 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                         </View>
                       )
                     }else if(item.type == 'time'){
-                      const [l,setL]=useState(defaultVal === "" || typeof defaultVal == "undefined"?true:false);
-                      const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? dateGlobal: new Date(defaultVal)));
-                      const [isVisible,setIsVisible]=useState(false);
+                      const l=defaultVal === null ||defaultVal === "" || typeof defaultVal == "undefined"?true:false;
+                      const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? dateGlobal: setInitDateTime(defaultVal)));
                       return(
                         <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
-                          </Text>
-                          <Controller
-                            render={({ field:{onChange} }) => (
-                              <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
-                                <Text style={{color:'black'}}>{l?" -  Select Time  - ":`${timeConvert(date.toLocaleTimeString('en-US', { hour12: true }))}`}</Text>
-                                {
-                                  isVisible && 
-                                  <DateTimePicker 
-                                    value={date} 
-                                    defaultValue={defaultVal || date} 
-                                    is24Hour={false} 
-                                    onChange={(event, selectedDate)=>{
-                                      setIsVisible(false);
-                                      setDate(selectedDate);
-                                      if(l && event.type === 'set'){
-                                        setL(false);
-                                        // setValue(`${baseFormLabel}`, selectedDate.toJSON());
-                                      }
-                                      onChange(selectedDate.toISOString());
-                                      // onChange(selectedDate.toJSON());
-                                    }}  
-                                    mode="time" display="spinner" 
-                                  />
-                                }
-                            </TouchableOpacity>
-                            )}
-                            control={control}
-                            name={baseFormLabel}
-                            defaultValue={defaultVal || ""}
-                            value={date.toISOString()}
-                            // value={date.toJSON()}
-                            rules={rules(item.type, item.regex)}
-                          /> 
-                      </View>
+                        <Text style={{color: '#282C50', fontSize: 18}}>
+                        {item.label}
+                        <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
+                        </Text>
+                        <Controller
+                          control={control}
+                          name={baseFormLabel}
+                          render={({ field:{ onChange }})=>
+                           <SingleTimeField foundDate={l} onChange={onChange} form={form} label={item.label} initialDate={date} setDateFunction={setDate}/>
+                          }
+                          
+                          defaultValue={defaultVal || null } 
+                          value={convertToCSharpCompatibleFormat(date)}
+                          rules={rules(item.type, item.regex)}
+                        />
+                        </View>
                     );
                     }else if(item.type == 'justTime'){
                       var d;
                       var label;
                       if (defaultVal == "" || typeof defaultVal == 'undefined'){ label=true;d=dateGlobal; d.setHours(0,0,0,0); }
-                      else {label=false;d=new Date(defaultVal);}
-                      const [l,setL]=useState(label);
+                      else {label=false;d=setInitDateTime(defaultVal);}
+                      const l = label;
                       const [date,setDate]=useState(d);
-                      const [isVisible,setIsVisible]=useState(false);
                       return(
                         <View style={{marginVertical: 12}} key={index}>
                           <Text style={{color: '#282C50', fontSize: 18}}>
@@ -987,32 +1017,12 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           </Text>
                           <Controller
                             render={({ field:{onChange} }) => (
-                              <TouchableOpacity disabled={!globalEdit} onPress={()=>setIsVisible(true)}  style={{padding:20, backgroundColor:'beige'}}>
-                                <Text style={{color:'black'}}>{l?" -  Select Time  - ":`${timeConverter(date)}`}</Text>
-                                {
-                                  isVisible && 
-                                  <DateTimePicker 
-                                    value={date} 
-                                    is24Hour={true} 
-                                    onChange={(event, selectedDate)=>{
-                                      setIsVisible(false);
-                                      setDate(selectedDate);
-                                      if(l && event.type === 'set'){
-                                        setL(false);
-                                        // setValue(`${baseFormLabel}`, selectedDate.toJSON())
-                                      }
-                                      onChange(selectedDate.toISOString());
-                                      // onChange(selectedDate.toJSON());
-                                    }} 
-                                    mode="time" display="spinner" 
-                                  />
-                                }
-                              </TouchableOpacity>
+                              <StopWatchTimeField foundDate={l} onChange={onChange} form={form} label={item.label} initialDate={date} setDateFunction={setDate} />
                             )}
                             control={control}
                             name={baseFormLabel}
-                            defaultValue={defaultVal || ""}
-                            value={date}
+                            defaultValue={defaultVal || null}
+                            value={convertToCSharpCompatibleFormat(date)}
                             rules={rules(item.type, item.regex)}
                           /> 
                         </View>
@@ -1445,17 +1455,8 @@ const validateInitValue = (value, valueType) => {
   return value;
 };
 
-const setInitDateTime = (defaultVal) => {
-  if (defaultVal === null || defaultVal === undefined) {
-    return new Date();
-  }
-  const date = new Date(defaultVal);
-  if (isNaN(date)) {
-    return new Date();
-  }
 
-  return date;
-}
+
 const validateInitDateTime = (defaultVal) => {
   if (defaultVal === null || defaultVal === undefined) {
     return false;

@@ -193,7 +193,7 @@ const CreateForm = ({ route, navigation }) => {
       //   return {"Form Id": formIdCalc(Farm, House), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toJSON(), "Status":'Incomplete', "Eggs":{"Eggs Delivered":parseInt(eggsDelivered)},"Feed Inventory":{"Feed Recieved (lbs)":parseFloat(feedRecieved)}}
       // else
       // return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":convertToCSharpCompatibleFormat(date), "Status":'Incomplete'}
-      return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":date.toISOString(), "Status":'Incomplete'}
+      return {"Form Id": formIdCalc(Farm, House, date), "Farm":Farm.name, "House":House.name, "FarmNo":Farm.farmNo, "Created By":name, "Date Created":convertToCSharpCompatibleFormat(date), "Status":'Incomplete'}
     }
 
     useEffect(() => {

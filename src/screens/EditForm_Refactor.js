@@ -55,7 +55,8 @@ const EditForm_Refactored = ({ route, navigation }) => {
 
     const onSubmit = data => {
       setloading(true);
-      const adjustedForm ={...baseFormDetails, ...data,'Date Submitted':new Date().toJSON()}
+      const adjustedForm ={...baseFormDetails, ...data,'Date Submitted':convertToCSharpCompatibleFormat(new Date())}
+
       if(adjustedForm.Status != FORM_STATUS_OBJ[0] || adjustedForm.Status != FORM_STATUS_OBJ[1]){
         // Farm.type?.toLowerCase() === "grow" ? adjustedForm.Status = FORM_STATUS_OBJ[1]: adjustedForm.Status = FORM_STATUS_OBJ[0];
         // adjustedForm.Status = setFormStatus(Farm);
@@ -83,7 +84,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
     const SubmitForm = async (form) => {
       console.log("============================ Execute Query ==========================");
       // form.Status = setFormStatus(Farm);
-      console.log(JSON.stringify(form));
+      // console.log(JSON.stringify(form));
       executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',JSON.stringify(form),undefined)
       // executeApiQuery('/api/FormDetails/submitFormDetails',token,'post',undefined,{_object:JSON.stringify(form)})
       .then((response) => {

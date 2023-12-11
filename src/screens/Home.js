@@ -22,6 +22,7 @@ import { NewFormIcon, EditFormIcon, WhiteTick, WhiteX, UserProfileIcon, CalnderI
 import { GlobalContext } from '../contexts/GlobalContext';
 import {  getFarmsFromAsync, storeFarms } from '../services/AsyncStorage';
 import { Loading } from '../components/Loading';
+
 //Mock Form MetaData
 const formFields = [
   {
@@ -84,8 +85,8 @@ const formFields = [
     fields: [
       {label: 'Bird Weight (grams) - Male', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
       {label: 'Bird Weight (grams) - Female', type: 'float', regex:{min:0, max:6000, isRequired:false}, farmType:'common'},
-      {label: 'Uniformity (%) - Male', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
-      {label: 'Uniformity (%) - Female', type: 'float', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
+      {label: 'Uniformity (%) - Male', type: 'int', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
+      {label: 'Uniformity (%) - Female', type: 'int', regex:{min:0, max:100, isRequired:false}, farmType:'common'},
       {label: 'Birds Added - Male', type: 'int', regex:{min:0, max:null, isRequired:false}, farmType:'common'},
       {label: 'Birds Added - Female', type: 'int', regex:{min:0, max:null, isRequired:false}, farmType:'common'},
       {label: 'Number of Birds Weighed - Male', type: 'int', regex:{min:0, max:null, isRequired:false}, farmType:'common'},
@@ -145,8 +146,8 @@ const formFields = [
             type: 'time',
             farmType:'common',
             fields: [
-              {label: 'Egg Room 1st Entry', type: 'float', view:'value-time', regex:{isRequired:false},farmType:'production'},
-              {label: 'Egg Room 2nd Entry', type: 'float', view:'value-time', regex:{isRequired:false},farmType:'production'},
+              {label: 'Egg Room 1st Entry', type: 'float', view:'value-time', regex:{isRequired:true},farmType:'production'},
+              {label: 'Egg Room 2nd Entry', type: 'float', view:'value-time', regex:{isRequired:true},farmType:'production'},
             ]
           },
           // {
