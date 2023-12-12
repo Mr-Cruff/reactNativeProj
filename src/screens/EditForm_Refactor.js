@@ -1,6 +1,6 @@
 // NB: Using the form schema to populate form instead of retrieved for data as to keep hidden fields hidden from the user. This also helps with achieving consistency across the application.
-import React, {useEffect, useState, useRef, useMemo, useContext} from 'react';
-import {useForm, Controller, reset, FormContext, useFormContext} from 'react-hook-form';
+import React, {useState, useRef, useMemo, useContext} from 'react';
+import {useForm,} from 'react-hook-form';
 import {useAuth} from '../contexts/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -13,14 +13,14 @@ import {
     StyleSheet,
     ScrollView,
   } from 'react-native';
-import { ActivityIndicator, RadioButton } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 // import DateTimePicker from '@react-native-community/datetimepicker';
-import {FarmSummary, Category, executeApiQuery, timeConvert, timeConverter, WhitePlus, ShowAlert, convertToCSharpCompatibleFormat} from '../services/Helpers';
+import {FarmSummary, Category, executeApiQuery, WhitePlus, ShowAlert, convertToCSharpCompatibleFormat} from '../services/Helpers';
 // import {Category} from '../components/formComponents/EditFormCategory';
-import axios from 'axios';
-import { APP_API, FORM_STATUS_OBJ } from '../Constants';
+
+import {  FORM_STATUS_OBJ } from '../Constants';
 import { GlobalContext, farms } from '../contexts/GlobalContext';
-import { getFarmFromAsync } from '../services/AsyncStorage';
+
 // import { saveForm } from '../services/AsyncStorage';
 
 

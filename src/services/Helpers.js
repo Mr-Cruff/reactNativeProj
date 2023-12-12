@@ -162,16 +162,50 @@ export function convertToCSharpCompatibleFormat(dateString) {
   // console.log('================== To C#Version ====================');
   // console.log(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
   // console.log('=====================================================');
+  
+  
+  // return localDate.toJSON();
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
 export function convertToJSCompatibleFormat(dateString) {
   let date = new Date(dateString);
+  const day = date.getDate()
   let offset = 5; // UTC-5 for Eastern Time
   let localDate = new Date(date.getTime() + offset * 3600 * 1000);
+  
+  if((date.getHours() +5) < 24)
+    localDate.setDate(day);
 
   return localDate;
 }
+
+
+// export const TestTimeConversion = () => {
+//   // const dateString1 = new Date("2023-12-10T00:05:08");
+//   // const dateString1 = new Date("2023-12-10T04:00:00");
+//   const dateString1 = "2023-12-10T00:05:08";
+//   console.log("Start Date: " +dateString1 + "\n");
+
+//   const date0 = convertToJSCompatibleFormat(dateString1);
+//   console.log("To JS: " +date0);
+  
+//   const date1 = convertToCSharpCompatibleFormat(date0);
+//   console.log("To C#: " +date1);
+//   // console.log("UTC date: " +dateString1.toUTCString());
+//   // console.log("JSON date: " +date1.toJSON());
+  
+//   const date2 = convertToJSCompatibleFormat(date1);
+//   console.log("To JS: " +date2);
+//   // console.log("UTC date: " +date2.toUTCString());
+//   // console.log("JSON date: " +date2.toJSON());
+  
+//   const date3 = convertToCSharpCompatibleFormat(date2);
+//   console.log("To C#: " + date3);
+//   // console.log("UTC date: " +date3.toUTCString());
+//   // console.log("JSON date: " +date3.toJSON());
+// }
+
 
 // Egg collection entry for 4 times
 export const fourFieldTime = (idx)=>{
