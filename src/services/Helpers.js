@@ -439,9 +439,9 @@ export const KeyValuePrint = ({ label, value }) => {
 }
 
 export const printTimeField=(label, value)=>{
-  if(label.includes("Feed Consumption")) return timeConverter(new Date(value).toJSON());
+  if(label.includes("Feed Consumption")) return timeConverter(convertToJSCompatibleFormat(value).toJSON());
   else if (label.includes("Clocks on")) return value;
-  return timeConvert(new Date(value).toLocaleTimeString());
+  return timeConvert(convertToJSCompatibleFormat(value).toLocaleTimeString());
 }
 
 // Queries - AXIOS
@@ -464,7 +464,7 @@ export const executeQuery = async (query) => {
   };
 
   try {
-    console.log('trying...');
+    // console.log('trying...');
     // console.log(method);
     // console.log(config.url);
     const response = await axios(config);
@@ -475,118 +475,6 @@ export const executeQuery = async (query) => {
   }
 };
 
-
-
-// Form
-export const defaultFields = {
-  "Culls & Mortality": {
-		"Culls - Male": "",
-		"Mortality - Male": "",
-		"Culls - Female": "",
-		"Mortality - Female": "",
-		"Dead on Arrival - Male": "",
-		"Dead on Arrival - Female": ""
-	},
-	"Feed Inventory": {
-		"Feed Brought Forward (lbs)": "",
-		"Feed Recieved (lbs)": "",
-		"Feed Transferred (lbs)": "",
-		"Feed Spoilage (lbs)": "",
-		"Days in Inventory": "",
-		"Feed Start Time": "",
-		"Feed Consumption Time": "",
-		"Feed Consumed (lbs) -  Male": "",
-		"Feed Consumed (lbs) -  Female": "",
-		"Feed Distribution  - Male": "",
-		"Feed Distribution  - Female": ""
-	},
-	"Miscellaneous": {
-		'Water Consumption (gal)': "",
-		"All Clocks on Time": "",
-		"Lights": {
-			"ON Time": "",
-			"OFF Time": ""
-		},
-		"Lighting Hours": "",
-		"Temperature": {
-			"Morning Entry": "",
-			"Morning Entry Time Captured": "",
-			"Afternoon Entry": "",
-			"Afternoon Entry Time Captured": ""
-		},
-		"Observation/Comments": ""
-	},
-	"Birds": {
-		"Bird Weight (grams) - Male": "",
-		"Bird Weight (grams) - Female": "",
-		"Uniformity (%) - Male": "",
-		"Uniformity (%) - Female": "",
-		"Birds Added - Male": "",
-		"Birds Added - Female": ""
-	},
-	"Eggs": {
-		"Hatching Eggs": {
-			"Hatching 1st Entry": "",
-			"Hatching 1st Entry Time Captured": "",
-			"Hatching 2nd Entry": "",
-			"Hatching 2nd Entry Time Captured": "",
-			"Hatching 3rd Entry": "",
-			"Hatching 3rd Entry Time Captured": "",
-			"Hatching 4th Entry": "",
-			"Hatching 4th Entry Time Captured": "",
-			"Hatching Eggs Total": ""
-		},
-		"Reject Eggs": {
-			"Rejects 1st Entry": "",
-			"Rejects 1st Entry Time Captured": "2023-03-15T15:17:57.120Z",
-			"Rejects 2nd Entry": "",
-			"Rejects 2nd Entry Time Captured": "2023-03-15T15:17:57.120Z",
-			"Rejects 3rd Entry": "",
-			"Rejects 3rd Entry Time Captured": "2023-03-15T15:17:57.120Z",
-			"Rejects 4th Entry": "",
-			"Rejects 4th Entry Time Captured": "2023-03-15T15:17:57.120Z",
-			"Reject Eggs Total": ""
-		},
-		"Dumps": {
-			"Dumps 1st Entry": "",
-			"Dumps 1st Entry Time Captured": "",
-			"Dumps 2nd Entry": "",
-			"Dumps 2nd Entry Time Captured": "",
-			"Dumps 3rd Entry": "",
-			"Dumps 3rd Entry Time Captured": "",
-			"Dumps 4th Entry": "",
-			"Dumps 4th Entry Time Captured": "",
-			"Dumps Total": ""
-		},
-		"Double Yolked Eggs": {
-			"Double Yolked 1st Entry": "",
-			"Double Yolked 1st Entry Time Captured": "",
-			"Double Yolked 2nd Entry": "",
-			"Double Yolked 2nd Entry Time Captured": "",
-			"Double Yolked 3rd Entry": "",
-			"Double Yolked 3rd Entry Time Captured": "",
-			"Double Yolked 4th Entry": "",
-			"Double Yolked 4th Entry Time Captured": "",
-			"Double Yolked Eggs Total": ""
-		},
-		"Eggs Delivered": "",
-		"Net Egg Weight (grams)": "",
-		"Average Egg Weight (grams)": "",
-		"Number of Eggs Weighed": "",
-		"Egg Room Temperature": {
-			"Egg Room 1st Entry": "",
-			"Egg Room 1st Entry Time Captured": "",
-			"Egg Room 2nd Entry": "",
-			"Egg Room 2nd Entry Time Captured": ""
-		},
-		"Egg Room Humidity (%)": ""
-	},
-	"Vaccination": {
-		"Type/Description": "",
-		"Quantity": "",
-		"Serial Number": ""
-	}
-};
 
 export const CategoryController = ({ categorySchema, retrievedData, form, allowEdit=true, farm }) => {
   // consider implementing a load animation

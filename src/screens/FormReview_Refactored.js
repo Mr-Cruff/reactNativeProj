@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useAuth } from '../contexts/Auth';
 import axios from 'axios';
-import { categoryParse, executeApiQuery, organizeFormFields, ShowAlert, timeConvert, timeConverter, WhitePlus, WhiteTick, WhiteX } from '../services/Helpers';
+import { categoryParse, convertToJSCompatibleFormat, executeApiQuery, organizeFormFields, ShowAlert, timeConvert, timeConverter, WhitePlus, WhiteTick, WhiteX } from '../services/Helpers';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -44,11 +44,11 @@ const FormReview = ({ route, navigation }) => {
                     <View>
                         {/* {console.log(form)} */}
                         <Text>Created By: {InnerText(createdBy)}</Text>
-                        <Text>Date Created: {InnerText(new Date(dateCreated).toDateString())}</Text>
+                        <Text>Date Created: {InnerText(convertToJSCompatibleFormat(dateCreated).toDateString())}</Text>
                     </View>
                     <View>
-                        <Text>Date Submitted: {typeof dateSubmitted == "undefined"?InnerText("No Date Found") :InnerText(new Date(dateSubmitted).toDateString()) }</Text>
                         <Text>Status: {InnerText(status)}</Text>
+                        <Text>Date Submitted: {typeof dateSubmitted == "undefined"?InnerText("No Date Found") :InnerText(convertToJSCompatibleFormat(dateSubmitted).toDateString()) }</Text>
                     </View>
                 </View>
             </View>

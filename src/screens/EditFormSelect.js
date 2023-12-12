@@ -10,132 +10,8 @@ import {
     Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { jamaicanDateFormat, RedTrashCan } from '../services/Helpers';
+import { convertToJSCompatibleFormat, jamaicanDateFormat, RedTrashCan } from '../services/Helpers';
 import { FORM_STATUS_OBJ } from '../Constants';
-//Mock Form MetaData
-// const formFields = [
-//   {
-//     title: 'Culls & Mortality',
-//     type: 'common',
-//     fields: [
-//       {label: 'Culls - Male', type: 'int', fieldName:"", placeholder:""},
-//       {label: 'Mortality - Male', type: 'int'},
-//       {label: 'Culls - Female', type: 'int', fieldName:"", placeholder:""},
-//       {label: 'Mortality - Female', type: 'int'},
-//       {label: 'Dead on Arrival', type: 'int'},
-//     ],
-//   },
-//   {
-//     title: 'Feed Inventory',
-//     type: 'common',
-//     fields: [
-//       //Feed Inventory
-//       {label: 'Feed Brought Forward (lbs)', type: 'float'},
-//       {label: 'Feed Recieved (lbs)', type: 'float'},
-//       {label: 'Feed Transferred (lbs)', type: 'float'},
-//       {label: 'Feed Spoilage (lbs)', type: 'float'},
-//       {label: 'Days in Inventory', type: 'float'},
-//       //Feed Consumed
-//       {label: 'Feed Time', type: 'time'},
-//       {label: 'Feed Consumption Time', type: 'justTime'},
-//       {label: 'Feed Consumed (lbs) -  Male', type: 'float'},   //Conditional fields based on gender
-//       {label: 'Feed Consumed (lbs) -  Female', type: 'float'}, //Conditional fields based on gender
-//       {label: 'Feed Distribution  - Male', type: 'option', options:['GOOD','POOR']},
-//     ],
-//   },
-//   {
-//     title: 'Miscellaneous',
-//     type: 'common',
-//     fields: [
-//       {label: 'Water Consumption', type: 'float'},
-//       {label: 'Bird Weight - Male', type: 'float'},
-//       {label: 'Bird Weight - Female', type: 'float'},
-//       {label: 'Uniformity - Male', type: 'float'},
-//       {label: 'Uniformity - Female', type: 'float'},
-//       {label: 'All Clocks on Time', type: 'option', options:['YES','NO']},
-//       {label: 'Lights', type: 'option', options:['ON','OFF']},
-//       {label: 'Lighting Hours', type: 'float'},
-//       {
-//           label: 'Temperature Min', 
-//           type: 'time',
-//           fields: [
-//             {label: 'Min 1st Entry', type: 'float', view:'value-time'},
-//             {label: 'Min 2nd Entry', type: 'float', view:'value-time'}
-//           ]
-//       },
-//       {
-//         label: 'Temperature Max', 
-//         type: 'time',
-//         fields: [
-//           {label: 'Max 1st Entry', type: 'float', view:'value-time'},
-//           {label: 'Max 2nd Entry', type: 'float', view:'value-time'}
-//         ]
-//       },
-//       {label: 'Observation/Comments', type: 'description'},
-//     ],
-//   },
-//   {
-//     title: 'Eggs',
-//     type: 'production',
-//     fields: [
-//       {
-//         label: 'Hatching Eggs', 
-//         type: 'multi-field', 
-//         fields: [
-//           {label: 'Hatching 1st Entry', type: 'int'},
-//           {label: 'Hatching 2nd Entry', type: 'int'},
-//           {label: 'Hatching 3rd Entry', type: 'int'},
-//           {label: 'Hatching 4th Entry', type: 'int'},
-//         ],
-//       },
-//       {label: 'Reject Eggs', type: 'multi-field', fields: [
-//         {label: 'Rejects 1st Entry', type: 'int'},
-//         {label: 'Rejects 2nd Entry', type: 'int'},
-//         {label: 'Rejects 3rd Entry', type: 'int'},
-//         {label: 'Rejects 4th Entry', type: 'int'},
-//       ],
-//       },
-//       {label: 'Dumps', type: 'multi-field', fields: [
-//         {label: 'Dumps 1st Entry', type: 'int'},
-//         {label: 'Dumps 2nd Entry', type: 'int'},
-//         {label: 'Dumps 3rd Entry', type: 'int'},
-//         {label: 'Dumps 4th Entry', type: 'int'},
-//       ],},
-//       {label: 'Double Yolked Eggs', type: 'multi-field', fields: [
-//         {label: 'Double Yolked 1st Entry', type: 'int'},
-//         {label: 'Double Yolked 2nd Entry', type: 'int'},
-//         {label: 'Double Yolked 3rd Entry', type: 'int'},
-//         {label: 'Double Yolked 4th Entry', type: 'int'},
-//       ],},
-//       {label: 'Eggs Delivered', type: 'int'},
-//       {label: 'Net Egg Weight', type: 'float'},
-//       {label: 'Average Egg Weight', type: 'float'},
-//       {label: 'Egg Room Temp (Wet)',
-//           type: 'time',
-//           fields: [
-//             {label: 'Egg Wet 1st Entry', type: 'float', view:'value-time'},
-//             {label: 'Egg Wet 2nd Entry', type: 'float', view:'value-time'}
-//         ]
-//       },
-//       {label: 'Egg Room Temp (Dry)',
-//       type: 'time',
-//       fields: [
-//         {label: 'Egg Dry 1st Entry', type: 'float', view:'value-time'},
-//         {label: 'Egg Dry 2nd Entry', type: 'float', view:'value-time'}
-//     ]},
-//       {label: 'Egg Room Humidity (%)', type: 'float'},
-//     ],
-//   },
-//   {
-//     title: 'Vaccination',
-//     type: 'pullet',
-//     fields: [
-//       {label: 'Type/Description', type: 'string'},
-//       {label: 'Quantity', type: 'float'},
-//       {label: 'Serial Number', type: 'string'},
-//     ],
-//   },
-// ];
 
 const EditFormSelect = ({navigation, back, route}) => {
     const [loading, setLoading] = useState(true);
@@ -313,7 +189,8 @@ const EditFormSelect = ({navigation, back, route}) => {
                                 </View>
                                 <Text style={{fontSize:16, color:'black',marginHorizontal:10}}>{allForms[formIndex]["House"]?.toUpperCase()}</Text>
                                 <Text style={{fontSize:16,marginHorizontal:10}}>Created By: {allForms[formIndex]["Created By"]}</Text>
-                                <Text style={{fontSize:16,marginHorizontal:10}}><Text style={{color:'black', fontWeight:'bold'}}>{jamaicanDateFormat(new Date(allForms[formIndex]["Date Created"]))}</Text></Text>
+                                <Text style={{fontSize:16,marginHorizontal:10}}><Text style={{color:'black', fontWeight:'bold'}}>{jamaicanDateFormat(convertToJSCompatibleFormat(allForms[formIndex]["Date Created"]))}</Text></Text>
+                                {/* <Text style={{fontSize:16,marginHorizontal:10}}><Text style={{color:'black', fontWeight:'bold'}}>{jamaicanDateFormat(new Date(allForms[formIndex]["Date Created"]))}</Text></Text> */}
                               </View>
                               {/* <Text style={{fontSize:16}}>{allForms[formIndex]["Status"]}</Text> */}
                             </View>

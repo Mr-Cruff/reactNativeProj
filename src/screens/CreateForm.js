@@ -16,7 +16,7 @@ import { RadioButton } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAuth } from '../contexts/Auth';
 import { doesFormExist } from '../services/AsyncStorage';
-import { convertToCSharpCompatibleFormat, defaultFields, nth } from '../services/Helpers';
+import { convertToCSharpCompatibleFormat, nth } from '../services/Helpers';
 import { MONTH } from '../Constants';
 
 const CreateForm = ({ route, navigation }) => {
@@ -28,16 +28,12 @@ const CreateForm = ({ route, navigation }) => {
     const [date, setDate] = useState(new Date());
     const [isVisible, setIsVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [showFeedRec, setFeedRecVisibility] = useState(false);
-    const [feedRecieved, setFeedRecieved] = useState("");
-    const [eggsDelivered, setEggsDelivered] = useState("");
-
-    // console.log(route.params);
 
     const setMinDate = () =>{
       var date = new Date();
       // var firstDay= date.getDate() - date.getDay()
-      var minDate= new Date(date.setDate(date.getDate()-6))
+      // var minDate= new Date(date.setDate(date.getDate()-6))
+      var minDate= new Date(date.setDate(date.getDate()-14))
       return minDate;
     }
 

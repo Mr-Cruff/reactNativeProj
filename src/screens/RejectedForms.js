@@ -16,6 +16,7 @@ import axios from 'axios';
 import { APP_API } from '../Constants';
 import EditRejectedForm from './EditRejectedForm';
 import { getFarmFromAsync } from '../services/AsyncStorage';
+import { convertToJSCompatibleFormat } from '../services/Helpers';
 
 
 const RejectedForms = ({route, navigation, back}) => {
@@ -150,7 +151,7 @@ const RejectedForms = ({route, navigation, back}) => {
                 {/* <Text>{house}</Text> */}
                 {/* <Text>Form ID: {formId}</Text> */}
                 <Text style={{fontSize:15, color:'#ced4da'}}>Submitted By: <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{createdBy}</Text></Text>
-                <Text style={{fontSize:15, color:'#ced4da'}}>Date Submitted:  <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{new Date(dateCreated).toDateString()}</Text></Text>
+                <Text style={{fontSize:15, color:'#ced4da'}}>Date Created:  <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{convertToJSCompatibleFormat(dateCreated).toDateString()}</Text></Text>
             </TouchableOpacity>
         )
     }

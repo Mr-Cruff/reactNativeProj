@@ -19,6 +19,7 @@ import {useAuth} from '../contexts/Auth';
 // import Culls from '../components/formComponents/EditFormCategory';
 import axios from 'axios';
 import { APP_API, FORM_STATUS_OBJ } from '../Constants';
+import { convertToJSCompatibleFormat } from '../services/Helpers';
 
 const ReviewForm = ({route, navigation, back}) => {
     const auth = useAuth();
@@ -146,7 +147,6 @@ const ReviewForm = ({route, navigation, back}) => {
 
     const FormTile = (formObj) => {
         const { createdBy, dateCreated, formId, house} = formObj;
-        // console.log(formId);
         return(
             <TouchableOpacity 
               key={Math.random()} //To Use formId
@@ -156,7 +156,8 @@ const ReviewForm = ({route, navigation, back}) => {
                 {/* <Text>{house}</Text> */}
                 {/* <Text>Form ID: {formId}</Text> */}
                 <Text style={{fontSize:15, color:'#ced4da'}}>Submitted By: <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{createdBy}</Text></Text>
-                <Text style={{fontSize:15, color:'#ced4da'}}>Date Submitted:  <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{new Date(dateCreated).toDateString()}</Text></Text>
+                <Text style={{fontSize:15, color:'#ced4da'}}>Date Created:  <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{convertToJSCompatibleFormat(dateCreated).toDateString()}</Text></Text>
+                {/* <Text style={{fontSize:15, color:'#ced4da'}}>Date Submitted:  <Text style={{fontWeight:'400', fontSize:16, color:'grey'}}>{new Date(dateCreated).toDateString()}</Text></Text> */}
             </TouchableOpacity>
         )
     }
