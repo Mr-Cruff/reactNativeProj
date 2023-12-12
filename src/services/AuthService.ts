@@ -22,9 +22,10 @@ const signIn = async (email, _password): Promise<AuthData> => {
 
   let decoded ="";let name="";let data:any={};let role="";let uuid:"";
 
-  console.log('attempting to access auth endpoint');
+  // console.log('attempting to access auth endpoint');
   await axios.post(`${AUTH_API}/api/Auth/login`, {"username":email,"password":_password, "appID":APP_ID}).then(res=>{
-    console.log(res.data)
+    // console.log("here")
+    // console.log(res.data)
     data = res.data;
     decoded = jwt_decode(data.token);
     name="";
@@ -35,9 +36,12 @@ const signIn = async (email, _password): Promise<AuthData> => {
      item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
     });
   }).catch(res =>{
-        console.log("LOG IN FAILED")
+        // console.log("LOG IN FAILED")
         // console.log(res)
-        console.log(res.response)
+        data=res
+        
+        // console.log(res.response)
+        // console.log(res.response)
       //   return new Promise(reject => {
       //     console.log(0)
       //       reject({
@@ -65,8 +69,7 @@ const signIn = async (email, _password): Promise<AuthData> => {
       }, 1000);
     });
   } else {
-    alert_LoginFailed(data.message);
-    // console.log(data.message);
+    alert_LoginFailed(data);
     return new Promise(reject => {
       setTimeout(() => {
         reject({
