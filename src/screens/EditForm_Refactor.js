@@ -1,5 +1,5 @@
 // NB: Using the form schema to populate form instead of retrieved for data as to keep hidden fields hidden from the user. This also helps with achieving consistency across the application.
-import React, {useState, useRef, useMemo, useContext} from 'react';
+import React, {useState, useRef, useMemo, useContext, useEffect} from 'react';
 import {useForm,} from 'react-hook-form';
 import {useAuth} from '../contexts/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,7 +15,7 @@ import {
   } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 // import DateTimePicker from '@react-native-community/datetimepicker';
-import {FarmSummary, Category, executeApiQuery, WhitePlus, ShowAlert, convertToCSharpCompatibleFormat} from '../services/Helpers';
+import {FarmSummary, Category, executeApiQuery, WhitePlus, ShowAlert, convertToCSharpCompatibleFormat, isObjectEmpty} from '../services/Helpers';
 // import {Category} from '../components/formComponents/EditFormCategory';
 
 import {  FORM_STATUS_OBJ } from '../Constants';
@@ -29,7 +29,6 @@ const EditForm_Refactored = ({ route, navigation }) => {
     const { formSchema:formFields } = useContext(GlobalContext);
     const { token } = useAuth().authData;
     const [loading, setloading] = useState(false);
-    const [canSubmit, setEnableSubmit] = useState(false);
     const retrievedForm = route.params.formSelected;
     const { Status:formStatus } = retrievedForm;
     const {Farm, House} = route.params.farmSelected;
@@ -186,6 +185,7 @@ const EditForm_Refactored = ({ route, navigation }) => {
 
     getFormFields();  
     const baseFormDetails = header;  
+    let canSubmit = isObjectEmpty(formState.errors);
 
     return(
         <ScrollView style={{backgroundColor:'#E0E8FC'}}>
@@ -200,9 +200,9 @@ const EditForm_Refactored = ({ route, navigation }) => {
               {formStatus != FORM_STATUS_OBJ[0] && <TouchableOpacity style={!formState.isDirty? styles.saveButtonDisabled : !formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={formState.isValid || !formState.isDirty} onPress={(e)=>{setloading(true); onSave(form.getValues());}}>
                   <Text style={!formState.isDirty ?  {color:"grey"} : !formState.isValid ? styles.buttonText: {color:"grey"}}>SAVE</Text>
               </TouchableOpacity>}
-
-              <TouchableOpacity style={formState.isValid ? styles.button: styles.saveButtonDisabled} disabled={!formState.isValid} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
-                <Text style={formState.isValid ? styles.buttonText: {color:"grey"}}>{formStatus != FORM_STATUS_OBJ[0] ? "SAVE & SUBMIT" : "SUBMIT"}</Text>
+              {/* {(formState.errors) && console.log(isObjectEmpty(formState.errors))} */}
+              <TouchableOpacity style={formState.isValid && canSubmit ? styles.button: styles.saveButtonDisabled} disabled={!formState.isValid || !canSubmit} onPress={(e)=>form.handleSubmit(onSubmit)(e)}>
+                <Text style={formState.isValid && canSubmit ? styles.buttonText: {color:"grey"}}>{formStatus != FORM_STATUS_OBJ[0] ? "SAVE & SUBMIT" : "SUBMIT"}</Text>
               </TouchableOpacity> 
             </View>
            : <ActivityIndicator style={{marginVertical:40}} size="large" color="#282C50" />

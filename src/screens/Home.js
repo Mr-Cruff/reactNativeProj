@@ -165,9 +165,9 @@ const formFields = [
       title: 'Vaccination',
       type: 'grow',
       fields: [
-        {label: 'Type/Description', type: 'string', regex:{isRequired:false},farmType:'grow'},
-        {label: 'Quantity', type: 'float', regex:{min:0, max:null,isRequired:false},farmType:'grow'},
-        {label: 'Serial Number', type: 'string', regex:{isRequired:false},farmType:'grow'},
+        {label: 'Type/Description', type: 'string', regex:{isRequired:false,max:20},farmType:'grow'},
+        {label: 'Quantity', type: 'float', regex:{min:0, max:10000000000,isRequired:false},farmType:'grow'},
+        {label: 'Serial Number', type: 'string', regex:{isRequired:false, max:20},farmType:'grow'},
       ],
   },
 ];

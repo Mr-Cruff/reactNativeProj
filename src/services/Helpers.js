@@ -217,7 +217,7 @@ export const fourFieldTime = (idx)=>{
       str="8:30:00";
       break;
     case 1:
-      str="10:00:00";
+      str="10:30:00";
       break;
     case 2:
       str="13:30:00";
@@ -572,16 +572,12 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                 Object.keys(retrievedData).map((field, fieldIndex) => {
                   if(item.label===field && retrievedData[field] !== ""){
                     defaultVal=retrievedData[field];
-
                   }
                 });
 
-
-
-                  //Nested Fields Conditional Function
-                  if (typeof item.fields !== 'undefined') { // Check for fields array
-
-                    if (item.type === 'multi-field') {  
+                //Nested Fields Conditional Function
+                if (typeof item.fields !== 'undefined') { // Check for fields array
+                  if (item.type === 'multi-field') {  
                       let total = 0;
                       const fieldFunc = item.fields.map((subItem, subIndex) => {
                           const initVal = validateInitValue(defaultVal[`${item.fields[subIndex].label}`], subItem.type);
@@ -701,8 +697,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           <Text>Total {item.label}: {total}</Text>
                         </View>
                       )
-                    }
-                    else if(item.type == 'multi-time-only'){ 
+                  }
+                  else if(item.type == 'multi-time-only'){ 
                       let startTime = useRef((defaultVal[`${item.fields[0].label}`]) ? setInitDateTime(defaultVal[`${item.fields[0].label}`]) : "");
                       let endTime = useRef((defaultVal[`${item.fields[1].label}`]) ? setInitDateTime(defaultVal[`${item.fields[1].label}`]) : "");
                       const [lightingHours, setLightingHours] = useState(calculateTimeDifference(startTime.current, endTime.current));    
@@ -745,8 +741,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           <Text>Lighting hours: {lightingHours}</Text>
                         </View>
                       )
-                    }
-                    else{
+                  }
+                  else{
                       //Nested Time Fields Function
                       return(
                         <View style={{marginVertical: 12}} key={index}>
@@ -858,10 +854,10 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           </View>
                         </View>
                       )
-                    }             
-                  } else {
-                    //Radio Button Field Function
-                    if(item.type == 'option'){
+                  }             
+                } else {
+                  //Radio Button Field Function
+                  if(item.type == 'option'){
                       const [val,setVal] = useState(defaultVal?defaultVal:null);
                       return(
                         <View style={{marginVertical: 12}} key={index}>
@@ -902,7 +898,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           }
                         </View>
                       )
-                    }else if(item.type == 'time'){
+                  }else if(item.type == 'time'){
                       const l=defaultVal === null ||defaultVal === "" || typeof defaultVal == "undefined"?true:false;
                       const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? dateGlobal: setInitDateTime(defaultVal)));
                       return(
@@ -924,7 +920,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                         />
                         </View>
                     );
-                    }else if(item.type == 'justTime'){
+                  }else if(item.type == 'justTime'){
                       var d;
                       var label;
                       if (defaultVal == "" || typeof defaultVal == 'undefined'){ label=true;d=dateGlobal; d.setHours(0,0,0,0); }
@@ -949,7 +945,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                           /> 
                         </View>
                       );
-                    }else{ 
+                  }else{ 
                       //Typical Input Field Function  
                       const defaultVal1=useRef(validateInitValue(retrievedData[item.label])); 
                       const isDescription = item.type ==="description"?true:false;
@@ -1008,8 +1004,8 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                         }
                       </View>
                       );
-                    }
                   }
+                }
               })}
           </View>
       </ScrollView>
@@ -1062,6 +1058,9 @@ const maxLengthFilter = (type) => {
   }
   else if(type === 'description'){
     return 80;
+  }
+  else if(type === 'string'){
+    return 20;
   }
   else
     return null;
@@ -1402,3 +1401,11 @@ export const ShowAlert =(title, message, buttonArray = undefined) =>{
 export const getFarmsFromGlobalByName = async (name="") => {
 
 };
+
+export const isObjectEmpty = (obj) => {
+  return (
+    obj &&
+    Object.keys(obj).length === 0 &&
+    obj.constructor === Object
+  );
+}

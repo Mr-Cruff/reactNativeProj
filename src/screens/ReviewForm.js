@@ -163,6 +163,7 @@ const ReviewForm = ({route, navigation, back}) => {
     }
 
     const FormsList = (forms) => {
+      let empty=true;
       return(
         <View style={{marginTop:20}}>
             <Text style={{fontSize:20, fontWeight:'bold', padding:0, color:'#343a40'}}>{farmSelected.name}</Text>
@@ -170,37 +171,24 @@ const ReviewForm = ({route, navigation, back}) => {
                 if(form.house.trim().toUpperCase() !== "HOUSE"){
                   return (
                     <View style={{marginBottom:10}} key={formIndex}>
-                      <Text style={{fontSize:17, marginTop:0, marginBottom:5, color:'#495057'}}>{form.house.toUpperCase()}</Text>
+                      {form.forms.length>0 && <Text style={{fontSize:17, marginTop:0, marginBottom:5, color:'#495057'}}>{form.house.toUpperCase()}</Text>}
                       <View>
                         {
                           form.forms.length > 0 ?                             
                             form.forms.map((i, idx)=>{
-                            // console.log(form.forms.length);
-                            // console.log({house: form.house.toUpperCase(), ...i});
-                            return FormTile({house: form.house.toUpperCase(), ...i});
+                              // console.log(form.forms.length);
+                              // console.log({house: form.house.toUpperCase(), ...i});
+                              empty=false;
+                              return FormTile({house: form.house.toUpperCase(), ...i});
                             })
-                          :<Text style={{fontSize:15, color:'#adb5bd', backgroundColor:'#dee2e6', width:'100%', textAlign:'center', textAlignVertical:'center', height:40}}>No forms available for REVIEW for this house</Text>
-                          //)   (() => {
-                          //   // console.log(form.forms.length)
-                          //   // for(let formObj of form.forms){
-                          //   for(let i=0;i<form.forms.length;i++){
-                          //     console.log(form.forms[i].formId);
-                          //     return(
-                          //       FormTile(form.forms[i])
-                          //     //   <View>
-                                
-                          //     //       // console.log(formObj)
-                          //     //     }
-                                
-                          //     // </View>
-                          //     )}
-                          // })()
+                          :null
                         }
                       </View>
                     </View>
                   );
                 }
               })}
+              {empty && <Text style={{fontSize:15, color:'#adb5bd', backgroundColor:'#dee2e6', width:'100%', textAlign:'center', textAlignVertical:'center', height:40}}>No forms available for REVIEW for this farm</Text>}
         </View>
       )
     }

@@ -139,8 +139,8 @@ android {
         applicationId "com.reactnativeproj"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 22
-        versionName "1.0.21 - UAT"
+        versionCode 23
+        versionName "1.1.2 - UAT"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
