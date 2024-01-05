@@ -949,7 +949,7 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                       //Typical Input Field Function  
                       const defaultVal1=useRef(validateInitValue(retrievedData[item.label])); 
                       const isDescription = item.type ==="description"?true:false;
-                      const MAX_LENGTH = maxLengthFilter(item.type);
+                      const MAX_LENGTH = maxLengthFilter(item.type, item?.regex?.max);
                       const [charsLeft, setCharsLeft] = useState(MAX_LENGTH);
                       
                       return(
@@ -1014,7 +1014,6 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
 }
 
 const rules = (type, regex={}) => {
-
   if(type === 'int'){
     // console.log('int');
     return({
@@ -1049,7 +1048,7 @@ const rules = (type, regex={}) => {
   }
 }
 
-const maxLengthFilter = (type) => {
+const maxLengthFilter = (type,fieldMax) => {
   if(type === 'int'){
     return 10;
   }
@@ -1060,7 +1059,10 @@ const maxLengthFilter = (type) => {
     return 80;
   }
   else if(type === 'string'){
+    if(fieldMax)
+      return fieldMax;
     return 20;
+
   }
   else
     return null;
