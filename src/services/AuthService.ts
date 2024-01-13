@@ -23,10 +23,7 @@ const signIn = async (email, _password): Promise<AuthData> => {
 
   let decoded ="";let name="";let data:any={};let role="";let uuid:"";
 
-  // console.log('attempting to access auth endpoint');
   await axios.post(`${AUTH_API}/api/Auth/login`, {"username":email,"password":_password, "appID":APP_ID}).then(res=>{
-    // console.log("here")
-    // console.log(res)
     data = res.data;
     decoded = jwt_decode(data.token);
     name="";
@@ -37,23 +34,7 @@ const signIn = async (email, _password): Promise<AuthData> => {
       item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
     });
   }).catch(res =>{
-    // console.log("LOG IN FAILED")
-    // console.log(res)
-    // console.log(res);
     data = isObjectEmpty(data)? res: data;
-
-        
-      // console.log(res.response)
-      // console.log(res.response)
-      //   return new Promise(reject => {
-      //     console.log(0)
-      //       reject({
-      //         token: '',
-      //         email: '',
-      //         name: '',
-      //         password: '',
-      //       });
-      // });
   });
   
   if (data.success) {
@@ -98,12 +79,6 @@ export const tokenValidation = (token:string) => {
   const decoded1:any = jwt_decode("eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjVhMDU1YzFiLTYyYmQtNDM4ZS00MjQyLTA4ZGE5NmQzMzk0ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJMZW9uIEJyb3duIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU3lzdGVtIEFkbWluaXN0cmF0b3IiLCJleHAiOjE2ODYzMjE4NDl9.uj9ukqy6sUGDQfbzkKkRQtJrFenmUHsk45lL9ofbynr6lsKwfHAYK_cu6PwKTwgot0A2NEg0O0z_Tv9lz_0RSA");
   const date = Date.now();
   if(decoded.exp *1000 >= date){
-    // console.log('dsjbnals');
-    // console.log(new Date(decoded.exp*1000).toLocaleString());
-    // console.log(new Date(decoded1.exp*1000).toLocaleString());
-    // console.log(new Date(date).toLocaleString());
-    // console.log(decoded.exp > date);
-    // console.log(decoded1.exp > date);
     return true;
   }
   return false;
