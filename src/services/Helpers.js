@@ -15,7 +15,7 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { ActivityIndicator, RadioButton } from 'react-native-paper';
 import { APP_API } from '../Constants';
-import { useAuth } from '../contexts/Auth';
+// import { useAuth } from '../contexts/Auth';
 import axios from 'axios';
 import { DualTimeField, SingleTimeField, StopWatchTimeField, TimeField } from '../formFields/LightsOnOff_Time';
 // import { GlobalContext } from '../contexts/GlobalContext';

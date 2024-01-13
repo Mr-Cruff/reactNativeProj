@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import alert_LoginFailed from '../components/LoginFailed_Alert';
 import { AUTH_API, APP_ID } from '../Constants';
+import { isObjectEmpty } from './Helpers';
 
 export type AuthData = {
   uuid:string;
@@ -25,23 +26,25 @@ const signIn = async (email, _password): Promise<AuthData> => {
   // console.log('attempting to access auth endpoint');
   await axios.post(`${AUTH_API}/api/Auth/login`, {"username":email,"password":_password, "appID":APP_ID}).then(res=>{
     // console.log("here")
-    // console.log(res.data)
+    // console.log(res)
     data = res.data;
     decoded = jwt_decode(data.token);
     name="";
     
     Object.keys(decoded).map((item) => {
-     item.endsWith('name') ? name = decoded[item] : '';
-     item.endsWith('role') ? role = decoded[item] : '';
-     item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
+      item.endsWith('name') ? name = decoded[item] : '';
+      item.endsWith('role') ? role = decoded[item] : '';
+      item.endsWith('nameidentifier') ? uuid = decoded[item] : '';
     });
   }).catch(res =>{
-        // console.log("LOG IN FAILED")
-        // console.log(res)
-        data=res
+    // console.log("LOG IN FAILED")
+    // console.log(res)
+    // console.log(res);
+    data = isObjectEmpty(data)? res: data;
+
         
-        // console.log(res.response)
-        // console.log(res.response)
+      // console.log(res.response)
+      // console.log(res.response)
       //   return new Promise(reject => {
       //     console.log(0)
       //       reject({
