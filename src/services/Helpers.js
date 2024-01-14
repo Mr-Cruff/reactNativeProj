@@ -1,9 +1,7 @@
 import React,{useState, useRef,useEffect, useContext} from 'react';
-// import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
-import {useForm, Controller, reset, FormContext, useFormContext} from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import {
   Alert,
-  Button,
   Text,
   TextInput,
   Image,
@@ -12,34 +10,10 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { ActivityIndicator, RadioButton } from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 import { APP_API } from '../Constants';
-// import { useAuth } from '../contexts/Auth';
 import axios from 'axios';
-import { DualTimeField, SingleTimeField, StopWatchTimeField, TimeField } from '../formFields/LightsOnOff_Time';
-// import { GlobalContext } from '../contexts/GlobalContext';
-
-// export const IconedButton = ({navigation}, x) => {
-//   return (
-//     <TouchableOpacity onPress={x => navigation.navigate(x)}>
-//       <View>
-//         <Image source={require('../resources/buttonIcons/Forms.png')} />
-//       </View>
-//     </TouchableOpacity>
-//   );
-// };
-
-// export const IconedButton = props => {
-//   const goto = props.path;
-//   return (
-//     <TouchableOpacity onPress={props => navigation.navigate(goto)}>
-//       <Image source={require('../resources/buttonIcons/Forms.png')} />
-//     </TouchableOpacity>
-//   );
-// };
-
-//refactor to be more concise
+import { DualTimeField, SingleTimeField, StopWatchTimeField, } from '../formFields/LightsOnOff_Time';
 
 
 export const currentDate = () => {
@@ -148,23 +122,14 @@ const setInitDateTime = (defaultVal) => {
 }
 
 export function convertToCSharpCompatibleFormat(dateString) {
-  // let date = new Date(dateString);
-  // let offset = -5; // UTC-5 for Eastern Time
-  // let localDate = new Date(date.getTime() + offset * 3600 * 1000);
   let localDate = new Date(dateString);
-  
   let year = localDate.getFullYear();
   let month = String(localDate.getMonth() + 1).padStart(2, '0');
   let day = String(localDate.getDate()).padStart(2, '0');
   let hours = String(localDate.getHours()).padStart(2, '0');
   let minutes = String(localDate.getMinutes()).padStart(2, '0');
   let seconds = String(localDate.getSeconds()).padStart(2, '0');
-  // console.log('================== To C#Version ====================');
-  // console.log(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
-  // console.log('=====================================================');
-  
-  
-  // return localDate.toJSON();
+
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
@@ -179,33 +144,6 @@ export function convertToJSCompatibleFormat(dateString) {
 
   return localDate;
 }
-
-
-// export const TestTimeConversion = () => {
-//   // const dateString1 = new Date("2023-12-10T00:05:08");
-//   // const dateString1 = new Date("2023-12-10T04:00:00");
-//   const dateString1 = "2023-12-10T00:05:08";
-//   console.log("Start Date: " +dateString1 + "\n");
-
-//   const date0 = convertToJSCompatibleFormat(dateString1);
-//   console.log("To JS: " +date0);
-  
-//   const date1 = convertToCSharpCompatibleFormat(date0);
-//   console.log("To C#: " +date1);
-//   // console.log("UTC date: " +dateString1.toUTCString());
-//   // console.log("JSON date: " +date1.toJSON());
-  
-//   const date2 = convertToJSCompatibleFormat(date1);
-//   console.log("To JS: " +date2);
-//   // console.log("UTC date: " +date2.toUTCString());
-//   // console.log("JSON date: " +date2.toJSON());
-  
-//   const date3 = convertToCSharpCompatibleFormat(date2);
-//   console.log("To C#: " + date3);
-//   // console.log("UTC date: " +date3.toUTCString());
-//   // console.log("JSON date: " +date3.toJSON());
-// }
-
 
 // Egg collection entry for 4 times
 export const fourFieldTime = (idx)=>{
@@ -1337,24 +1275,6 @@ export const executeApiQuery = async (url, token, method = 'get', data = {}, par
   }
 };
 
-
-// export const validateInitValue = (value, valueType) => {
-//   if (value !== null) {
-//     if (valueType === 'float'){
-//       let y =  parseFloat(value);
-//       if (!isNaN(y))
-//         return y;
-//     } 
-//     if(valueType === 'int'){
-//       let y =  parseInt(value);
-//       if (!isNaN(y))
-//         return y;
-//     }
-//   }else{
-//     return null;
-//   }
-//   return value;
-// }
 
 const validateInitValue = (value, valueType) => {
   if (value === null || value === undefined) {

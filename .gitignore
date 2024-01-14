@@ -97,7 +97,6 @@ android/.idea/modules/916676766/reactNativeProj.react-native-gesture-handler.iml
 android/.idea/modules/916676766/reactNativeProj.react-native-gesture-handler.main.iml
 android/.idea/modules/916676766/reactNativeProj.react-native-gesture-handler.unitTest.iml
 android/.idea/modules/app/reactNativeProj.app.iml
-android/app/build.gradle
 android/app/build/generated/assets/react/release/index.android.bundle
 android/app/build/generated/source/buildConfig/debug/com/reactnativeproj/BuildConfig.java
 android/app/build/generated/source/buildConfig/release/com/reactnativeproj/BuildConfig.java
