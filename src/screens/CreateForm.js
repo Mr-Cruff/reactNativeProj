@@ -33,8 +33,9 @@ const CreateForm = ({ route, navigation }) => {
       var date = new Date();
       // var firstDay= date.getDate() - date.getDay()
       // var minDate= new Date(date.setDate(date.getDate()-6))
-      var minDate= new Date(date.setDate(date.getDate()-14))
-      return minDate;
+      //var minDate= new Date(date.setDate(date.getDate()-14))
+      date.setMonth(date.getMonth() - 9);
+      return date;
     }
 
     // const setMinDate = () =>{
