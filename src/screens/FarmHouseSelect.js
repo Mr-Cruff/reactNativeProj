@@ -1,65 +1,60 @@
 import React, {useEffect, useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {useNavigation} from '@react-navigation/native';
-import {
-  Alert,
-  Button,
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
 const FarmHouseSelect = ({route, back}) => {
-  console.log(route.params)
-  const { farms } = route.params;
+  const {farms} = route.params;
   const navigation = useNavigation();
   const [farmSelected, setFarmSelected] = useState('none');
   const [houseSelected, setHouseSelected] = useState('none');
   const [farmHouse, setFarmHouse] = useState(null);
-  
+
   const FarmSelect = () => {
     if (farms.length > 1) {
-      let farmNames=[];
+      let farmNames = [];
       return (
         <View>
           <Picker
-            style={{backgroundColor: 'white', height: 60, marginTop:20}}
+            style={{backgroundColor: 'white', height: 60, marginTop: 20}}
             selectedValue={farmSelected}
-            onValueChange={(farmName, farmIndex) => {setHouseSelected('none'); setFarmSelected(farmName)}}>
+            onValueChange={(farmName, farmIndex) => {
+              setHouseSelected('none');
+              setFarmSelected(farmName);
+            }}>
             <Picker.Item label="Select a Farm" value="none" key={'none'} />
             {farms.map((farm, index) => {
-              if(farmNames.includes(farm.name)){
-              }else{
-                farmNames=[...farmNames, farm.name];
-                return(
-                  <Picker.Item label={farm.name} value={index} key={index} />
-                );
-            }
-
-          })}
+              if (farmNames.includes(farm.name)) {
+              } else {
+                farmNames = [...farmNames, farm.name];
+                return <Picker.Item label={farm.name} value={index} key={index} />;
+              }
+            })}
           </Picker>
-          <Text style={{marginTop:10, color:'#9EADD3', textAlign:'center'}}>{(farmSelected != 'none') ? '': 'Select a Farm from the picker ABOVE to see form for REVIEW'}</Text>
+          <Text style={{marginTop: 10, color: '#9EADD3', textAlign: 'center'}}>
+            {farmSelected != 'none'
+              ? ''
+              : 'Select a Farm from the picker ABOVE to see form for REVIEW'}
+          </Text>
         </View>
       );
-    } 
-    // else {
-    //   setFarmSelected(farms[0]);
-
-    //   return <Text>{farms[0].name}</Text>;
-    // }
+    }
   };
 
   const SingleFarm = () => {
-    return <Text style={{fontSize:24, fontWeight:'bold', color:'#282C50'}}>{farms[0].name}</Text>;
-  }
+    return (
+      <Text style={{fontSize: 24, fontWeight: 'bold', color: '#282C50'}}>{farms[0].name}</Text>
+    );
+  };
 
   const HouseSelect = () => {
     return (
       <View style={{marginTop: 20}}>
-        <Text style={{marginBottom:10, color:'#9EADD3', textAlign:'center'}}>{(farmSelected == 'none' || houseSelected != 'none') ? '': 'Sdddddddelect a House from the picker BELOW to move forward'}</Text>
+        <Text style={{marginBottom: 10, color: '#9EADD3', textAlign: 'center'}}>
+          {farmSelected == 'none' || houseSelected != 'none'
+            ? ''
+            : 'Select a House from the picker BELOW to move forward'}
+        </Text>
         <Picker
           style={{backgroundColor: 'white', height: 60}}
           selectedValue={houseSelected}
@@ -74,11 +69,7 @@ const FarmHouseSelect = ({route, back}) => {
           }}>
           <Picker.Item label="Select a House" value="none" key="none" />
           {farms[farmSelected].houses.map((house, houseIndex) => (
-            <Picker.Item
-              label={house.name}
-              value={houseIndex}
-              key={houseIndex}
-            />
+            <Picker.Item label={house.name} value={houseIndex} key={houseIndex} />
           ))}
         </Picker>
       </View>
@@ -86,20 +77,14 @@ const FarmHouseSelect = ({route, back}) => {
   };
 
   useEffect(() => {
-    //updateHouse();
-    //console.log(houseSelected);
-    if (
-      farmSelected != 'none' &&
-      houseSelected != 'none' &&
-      farmHouse != null
-    ) {
+    if (farmSelected != 'none' && houseSelected != 'none' && farmHouse != null) {
       navigation.navigate('New Form', farmHouse);
     }
   });
 
   useEffect(() => {
-    farms.length == 1 ? setFarmSelected(0) : "none";
-  },[]);
+    farms.length == 1 ? setFarmSelected(0) : 'none';
+  }, []);
 
   return (
     <View style={styles.container}>

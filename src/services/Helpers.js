@@ -1,5 +1,5 @@
-import React,{useState, useRef,useEffect, useContext} from 'react';
-import { Controller } from 'react-hook-form';
+import React, {useState, useRef, useEffect, useContext} from 'react';
+import {Controller} from 'react-hook-form';
 import {
   Alert,
   Text,
@@ -10,11 +10,10 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-import { APP_API } from '../Constants';
+import {RadioButton} from 'react-native-paper';
+import {APP_API} from '../Constants';
 import axios from 'axios';
-import { DualTimeField, SingleTimeField, StopWatchTimeField, } from '../formFields/LightsOnOff_Time';
-
+import {DualTimeField, SingleTimeField, StopWatchTimeField} from '../formFields/LightsOnOff_Time';
 
 export const currentDate = () => {
   let today = new Date();
@@ -43,42 +42,43 @@ export const dashLocalTime = () => {
 };
 
 // TIme and date formatters
-export function timeConvert (time) {
+export function timeConvert(time) {
   // Check correct time format and split into components
-  time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
-  if (time.length > 1) { // If time format correct
-    time = time.slice (1);  // Remove full string match value
+  if (time.length > 1) {
+    // If time format correct
+    time = time.slice(1); // Remove full string match value
     time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
     time[0] = +time[0] % 12 || 12; // Adjust hours
-    time.splice (3,2);  // Remove full string match value
+    time.splice(3, 2); // Remove full string match value
     // console.log(time);
   }
-  return time.join (''); // return adjusted time or original string
+  return time.join(''); // return adjusted time or original string
 }
 
-export function timeConverter (dateJSON) {
-  const date= new Date(dateJSON)
+export function timeConverter(dateJSON) {
+  const date = new Date(dateJSON);
   let hh = date.getHours();
   let mm = date.getMinutes();
 
-  const strTime = hh + ' Hours : ' + mm +' Minutes';
+  const strTime = hh + ' Hours : ' + mm + ' Minutes';
   return strTime;
 }
 
-export const jamaicanDateFormat = (dateParam) =>{
+export const jamaicanDateFormat = dateParam => {
   const date = dateParam || new Date();
-  let dd = date.getDate()<10?`0${date.getDate()}`:date.getDate();
-  let mm = date.getMonth()<9?`0${date.getMonth()+1}`:date.getMonth()+1;
+  let dd = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+  let mm = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
   let yyyy = date.getFullYear();
-  const formattedDate = `${dd}/${mm}/${yyyy}`
+  const formattedDate = `${dd}/${mm}/${yyyy}`;
   return formattedDate;
-}
+};
 
 // Function to calculate the difference in hours and minutes
-export function calculateTimeDifference(start="", end="") {
-  if (start === "" || end === ""){
-    return " - ";
+export function calculateTimeDifference(start = '', end = '') {
+  if (start === '' || end === '') {
+    return ' - ';
   }
 
   let startMinutes = start.getHours() * 60 + start.getMinutes();
@@ -89,16 +89,16 @@ export function calculateTimeDifference(start="", end="") {
   if (diff < 0) {
     // Adjust if the end time is actually on the next day
     diff += 24 * 60;
-    return " Lights on cannot be negative";
+    return ' Lights on cannot be negative';
   }
 
   const hours = Math.floor(diff / 60);
   const minutes = diff % 60;
 
   return `${hours}h ${minutes}m`;
-}   
+}
 
-const setInitDateTime = (defaultVal) => {
+const setInitDateTime = defaultVal => {
   if (defaultVal === null || defaultVal === undefined) {
     return new Date();
   }
@@ -119,7 +119,7 @@ const setInitDateTime = (defaultVal) => {
   }
 
   return date;
-}
+};
 
 export function convertToCSharpCompatibleFormat(dateString) {
   let localDate = new Date(dateString);
@@ -135,57 +135,56 @@ export function convertToCSharpCompatibleFormat(dateString) {
 
 export function convertToJSCompatibleFormat(dateString) {
   let date = new Date(dateString);
-  const day = date.getDate()
+  const day = date.getDate();
   let offset = 5; // UTC-5 for Eastern Time
   let localDate = new Date(date.getTime() + offset * 3600 * 1000);
-  
-  if((date.getHours() +5) < 24)
-    localDate.setDate(day);
+
+  if (date.getHours() + 5 < 24) localDate.setDate(day);
 
   return localDate;
 }
 
 // Egg collection entry for 4 times
-export const fourFieldTime = (idx)=>{
-  let str = "";
+export const fourFieldTime = idx => {
+  let str = '';
   let currentDate = new Date();
 
-  switch (idx){
+  switch (idx) {
     case 0:
-      str="8:30:00";
+      str = '8:30:00';
       break;
     case 1:
-      str="10:30:00";
+      str = '10:30:00';
       break;
     case 2:
-      str="13:30:00";
+      str = '13:30:00';
       break;
     case 3:
-      str="15:30:00";
+      str = '15:30:00';
       break;
-  } 
+  }
   let [hours, minutes, seconds] = str.split(':').map(Number);
 
   currentDate.setHours(hours);
   currentDate.setMinutes(minutes);
   currentDate.setSeconds(seconds);
-  
+
   return currentDate;
-}
+};
 
 // Time specific collection for 2 entries
-export const doubleFieldTime = (idx)=>{
-  let str = "";
+export const doubleFieldTime = idx => {
+  let str = '';
   let currentDate = new Date();
 
-  switch (idx){
+  switch (idx) {
     case 0:
-      str="6:00:00";
+      str = '6:00:00';
       break;
     case 1:
-      str="15:00:00";
+      str = '15:00:00';
       break;
-  } 
+  }
   let [hours, minutes, seconds] = str.split(':').map(Number);
 
   currentDate.setHours(hours);
@@ -193,208 +192,211 @@ export const doubleFieldTime = (idx)=>{
   currentDate.setSeconds(seconds);
 
   return currentDate;
-}
-
+};
 
 // weight conversions
-export const poundsToTons = (lbs) => {
-    var tons=lbs*	0.0004535924;
-    return tons;
-}
-export const tonsToPounds = (tons) => {
-  var lbs=tons*2204.62262185;
+export const poundsToTons = lbs => {
+  var tons = lbs * 0.0004535924;
+  return tons;
+};
+export const tonsToPounds = tons => {
+  var lbs = tons * 2204.62262185;
   return lbs;
-}
-export const tonsToKg = (tons) => {
-  var kg=tons*1000;
+};
+export const tonsToKg = tons => {
+  var kg = tons * 1000;
   return kg;
-}
+};
 
-export const poundsToKg = (lbs) => {
-    var tons=poundsToTons(lbs);
-    return tonsToKg(tons);
-}
-
+export const poundsToKg = lbs => {
+  var tons = poundsToTons(lbs);
+  return tonsToKg(tons);
+};
 
 // Icons
 export const RedTrashCan = () => {
   const location = require('../resources/RedTrashCan.png');
   return (
     <View>
-      <Image style={{width:32, height:32}}  source={location} />
+      <Image style={{width: 32, height: 32}} source={location} />
     </View>
-    );
-}
-export const WhiteTick = ({ size=32 }) => {
+  );
+};
+export const WhiteTick = ({size = 32}) => {
   const location = require('../resources/approveForm.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const WhitePlus = ({ size=32 }) => {
+export const WhitePlus = ({size = 32}) => {
   const location = require('../resources/WhitePlus.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const WhiteX = ({ size=32 }) => {
+export const WhiteX = ({size = 32}) => {
   const location = require('../resources/RejectForm.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const NewFormIcon = ({ size=32 }) => {
+export const NewFormIcon = ({size = 32}) => {
   const location = require('../resources/newForm.png');
   return (
-      <View >
-        <Image style={{width:size+5, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size + 5, height: size}} source={location} />
+    </View>
   );
 };
-export const EditFormIcon = ({ size=32 }) => {
+export const EditFormIcon = ({size = 32}) => {
   const location = require('../resources/EditForm.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const ClockIcon = ({ size=32 }) => {
+export const ClockIcon = ({size = 32}) => {
   const location = require('../resources/clock.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const UserProfileIcon = ({ size=32 }) => {
+export const UserProfileIcon = ({size = 32}) => {
   const location = require('../resources/Profile.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
 };
-export const CalnderIcon = ({ size=32 }) => {
+export const CalnderIcon = ({size = 32}) => {
   const location = require('../resources/calender.png');
   return (
-      <View >
-        <Image style={{width:size, height:size}} source={location} />
-      </View>
+    <View>
+      <Image style={{width: size, height: size}} source={location} />
+    </View>
   );
-}
+};
 // -----------
 
-export const setMinDate = () =>{
+export const setMinDate = () => {
   var date = new Date();
   // var firstDay= date.getDate() - date.getDay()
-  var minDate= new Date(date.setDate(date.getDate()-6))
+  var minDate = new Date(date.setDate(date.getDate() - 6));
   return minDate;
-}
-
-
+};
 
 // Form Parsing Functions
 
 // This function separates the header values from the form categories and returns them in an object
-export const organizeFormFields = (form) => {
+export const organizeFormFields = form => {
   let retrievedForm;
-  typeof form != "object" ? retrievedForm = JSON.parse(form) : retrievedForm = form; 
-  let header={};
-  let categories={};
+  typeof form != 'object' ? (retrievedForm = JSON.parse(form)) : (retrievedForm = form);
+  let header = {};
+  let categories = {};
   Object.keys(retrievedForm).map((key, idx) => {
-    if(typeof retrievedForm[key] != "object"){
-      header = {...header, ...{[key] : retrievedForm[key]}};
-    }else{
-      if (retrievedForm[key])
-      categories = {...categories, [key]:retrievedForm[key]}
+    if (typeof retrievedForm[key] != 'object') {
+      header = {...header, ...{[key]: retrievedForm[key]}};
+    } else {
+      if (retrievedForm[key]) categories = {...categories, [key]: retrievedForm[key]};
     }
-  })
-  header.Status=1
-  // console.log(header);
-  return {header:header, categories:categories};
-}
+  });
+  header.Status = 1;
+  return {header: header, categories: categories};
+};
 
-export const categoryParse = (category) => {
-  // console.log(typeof null);
-  const styles={
-      catLabel:{
-        fontSize:22,
-        fontWeight:'bold'
-      },   
-      subCat:{fontSize:20, fontWeight:'500',width:"100%", alignSelf:'center', backgroundColor:'#5d66ae', textAlign:'center', color:'white', marginLeft:-20,}
-  }
-  if (!category)
-    return;
-  else{
-    return Object.keys(category).map((label, idx) =>{
-      if(typeof category[label] == "object"){
+export const categoryParse = category => {
+  const styles = {
+    catLabel: {
+      fontSize: 22,
+      fontWeight: 'bold',
+    },
+    subCat: {
+      fontSize: 20,
+      fontWeight: '500',
+      width: '100%',
+      alignSelf: 'center',
+      backgroundColor: '#5d66ae',
+      textAlign: 'center',
+      color: 'white',
+      marginLeft: -20,
+    },
+  };
+  if (!category) return;
+  else {
+    return Object.keys(category).map((label, idx) => {
+      if (typeof category[label] == 'object') {
         if (!category[label]) return;
         else
-        return(
-        <View key={idx}>
-          <Text style={styles.subCat}>{label}</Text>
-          <View style={{paddingBottom:20,}}>
-            {categoryParse(category[label])}
-          </View>
-        </View>
-        )
-      }
-      else {
-        return <KeyValuePrint label={label} value={category[label]} />
+          return (
+            <View key={idx}>
+              <Text style={styles.subCat}>{label}</Text>
+              <View style={{paddingBottom: 20}}>{categoryParse(category[label])}</View>
+            </View>
+          );
+      } else {
+        return <KeyValuePrint key={`${label}${idx}`} label={label} value={category[label]} />;
       }
     });
   }
-}
-
+};
 
 // This prints the values for the Review Form
-export const KeyValuePrint = ({ label, value }) => {
-  const styles={
-    textLabel:{
-      fontSize:16,
-      fontWeight:'400',
-      color:"#6c757d"
+export const KeyValuePrint = ({label, value}) => {
+  const styles = {
+    textLabel: {
+      fontSize: 16,
+      fontWeight: '400',
+      color: '#6c757d',
     },
-    textValue:{
-      fontSize:16,
-      fontWeight:'500',
-      color:"#22223b",
+    textValue: {
+      fontSize: 16,
+      fontWeight: '500',
+      color: '#22223b',
     },
-  }
+  };
 
-  return(
-    <View >
-      <Text style={styles.textLabel}>{label}: <Text style={styles.textValue}>{label.includes("Time")? printTimeField(label, value):value}</Text></Text>
+  return (
+    <View>
+      <Text style={styles.textLabel}>
+        {label}:{' '}
+        <Text style={styles.textValue}>
+          {label.includes('Time') ? printTimeField(label, value) : value}
+        </Text>
+      </Text>
     </View>
-  )
-}
+  );
+};
 
-export const printTimeField=(label, value)=>{
-  if(label.includes("Feed Consumption")) return timeConverter(convertToJSCompatibleFormat(value).toJSON());
-  else if (label.includes("Clocks on")) return value;
+export const printTimeField = (label, value) => {
+  if (label.includes('Feed Consumption'))
+    return timeConverter(convertToJSCompatibleFormat(value).toJSON());
+  else if (label.includes('Clocks on')) return value;
   return timeConvert(convertToJSCompatibleFormat(value).toLocaleTimeString());
-}
+};
 
 // Queries - AXIOS
-export const executeQuery = async (query) => {
-  const [url, token="", method='GET', data={}, params={}] = query;
+export const executeQuery = async query => {
+  const [url, token = '', method = 'GET', data = {}, params = {}] = query;
 
   const headers = {
-    'Content-Type': "application/json",
-    'Accept': "*/*",
+    'Content-Type': 'application/json',
+    Accept: '*/*',
     // Authorization: 'bearer ' + token,
   };
 
   const config = {
     method,
-    url:url,
+    url: url,
     // url:APP_API+url,
     // data,
     headers,
@@ -413,339 +415,447 @@ export const executeQuery = async (query) => {
   }
 };
 
-
-export const CategoryController = ({ categorySchema, retrievedData, form, allowEdit=true, farm }) => {
+export const CategoryController = ({
+  categorySchema,
+  retrievedData,
+  form,
+  allowEdit = true,
+  farm,
+}) => {
   // consider implementing a load animation
   const [visible, setVisibility] = useState(true);
   const data = useRef({retrievedData});
   // console.log(form.getValues(categorySchema.title))
   return (
-      <View>
-          <TouchableOpacity onPress={() => {data.current={retrievedData:form.getValues(categorySchema.title)}; setVisibility(!visible); }}>
-          <View 
-              style={visible? 
-                  {
-                    justifyContent:'center',
-                    paddingVertical: 20,
-                    paddingTop: 30,
-                  }:{
-                    flexDirection:'row',
-                    justifyContent:'space-between',
-                    backgroundColor: '#282C50',
-                    paddingVertical: 20,
-                    paddingTop: 30,
-                    paddingHorizontal:'5%'
-                  }}>
-              <Text
-                style={visible? 
-                  {
-                  color: '#282C50',
-                  fontSize: 26,
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  // paddingVertical: 20,
-                  // paddingTop: 30,
-                }:{
-                  // backgroundColor: '#282C50',
-                  color:'white',
-                  fontSize: 26,
-                  fontWeight: 'bold',
-                  textAlign: 'left',
-                  // marginLeft:'5%',
-                  // paddingVertical: 20,
-                  // paddingTop: 30,
-                }}>
-                {categorySchema.title.toUpperCase()} 
-              </Text>
-              {!visible && <WhitePlus size={32} />}
-            </View>
-          </TouchableOpacity>
-          {visible && <Category categorySchema={categorySchema} retrievedData={data.current.retrievedData} form={form} allowEdit={allowEdit} farm={farm} />}
-      </View>
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          data.current = {retrievedData: form.getValues(categorySchema.title)};
+          setVisibility(!visible);
+        }}>
+        <View
+          style={
+            visible
+              ? {
+                  justifyContent: 'center',
+                  paddingVertical: 20,
+                  paddingTop: 30,
+                }
+              : {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  backgroundColor: '#282C50',
+                  paddingVertical: 20,
+                  paddingTop: 30,
+                  paddingHorizontal: '5%',
+                }
+          }>
+          <Text
+            style={
+              visible
+                ? {
+                    color: '#282C50',
+                    fontSize: 26,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    // paddingVertical: 20,
+                    // paddingTop: 30,
+                  }
+                : {
+                    // backgroundColor: '#282C50',
+                    color: 'white',
+                    fontSize: 26,
+                    fontWeight: 'bold',
+                    textAlign: 'left',
+                    // marginLeft:'5%',
+                    // paddingVertical: 20,
+                    // paddingTop: 30,
+                  }
+            }>
+            {categorySchema.title.toUpperCase()}
+          </Text>
+          {!visible && <WhitePlus size={32} />}
+        </View>
+      </TouchableOpacity>
+      {visible && (
+        <Category
+          categorySchema={categorySchema}
+          retrievedData={data.current.retrievedData}
+          form={form}
+          allowEdit={allowEdit}
+          farm={farm}
+        />
+      )}
+    </View>
   );
-}
+};
 
-export const nth = function(d) {
+export const nth = function (d) {
   if (d > 3 && d < 21) return 'th';
   switch (d % 10) {
-    case 1:  return "st";
-    case 2:  return "nd";
-    case 3:  return "rd";
-    default: return "th";
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
   }
-}
+};
 
-export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm }) => {
+export const Category = ({categorySchema, retrievedData, form, allowEdit, farm}) => {
   // ToDo: Time fields need to be fixed- currently not saving state change or rerender
   const {
     control,
     formState: {errors, isValid},
-    setValue
+    setValue,
   } = form;
 
-  if (!retrievedData){
-    retrievedData={};
+  if (!retrievedData) {
+    retrievedData = {};
   }
 
-  const globalEdit = typeof allowEdit == 'undefined'? true: allowEdit;
+  const globalEdit = typeof allowEdit == 'undefined' ? true : allowEdit;
   const dateGlobal = new Date();
 
-  return(
+  return (
     <ScrollView>
-          <View style={styles.container}>
-              {categorySchema.fields.map((item, index) => {
-                if(farm?.type.toLowerCase() != "production"){
-                  if (item.label.includes("Female"))
-                    if (farm.house.includes("B"))
-                    return;
-                  if(item.label.includes("Male"))
-                    if (!farm.house.includes("B"))
-                      return;  
-                }               
-                
-                // Checking the retrieved data for a value matching this object key
-                let defaultVal="";
-                let baseFormLabel=categorySchema.title + "." +item.label;
-                // console.log(baseFormLabel);
-                Object.keys(retrievedData).map((field, fieldIndex) => {
-                  if(item.label===field && retrievedData[field] !== ""){
-                    defaultVal=retrievedData[field];
-                  }
-                });
+      <View style={styles.container}>
+        {categorySchema.fields.map((item, index) => {
+          if (farm?.type.toLowerCase() != 'production') {
+            if (item.label.includes('Female')) if (farm.house.includes('B')) return;
+            if (item.label.includes('Male')) if (!farm.house.includes('B')) return;
+          }
 
-                //Nested Fields Conditional Function
-                if (typeof item.fields !== 'undefined') { // Check for fields array
-                  if (item.type === 'multi-field') {  
-                      let total = 0;
-                      const fieldFunc = item.fields.map((subItem, subIndex) => {
-                          const initVal = validateInitValue(defaultVal[`${item.fields[subIndex].label}`], subItem.type);
-                          const [valueState, setValueState] = useState(initVal);
-                          const [date, setDate] = useState(setInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
-                          const [isVisible, setIsVisible] = useState(false);
-                          const [validDefaultDate, setValidDate] = useState(validateInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]));
+          // Checking the retrieved data for a value matching this object key
+          let defaultVal = '';
+          let baseFormLabel = categorySchema.title + '.' + item.label;
+          // console.log(baseFormLabel);
+          Object.keys(retrievedData).map((field, fieldIndex) => {
+            if (item.label === field && retrievedData[field] !== '') {
+              defaultVal = retrievedData[field];
+            }
+          });
 
-                          // Add the initial value to the total
-                          total += Number(valueState);
+          //Nested Fields Conditional Function
+          if (typeof item.fields !== 'undefined') {
+            // Check for fields array
+            if (item.type === 'multi-field') {
+              let total = 0;
+              const fieldFunc = item.fields.map((subItem, subIndex) => {
+                const initVal = validateInitValue(
+                  defaultVal[`${item.fields[subIndex].label}`],
+                  subItem.type,
+                );
+                const [valueState, setValueState] = useState(initVal);
+                const [date, setDate] = useState(
+                  setInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]),
+                );
+                const [isVisible, setIsVisible] = useState(false);
+                const [validDefaultDate, setValidDate] = useState(
+                  validateInitDateTime(defaultVal[`${item.fields[subIndex].label} Time Captured`]),
+                );
 
-                          return(
-                              <View style={{width:'24%'}} key={subIndex}>
-                                <View>
-                                <Controller
-                                  key={subIndex}
-                                  control={control}
-                                  defaultValue={initVal}
-                                  name={baseFormLabel + '.' + subItem.label}
-                                  rules={(()=>rules(item.fields[subIndex].type, item.fields[subIndex].regex))()}
-                                  render={({ field: { onChange, onBlur, value }}) => {
-                                    useEffect(() => {
+                // Add the initial value to the total
+                total += Number(valueState);
 
-                                      const updatedTotal = Number(total) - Number(valueState) + Number(value);
-                                      total = updatedTotal;
-                                      setValue(baseFormLabel + '.' + item.label + ' Total', updatedTotal);
-                                      
-                                      if (value === 0){
-                                        setValueState("0");
-                                        setValidDate(true);
-                                      }
-                                      else if (value){
-                                        setValueState(value+"");
-                                        setValidDate(true);
-                                      } 
-                                      else{
-                                        setValueState("");
-                                        setValidDate(false);
-                                      }
-                                    }, [value]);
-                      
-                                    return (
-                                      <>
-                                        <TextInput
-                                          editable={globalEdit}
-                                          style={styles.input}
-                                          placeholder={subItem.label}
-                                          onBlur={onBlur}
-                                          onChangeText={value => {
-                                            const newDate = new Date();
-                                            // const convertedDate = fourFieldTime(subIndex).toISOString();
-                                            const convertedDate = convertToCSharpCompatibleFormat(fourFieldTime(subIndex));
-                                            onChange(value);
-                                            if(value === ""){
-                                              setValue(`${baseFormLabel}.${subItem.label}`, null);
-                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, null);
-                                            }else{
-                                              setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
-                                              setValue(`${baseFormLabel}.${subItem.label} Time Captured`, convertedDate);
-                                            }
-                                            setDate(newDate);
-                                          }}
-                                          value={valueState}
-                                          keyboardType={subItem.type === 'int' || subItem.type === 'float' ? 'number-pad' : 'default'}
-                                        />
-                                      </>
+                return (
+                  <View style={{width: '24%'}} key={subIndex}>
+                    <View>
+                      <Controller
+                        key={subIndex}
+                        control={control}
+                        defaultValue={initVal}
+                        name={baseFormLabel + '.' + subItem.label}
+                        rules={(() =>
+                          rules(item.fields[subIndex].type, item.fields[subIndex].regex))()}
+                        render={({field: {onChange, onBlur, value}}) => {
+                          useEffect(() => {
+                            const updatedTotal = Number(total) - Number(valueState) + Number(value);
+                            total = updatedTotal;
+                            setValue(baseFormLabel + '.' + item.label + ' Total', updatedTotal);
+
+                            if (value === 0) {
+                              setValueState('0');
+                              setValidDate(true);
+                            } else if (value) {
+                              setValueState(value + '');
+                              setValidDate(true);
+                            } else {
+                              setValueState('');
+                              setValidDate(false);
+                            }
+                          }, [value]);
+
+                          return (
+                            <>
+                              <TextInput
+                                editable={globalEdit}
+                                style={styles.input}
+                                placeholder={subItem.label}
+                                onBlur={onBlur}
+                                onChangeText={value => {
+                                  const newDate = new Date();
+                                  // const convertedDate = fourFieldTime(subIndex).toISOString();
+                                  const convertedDate = convertToCSharpCompatibleFormat(
+                                    fourFieldTime(subIndex),
+                                  );
+                                  onChange(value);
+                                  if (value === '') {
+                                    setValue(`${baseFormLabel}.${subItem.label}`, null);
+                                    setValue(
+                                      `${baseFormLabel}.${subItem.label} Time Captured`,
+                                      null,
                                     );
-                                  }}
-                                  />
-                                  <Controller
-                                    control={control} 
-                                    name={baseFormLabel + '.' +subItem.label+' Time Captured'}
-                                    value={null}
-                                    defaultValue={defaultVal[`${item.fields[subIndex].label} Time Captured`] || null}
-                                    render={() =>(
-                                      <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
-                                        <Text style={{color:'black', textAlign:'center'}}>
-                                          {timeConvert(fourFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
-                                        </Text>
-                                      </View>
-                                      )
-                                    }
-                                  />
-                                </View>
-                                  
-                                { 
-                                  errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
-                                    ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && 
-                                      <Text style={{ color: "red" }}>
-                                         {errors[categorySchema.title][item.label][subItem.label].type} ERORR
-                                      </Text>
-                                  )
-                                }
-                              </View>
-                          );
-                      }); 
-                    
-                      useEffect(() => {
-                        setValue(baseFormLabel + '.' + item.label + ' Total', total);
-                      }, [total]);   
-                      
-                      // console.log(fieldFunc[0].props.children[0].props);            
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
-                          </Text>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                            }}>
-                              {fieldFunc}
-                          </View>
-                          <Text>Total {item.label}: {total}</Text>
-                        </View>
-                      )
-                  }
-                  else if(item.type == 'multi-time-only'){ 
-                      let startTime = useRef((defaultVal[`${item.fields[0].label}`]) ? setInitDateTime(defaultVal[`${item.fields[0].label}`]) : "");
-                      let endTime = useRef((defaultVal[`${item.fields[1].label}`]) ? setInitDateTime(defaultVal[`${item.fields[1].label}`]) : "");
-                      const [lightingHours, setLightingHours] = useState(calculateTimeDifference(startTime.current, endTime.current));    
-
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            {item.fields[0].regex.isRequired && <Text style={{color:'red'}}> *</Text>}
-                          </Text>
-                          <View
-                            style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                            }}>
-                            {item.fields.map((subItem, subIndex) => {
-                              const l = defaultVal[`${item.fields[subIndex].label}`]===null || item.fields[subIndex].label === "" || isNaN(new Date(defaultVal[`${item.fields[subIndex].label}`]) )?true:false;
-                              const [date, setDate] = useState(setInitDateTime(defaultVal[`${item.fields[subIndex].label}`]));
-                              useEffect(()=>{
-                                subIndex === 0 ? startTime.current=date : endTime.current=date;
-                                setLightingHours(calculateTimeDifference(startTime.current, endTime.current));;
-                              },[date]);                        
-                              return(
-                                <Controller
-                                  key={subIndex}
-                                  control={control}
-                                  name={baseFormLabel + '.' +subItem.label}
-                                  render={({ field:{ onChange }})=>
-                                   <DualTimeField foundDate={l} onChange={onChange} form={form} label={item.fields[subIndex].label} initialDate={date} setDateFunction={setDate}/>
+                                  } else {
+                                    setValue(`${baseFormLabel}.${subItem.label}`, Number(value));
+                                    setValue(
+                                      `${baseFormLabel}.${subItem.label} Time Captured`,
+                                      convertedDate,
+                                    );
                                   }
-                                  
-                                  defaultValue={defaultVal[subItem.label] || null } 
-                                  value={convertToCSharpCompatibleFormat(date)}
-                                  rules={{ required: true }}
-                                />
-                              );
-                            })}
-                          </View>
-                          <Text>Lighting hours: {lightingHours}</Text>
-                        </View>
-                      )
-                  }
-                  else{
-                      //Nested Time Fields Function
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            <Text style={{color:'red'}}>{item.fields[0].regex.isRequired? " *":""}</Text>
-                          </Text>
+                                  setDate(newDate);
+                                }}
+                                value={valueState}
+                                keyboardType={
+                                  subItem.type === 'int' || subItem.type === 'float'
+                                    ? 'number-pad'
+                                    : 'default'
+                                }
+                              />
+                            </>
+                          );
+                        }}
+                      />
+                      <Controller
+                        control={control}
+                        name={baseFormLabel + '.' + subItem.label + ' Time Captured'}
+                        value={null}
+                        defaultValue={
+                          defaultVal[`${item.fields[subIndex].label} Time Captured`] || null
+                        }
+                        render={() => (
                           <View
                             style={{
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
+                              paddingVertical: 10,
+                              paddingHorizontal: 5,
+                              backgroundColor: 'beige',
                             }}>
-                                {item.fields.map((subItem, subIndex) => {
-                                  return(
-                                    <View style={{width:'40%'}} key={subIndex}>
-                                      <Controller
-                                        key={subIndex}
-                                        control={control}
-                                        defaultValue={validateInitValue(defaultVal[subItem.label], subItem.type)}
-                                        name={baseFormLabel + '.' + subItem.label}
-                                        rules={(() => rules(subItem.type, subItem.regex))()}
-                                        render={({field: {onChange, onBlur, value}}) => (
-                                          <>
-                                            <TextInput
-                                              editable={globalEdit}
-                                              style={styles.input}
-                                              placeholder={subItem.label}
-                                              defaultValue={parseFloat(defaultVal[subItem.label])>=0? ""+defaultVal[subItem.label]:""}
-                                              // defaultValue={defaultVal[subItem.label]? ""+defaultVal[subItem.label]:""}
-                                              onBlur={onBlur}
-                                              onChangeText={(e) => {
-                                                const convertedDate = convertToCSharpCompatibleFormat(doubleFieldTime(subIndex));
-                                                console.log(convertedDate);
-                                                onChange(e); 
-                                                if(e !== ""){
-                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, convertedDate);
-                                                  setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));
-                                                }else{
-                                                  setValue(`${baseFormLabel}.${subItem.label}`, null);
-                                                  setValue(`${baseFormLabel}.${subItem.label} Time Captured`, null);
-                                                }}}
-                                              value={value}
-                                              keyboardType={(subItem.type=='int' || subItem.type=='float') ? "number-pad":"default"}
-                                              />
-                                          </>
-                                        )}
-                                        />
-                                        <Controller
-                                          control={control} 
-                                          name={baseFormLabel + '.' +subItem.label+' Time Captured'}
-                                          value={null}
-                                          defaultValue={defaultVal[subItem.label+" Time Captured"] || null}
-                                          render={() =>(
-                                            <View style={{paddingVertical:10, paddingHorizontal:5, backgroundColor:'beige'}}>
-                                              <Text style={{color:'black', textAlign:'center'}}>
-                                              {timeConvert(doubleFieldTime(subIndex).toLocaleTimeString('en-US', { hour12: true }))}
-                                              </Text>
-                                            </View>
-                                            )
-                                          }
-                                        />   
+                            <Text style={{color: 'black', textAlign: 'center'}}>
+                              {timeConvert(
+                                fourFieldTime(subIndex).toLocaleTimeString('en-US', {hour12: true}),
+                              )}
+                            </Text>
+                          </View>
+                        )}
+                      />
+                    </View>
 
+                    {errors &&
+                      errors[categorySchema.title] &&
+                      errors[categorySchema.title] &&
+                      errors[categorySchema.title][item.label] &&
+                      errors[categorySchema.title][item.label][subItem.label] &&
+                      errors[categorySchema.title][item.label][subItem.label].type !=
+                        'required' && (
+                        <Text style={{color: 'red'}}>
+                          {errors[categorySchema.title][item.label][subItem.label].type} ERORR
+                        </Text>
+                      )}
+                  </View>
+                );
+              });
 
-                                        {/* <Controller
+              useEffect(() => {
+                setValue(baseFormLabel + '.' + item.label + ' Total', total);
+              }, [total]);
+
+              // console.log(fieldFunc[0].props.children[0].props);
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>
+                      {item.fields[0].regex.isRequired ? ' *' : ''}
+                    </Text>
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    {fieldFunc}
+                  </View>
+                  <Text>
+                    Total {item.label}: {total}
+                  </Text>
+                </View>
+              );
+            } else if (item.type == 'multi-time-only') {
+              let startTime = useRef(
+                defaultVal[`${item.fields[0].label}`]
+                  ? setInitDateTime(defaultVal[`${item.fields[0].label}`])
+                  : '',
+              );
+              let endTime = useRef(
+                defaultVal[`${item.fields[1].label}`]
+                  ? setInitDateTime(defaultVal[`${item.fields[1].label}`])
+                  : '',
+              );
+              const [lightingHours, setLightingHours] = useState(
+                calculateTimeDifference(startTime.current, endTime.current),
+              );
+
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    {item.fields[0].regex.isRequired && <Text style={{color: 'red'}}> *</Text>}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    {item.fields.map((subItem, subIndex) => {
+                      const l =
+                        defaultVal[`${item.fields[subIndex].label}`] === null ||
+                        item.fields[subIndex].label === '' ||
+                        isNaN(new Date(defaultVal[`${item.fields[subIndex].label}`]))
+                          ? true
+                          : false;
+                      const [date, setDate] = useState(
+                        setInitDateTime(defaultVal[`${item.fields[subIndex].label}`]),
+                      );
+                      useEffect(() => {
+                        subIndex === 0 ? (startTime.current = date) : (endTime.current = date);
+                        setLightingHours(
+                          calculateTimeDifference(startTime.current, endTime.current),
+                        );
+                      }, [date]);
+                      return (
+                        <Controller
+                          key={subIndex}
+                          control={control}
+                          name={baseFormLabel + '.' + subItem.label}
+                          render={({field: {onChange}}) => (
+                            <DualTimeField
+                              foundDate={l}
+                              onChange={onChange}
+                              form={form}
+                              label={item.fields[subIndex].label}
+                              initialDate={date}
+                              setDateFunction={setDate}
+                            />
+                          )}
+                          defaultValue={defaultVal[subItem.label] || null}
+                          value={convertToCSharpCompatibleFormat(date)}
+                          rules={{required: true}}
+                        />
+                      );
+                    })}
+                  </View>
+                  <Text>Lighting hours: {lightingHours}</Text>
+                </View>
+              );
+            } else {
+              //Nested Time Fields Function
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>
+                      {item.fields[0].regex.isRequired ? ' *' : ''}
+                    </Text>
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    {item.fields.map((subItem, subIndex) => {
+                      return (
+                        <View style={{width: '40%'}} key={subIndex}>
+                          <Controller
+                            key={subIndex}
+                            control={control}
+                            defaultValue={validateInitValue(
+                              defaultVal[subItem.label],
+                              subItem.type,
+                            )}
+                            name={baseFormLabel + '.' + subItem.label}
+                            rules={(() => rules(subItem.type, subItem.regex))()}
+                            render={({field: {onChange, onBlur, value}}) => (
+                              <>
+                                <TextInput
+                                  editable={globalEdit}
+                                  style={styles.input}
+                                  placeholder={subItem.label}
+                                  defaultValue={
+                                    parseFloat(defaultVal[subItem.label]) >= 0
+                                      ? '' + defaultVal[subItem.label]
+                                      : ''
+                                  }
+                                  // defaultValue={defaultVal[subItem.label]? ""+defaultVal[subItem.label]:""}
+                                  onBlur={onBlur}
+                                  onChangeText={e => {
+                                    const convertedDate = convertToCSharpCompatibleFormat(
+                                      doubleFieldTime(subIndex),
+                                    );
+                                    console.log(convertedDate);
+                                    onChange(e);
+                                    if (e !== '') {
+                                      setValue(
+                                        `${baseFormLabel}.${subItem.label} Time Captured`,
+                                        convertedDate,
+                                      );
+                                      setValue(`${baseFormLabel}.${subItem.label}`, parseFloat(e));
+                                    } else {
+                                      setValue(`${baseFormLabel}.${subItem.label}`, null);
+                                      setValue(
+                                        `${baseFormLabel}.${subItem.label} Time Captured`,
+                                        null,
+                                      );
+                                    }
+                                  }}
+                                  value={value}
+                                  keyboardType={
+                                    subItem.type == 'int' || subItem.type == 'float'
+                                      ? 'number-pad'
+                                      : 'default'
+                                  }
+                                />
+                              </>
+                            )}
+                          />
+                          <Controller
+                            control={control}
+                            name={baseFormLabel + '.' + subItem.label + ' Time Captured'}
+                            value={null}
+                            defaultValue={defaultVal[subItem.label + ' Time Captured'] || null}
+                            render={() => (
+                              <View
+                                style={{
+                                  paddingVertical: 10,
+                                  paddingHorizontal: 5,
+                                  backgroundColor: 'beige',
+                                }}>
+                                <Text style={{color: 'black', textAlign: 'center'}}>
+                                  {timeConvert(
+                                    doubleFieldTime(subIndex).toLocaleTimeString('en-US', {
+                                      hour12: true,
+                                    }),
+                                  )}
+                                </Text>
+                              </View>
+                            )}
+                          />
+
+                          {/* <Controller
                                           control={control}
                                           name={baseFormLabel + '.' +subItem.label+' Time Captured'}
                                           value={showDate?date.toISOString():null}
@@ -777,249 +887,279 @@ export const Category = ({ categorySchema, retrievedData, form, allowEdit, farm 
                                             )}
                                         /> */}
 
-
-
-                                        { 
-                                          errors && errors[categorySchema.title] && errors[categorySchema.title] && errors[categorySchema.title][item.label] && errors[categorySchema.title][item.label][subItem.label] && (
-                                            ( errors[categorySchema.title][item.label][subItem.label].type != 'required') && <Text style={{ color: "red" }}>
-                                               {errors[categorySchema.title][item.label][subItem.label].type} ERORR
-                                            </Text>
-                                          )
-                                        }
-                                    </View>
-                                  );
-                              })}
+                          {errors &&
+                            errors[categorySchema.title] &&
+                            errors[categorySchema.title] &&
+                            errors[categorySchema.title][item.label] &&
+                            errors[categorySchema.title][item.label][subItem.label] &&
+                            errors[categorySchema.title][item.label][subItem.label].type !=
+                              'required' && (
+                              <Text style={{color: 'red'}}>
+                                {errors[categorySchema.title][item.label][subItem.label].type} ERORR
+                              </Text>
+                            )}
+                        </View>
+                      );
+                    })}
+                  </View>
+                </View>
+              );
+            }
+          } else {
+            //Radio Button Field Function
+            if (item.type == 'option') {
+              const [val, setVal] = useState(defaultVal ? defaultVal : null);
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>{item.regex.isRequired ? ' *' : ''}</Text>
+                  </Text>
+                  <Controller
+                    control={control}
+                    name={baseFormLabel}
+                    defaultValue={val}
+                    rules={rules(item.type, item.regex)}
+                    render={({field: {onChange, value}}) => (
+                      <>
+                        <RadioButton.Group
+                          onValueChange={val => {
+                            setVal(val);
+                            setValue(`${baseFormLabel}`, val);
+                            onChange(val);
+                          }}
+                          value={value}>
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <RadioButton
+                              status={val == item.options[0] ? 'checked' : 'unchecked'}
+                              value={item.options[0]}></RadioButton>
+                            <Text style={{fontSize: 16}}>{item.options[0]}</Text>
                           </View>
-                        </View>
-                      )
-                  }             
-                } else {
-                  //Radio Button Field Function
-                  if(item.type == 'option'){
-                      const [val,setVal] = useState(defaultVal?defaultVal:null);
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
-                          </Text>
-                          <Controller
-                            control={control}
-                            name={baseFormLabel}
-                            defaultValue={val}
-                            rules={rules(item.type, item.regex)}
-                            render={({field: {onChange, value}}) => (
-                              <>
-                                <RadioButton.Group
-                                  onValueChange={(val)=>{setVal(val);setValue(`${baseFormLabel}`, val); onChange(val)}}
-                                  value={value}
-                                  >
-                                  <View style={{flexDirection:'row', alignItems:'center'}}>
-                                    <RadioButton status={val == item.options[0]? "checked" : "unchecked"} value={item.options[0]}></RadioButton>
-                                    <Text style={{fontSize:16}}>{item.options[0]}</Text>
-                                  </View>
-                                  <View style={{flexDirection:'row', alignItems:'center'}}>
-                                    <RadioButton status={val == item.options[1]? "checked" : "unchecked"} value={item.options[1]}></RadioButton>
-                                    <Text style={{fontSize:16}}>{item.options[1]}</Text>
-                                  </View>
-                                </RadioButton.Group>
-                              </>
-                            )}
-                          />
-                          {
-                            errors && errors[baseFormLabel] && (
-                               (<Text style={{ color: "red" }}>
-                                {errorMessage(errors[categorySchema.title][item.label].type)}
-                                {console.log(errors)}
-                              </Text>)
-                            )
-                          }
-                        </View>
-                      )
-                  }else if(item.type == 'time'){
-                      const l=defaultVal === null ||defaultVal === "" || typeof defaultVal == "undefined"?true:false;
-                      const [date,setDate]=useState((defaultVal === "" || typeof defaultVal == "undefined" ? dateGlobal: setInitDateTime(defaultVal)));
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                        <Text style={{color: '#282C50', fontSize: 18}}>
-                        {item.label}
-                        <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
-                        </Text>
-                        <Controller
-                          control={control}
-                          name={baseFormLabel}
-                          render={({ field:{ onChange }})=>
-                           <SingleTimeField foundDate={l} onChange={onChange} form={form} label={item.label} initialDate={date} setDateFunction={setDate}/>
-                          }
-                          
-                          defaultValue={defaultVal || null } 
-                          value={convertToCSharpCompatibleFormat(date)}
-                          rules={rules(item.type, item.regex)}
-                        />
-                        </View>
-                    );
-                  }else if(item.type == 'justTime'){
-                      var d;
-                      var label;
-                      if (defaultVal == "" || typeof defaultVal == 'undefined'){ label=true;d=dateGlobal; d.setHours(0,0,0,0); }
-                      else {label=false;d=setInitDateTime(defaultVal);}
-                      const l = label;
-                      const [date,setDate]=useState(d);
-                      return(
-                        <View style={{marginVertical: 12}} key={index}>
-                          <Text style={{color: '#282C50', fontSize: 18}}>
-                            {item.label}
-                            <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
-                          </Text>
-                          <Controller
-                            render={({ field:{onChange} }) => (
-                              <StopWatchTimeField foundDate={l} onChange={onChange} form={form} label={item.label} initialDate={date} setDateFunction={setDate} />
-                            )}
-                            control={control}
-                            name={baseFormLabel}
-                            defaultValue={defaultVal || null}
-                            value={convertToCSharpCompatibleFormat(date)}
-                            rules={rules(item.type, item.regex)}
-                          /> 
-                        </View>
-                      );
-                  }else{ 
-                      //Typical Input Field Function  
-                      const defaultVal1=useRef(validateInitValue(retrievedData[item.label])); 
-                      const isDescription = item.type ==="description"?true:false;
-                      const MAX_LENGTH = maxLengthFilter(item.type, item?.regex?.max);
-                      const [charsLeft, setCharsLeft] = useState(MAX_LENGTH);
-                      
-                      return(
-                      <View style={{marginVertical: 12}} key={index}>
-                        <Text style={{color: '#282C50', fontSize: 18}}>
-                          {item.label}
-                          <Text style={{color:'red'}}>{item.regex.isRequired? " *":""}</Text>
-                        </Text>
-                        {isDescription && <Text>Characters left: <Text style={{color:charsLeft < 10?"red":'', fontWeight:'bold'}}>{charsLeft}</Text></Text>}
-                        <Controller
-                          control={control}
-                          name={baseFormLabel}
-                          defaultValue={defaultVal1.current}
-                          rules={(()=>rules(item.type, item.regex))()}
-                          render={({field: {onChange, onBlur, value}}) => (
-                            <TextInput
-                              editable={globalEdit}
-                              style={isDescription? styles.description:styles.input}
-                              placeholder={item.label}
-                              onBlur={onBlur}
-                              maxLength={MAX_LENGTH}
-                              onChangeText={(e) => {
-                                (item.type=='float' || item.type=='int') ? (()=>{
-                                  // console.log("is not float: "+isNaN(parseFloat(e)));
-                                  // console.log("float value: "+parseFloat(e));
-                                  onChange(e);
-                                  if(isNaN(parseFloat(e))){
-                                     defaultVal1.current=e;
-                                  }else{
-                                    setValue(`${baseFormLabel}`, parseFloat(e));
-                                  }
-                                })()
-                                :(()=>{
-                                  setCharsLeft(MAX_LENGTH - e.length);
-                                  onChange(e)
-                                })()
-                              }}
-                              value={value}
-                              defaultValue={defaultVal1.current !== null? ""+defaultVal1.current:""}
-                              // defaultValue={""+defaultVal1.current}
-                              multiline={item.type=="description"? true : false}
-                              keyboardType={(item.type=='int' || item.type=='float') ? "number-pad":"default"}
-                            />
-                          )}
-                        />
-                        {
-                          errors && errors[categorySchema.title] && errors[categorySchema.title][item.label] && (
-                            (errors[categorySchema.title][item.label].type != 'required') && (<Text style={{ color: "red" }}>
-                              {errorMessage(errors[categorySchema.title][item.label].type)}
-                            </Text>)
-                          )
+                          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <RadioButton
+                              status={val == item.options[1] ? 'checked' : 'unchecked'}
+                              value={item.options[1]}></RadioButton>
+                            <Text style={{fontSize: 16}}>{item.options[1]}</Text>
+                          </View>
+                        </RadioButton.Group>
+                      </>
+                    )}
+                  />
+                  {errors && errors[baseFormLabel] && (
+                    <Text style={{color: 'red'}}>
+                      {errorMessage(errors[categorySchema.title][item.label].type)}
+                      {console.log(errors)}
+                    </Text>
+                  )}
+                </View>
+              );
+            } else if (item.type == 'time') {
+              const l =
+                defaultVal === null || defaultVal === '' || typeof defaultVal == 'undefined'
+                  ? true
+                  : false;
+              const [date, setDate] = useState(
+                defaultVal === '' || typeof defaultVal == 'undefined'
+                  ? dateGlobal
+                  : setInitDateTime(defaultVal),
+              );
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>{item.regex.isRequired ? ' *' : ''}</Text>
+                  </Text>
+                  <Controller
+                    control={control}
+                    name={baseFormLabel}
+                    render={({field: {onChange}}) => (
+                      <SingleTimeField
+                        foundDate={l}
+                        onChange={onChange}
+                        form={form}
+                        label={item.label}
+                        initialDate={date}
+                        setDateFunction={setDate}
+                      />
+                    )}
+                    defaultValue={defaultVal || null}
+                    value={convertToCSharpCompatibleFormat(date)}
+                    rules={rules(item.type, item.regex)}
+                  />
+                </View>
+              );
+            } else if (item.type == 'justTime') {
+              var d;
+              var label;
+              if (defaultVal == '' || typeof defaultVal == 'undefined') {
+                label = true;
+                d = dateGlobal;
+                d.setHours(0, 0, 0, 0);
+              } else {
+                label = false;
+                d = setInitDateTime(defaultVal);
+              }
+              const l = label;
+              const [date, setDate] = useState(d);
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>{item.regex.isRequired ? ' *' : ''}</Text>
+                  </Text>
+                  <Controller
+                    render={({field: {onChange}}) => (
+                      <StopWatchTimeField
+                        foundDate={l}
+                        onChange={onChange}
+                        form={form}
+                        label={item.label}
+                        initialDate={date}
+                        setDateFunction={setDate}
+                      />
+                    )}
+                    control={control}
+                    name={baseFormLabel}
+                    defaultValue={defaultVal || null}
+                    value={convertToCSharpCompatibleFormat(date)}
+                    rules={rules(item.type, item.regex)}
+                  />
+                </View>
+              );
+            } else {
+              //Typical Input Field Function
+              const defaultVal1 = useRef(validateInitValue(retrievedData[item.label]));
+              const isDescription = item.type === 'description' ? true : false;
+              const MAX_LENGTH = maxLengthFilter(item.type, item?.regex?.max);
+              const [charsLeft, setCharsLeft] = useState(MAX_LENGTH);
+
+              return (
+                <View style={{marginVertical: 12}} key={index}>
+                  <Text style={{color: '#282C50', fontSize: 18}}>
+                    {item.label}
+                    <Text style={{color: 'red'}}>{item.regex.isRequired ? ' *' : ''}</Text>
+                  </Text>
+                  {isDescription && (
+                    <Text>
+                      Characters left:{' '}
+                      <Text style={{color: charsLeft < 10 ? 'red' : '', fontWeight: 'bold'}}>
+                        {charsLeft}
+                      </Text>
+                    </Text>
+                  )}
+                  <Controller
+                    control={control}
+                    name={baseFormLabel}
+                    defaultValue={defaultVal1.current}
+                    rules={(() => rules(item.type, item.regex))()}
+                    render={({field: {onChange, onBlur, value}}) => (
+                      <TextInput
+                        editable={globalEdit}
+                        style={isDescription ? styles.description : styles.input}
+                        placeholder={item.label}
+                        onBlur={onBlur}
+                        maxLength={MAX_LENGTH}
+                        onChangeText={e => {
+                          item.type == 'float' || item.type == 'int'
+                            ? (() => {
+                                // console.log("is not float: "+isNaN(parseFloat(e)));
+                                // console.log("float value: "+parseFloat(e));
+                                onChange(e);
+                                if (isNaN(parseFloat(e))) {
+                                  defaultVal1.current = e;
+                                } else {
+                                  setValue(`${baseFormLabel}`, parseFloat(e));
+                                }
+                              })()
+                            : (() => {
+                                setCharsLeft(MAX_LENGTH - e.length);
+                                onChange(e);
+                              })();
+                        }}
+                        value={value}
+                        defaultValue={defaultVal1.current !== null ? '' + defaultVal1.current : ''}
+                        // defaultValue={""+defaultVal1.current}
+                        multiline={item.type == 'description' ? true : false}
+                        keyboardType={
+                          item.type == 'int' || item.type == 'float' ? 'number-pad' : 'default'
                         }
-                      </View>
-                      );
-                  }
-                }
-              })}
-          </View>
-      </ScrollView>
+                      />
+                    )}
+                  />
+                  {errors &&
+                    errors[categorySchema.title] &&
+                    errors[categorySchema.title][item.label] &&
+                    errors[categorySchema.title][item.label].type != 'required' && (
+                      <Text style={{color: 'red'}}>
+                        {errorMessage(errors[categorySchema.title][item.label].type)}
+                      </Text>
+                    )}
+                </View>
+              );
+            }
+          }
+        })}
+      </View>
+    </ScrollView>
   );
+};
 
-}
-
-const rules = (type, regex={}) => {
-  if(type === 'int'){
+const rules = (type, regex = {}) => {
+  if (type === 'int') {
     // console.log('int');
-    return({
-      pattern:/^[0-9]*$|^NULL$/,
+    return {
+      pattern: /^[0-9]*$|^NULL$/,
       required: regex?.isRequired || false,
       min: regex.min || 0,
       max: regex.max || 10000,
-    });
-  }
-  else if(type === 'float'){
+    };
+  } else if (type === 'float') {
     // console.log('float');
-    return({
+    return {
       pattern: /^[+-]?([0-9]*[.])?[0-9]+$/,
       required: regex?.isRequired || false,
-      min:regex.min || 0,
-      max:regex.max || 10000,
-    });
-  }
-  else if(type === 'time'){
-    return ({
+      min: regex.min || 0,
+      max: regex.max || 10000,
+    };
+  } else if (type === 'time') {
+    return {
       required: true,
       valueAsDate: true,
       // validate:((value, formValues)=> console.log(value, formValues))(),
-    })
-  }
-  else{
+    };
+  } else {
     // console.log('string');
     // console.log(type, regex.isRequired);
-    return ({
+    return {
       required: regex?.isRequired || false,
-    })
+    };
   }
-}
+};
 
-const maxLengthFilter = (type,fieldMax) => {
-  if(type === 'int'){
+const maxLengthFilter = (type, fieldMax) => {
+  if (type === 'int') {
     return 10;
-  }
-  else if(type === 'float'){
+  } else if (type === 'float') {
     return 10;
-  }
-  else if(type === 'description'){
+  } else if (type === 'description') {
     return 80;
-  }
-  else if(type === 'string'){
-    if(fieldMax)
-      return fieldMax;
+  } else if (type === 'string') {
+    if (fieldMax) return fieldMax;
     return 20;
+  } else return null;
+};
 
-  }
-  else
-    return null;
-}
-
-const errorMessage = (type, regex={}) => {
-  if(type === 'min'){
-    return "The entered value is too SMALL";
-  }
-  else if(type === 'max'){
-    return"The entered value is too LARGE";
-  }
-  else if(type === 'pattern'){
+const errorMessage = (type, regex = {}) => {
+  if (type === 'min') {
+    return 'The entered value is too SMALL';
+  } else if (type === 'max') {
+    return 'The entered value is too LARGE';
+  } else if (type === 'pattern') {
     return "Please check value's FORMAT";
+  } else {
+    return 'This field is required for submission';
   }
-  else{
-    return "This field is required for submission"
-  }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -1027,13 +1167,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 20,
   },
-  header:{
+  header: {
     color: '#282C50',
     fontSize: 32,
     textAlign: 'center',
     fontWeight: 'bold',
     marginVertical: 30,
-},
+  },
   button: {
     backgroundColor: '#282C50',
     alignItems: 'center',
@@ -1041,11 +1181,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     width: 300,
-    alignSelf:'center',
-    marginTop:30,
-    marginBottom:50,
+    alignSelf: 'center',
+    marginTop: 30,
+    marginBottom: 50,
   },
-  buttonText:{
+  buttonText: {
     fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
@@ -1069,8 +1209,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 16,
     minWidth: 150,
-    textAlignVertical:'top',
-  },  
+    textAlignVertical: 'top',
+  },
   saveButton: {
     alignItems: 'center',
     alignSelf: 'center',
@@ -1081,9 +1221,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 4,
     width: 300,
-    marginHorizontal:10,
-    marginTop:30,
-    marginBottom:50,
+    marginHorizontal: 10,
+    marginTop: 30,
+    marginBottom: 50,
   },
   saveButtonDisabled: {
     alignItems: 'center',
@@ -1095,35 +1235,37 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 4,
     width: 200,
-    marginHorizontal:10,
-    marginTop:30,
-    marginBottom:50,
+    marginHorizontal: 10,
+    marginTop: 30,
+    marginBottom: 50,
   },
 });
 
-export const FarmSummary = ({ props }) => {
-  const { Farm, House} = props;
+export const FarmSummary = ({props}) => {
+  const {Farm, House, form} = props;
 
-  const RenderItem = ({label, value, suffix=""}) => {
-    return(
-      value && <View
-        style={{
-        alignItems: 'center',
-        flexDirection: 'row',
-        }}>
-        <Text style={{fontSize: 18}}>{label}</Text>
-        <Text
+  const RenderItem = ({label, value, suffix = ''}) => {
+    return (
+      value && (
+        <View
           style={{
-            fontWeight: 'bold',
-            color: 'black',
-            marginLeft: 5,
-            fontSize: 18,
+            alignItems: 'center',
+            flexDirection: 'row',
           }}>
-          {value} {suffix}
-        </Text>
-      </View>
-    )
-  }
+          <Text style={{fontSize: 18}}>{label}</Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: 'black',
+              marginLeft: 5,
+              fontSize: 18,
+            }}>
+            {value} {suffix}
+          </Text>
+        </View>
+      )
+    );
+  };
 
   return (
     <View
@@ -1133,8 +1275,21 @@ export const FarmSummary = ({ props }) => {
         // backgroundColor: '#ffc2e2',
         padding: 15,
         marginBottom: 30,
-        elevation:3
+        elevation: 3,
       }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}>
+        <RenderItem
+          label={'Date Created:'}
+          value={jamaicanDateFormat(new Date(form['Date Created']))}
+        />
+        <RenderItem label={'Created By:'} value={form['Created By']} />
+      </View>
       <View
         style={{
           flexDirection: 'row',
@@ -1195,72 +1350,124 @@ export const FarmSummary = ({ props }) => {
           flexDirection: 'row',
           justifyContent: 'space-around',
           alignItems: 'center',
-          paddingTop:10,
-          flexWrap:'wrap'
+          paddingTop: 10,
+          flexWrap: 'wrap',
         }}>
-        <RenderItem label={"Flock Number:"} value={House.flockNumber} />
-        <RenderItem label={"Flock Started Male:"} value={House.flockStartedMale} />
-        <RenderItem label={"Flock Started Female:"} value={House.flockStartedFemale} />
-        <RenderItem label={"Flock Housed Male:"} value={House.flockHousedMale} />
-        <RenderItem label={"Flock Housed Female:"} value={House.flockHousedFemale} />
-        <RenderItem label={"Birds Brought Forward Male:"} value={House.birdsBroughtForwardMale} />
-        <RenderItem label={"Birds Brought Forward Female:"} value={House.birdsBroughtForwardFemale} />
-        <RenderItem label={"Days in Inventory:"} value={Farm.DaysInInventory} />
-        <RenderItem label={"Feed Recieved:"} value={Farm.FeedReceived} suffix={"lbs"}/>
-        <RenderItem label={"Flock Age:"} value={House.flockAge} suffix={"Weeks"}/>
-        <RenderItem label={"Flock Breed:"} value={House.flockBreed} />
+        <RenderItem label={'Flock Number:'} value={House.flockNumber} />
+        <RenderItem label={'Flock Started Male:'} value={House.flockStartedMale} />
+        <RenderItem label={'Flock Started Female:'} value={House.flockStartedFemale} />
+        <RenderItem label={'Flock Housed Male:'} value={House.flockHousedMale} />
+        <RenderItem label={'Flock Housed Female:'} value={House.flockHousedFemale} />
+        <RenderItem label={'Birds Brought Forward Male:'} value={House.birdsBroughtForwardMale} />
+        <RenderItem
+          label={'Birds Brought Forward Female:'}
+          value={House.birdsBroughtForwardFemale}
+        />
+        <RenderItem label={'Days in Inventory:'} value={Farm.DaysInInventory} />
+        <RenderItem label={'Feed Recieved:'} value={Farm.FeedReceived} suffix={'lbs'} />
+        <RenderItem label={'Flock Age:'} value={House.flockAge} suffix={'Weeks'} />
+        <RenderItem label={'Flock Breed:'} value={House.flockBreed} />
       </View>
     </View>
   );
 };
 
 // TO complete for HOME PAGE refactor
-const RoundButton = ({ path, icon, title }) => (
-  <TouchableOpacity style={{ width: 120, margin: 10 }} onPress={() => navigation.navigate(path, { farms })}>
-    <LinearGradient colors={['#5c9ead', '#326273']} style={{ height: 120, width: 120, padding: 10, alignItems: 'center', justifyContent: 'center', borderRadius: 60 }}>
+const RoundButton = ({path, icon, title}) => (
+  <TouchableOpacity
+    style={{width: 120, margin: 10}}
+    onPress={() => navigation.navigate(path, {farms})}>
+    <LinearGradient
+      colors={['#5c9ead', '#326273']}
+      style={{
+        height: 120,
+        width: 120,
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 60,
+      }}>
       {icon}
     </LinearGradient>
-    <Text style={{ textAlign: 'center', color: '#282C50', fontSize: 16, fontWeight: '400' }}>{title}</Text>
+    <Text style={{textAlign: 'center', color: '#282C50', fontSize: 16, fontWeight: '400'}}>
+      {title}
+    </Text>
   </TouchableOpacity>
 );
 
 const ButtonPanel = () => {
   if (role === APP_ROLES[0]) {
     return (
-      <View style={{ backgroundColor: '#EFF5FF', justifyContent: 'space-evenly', alignContent: 'center', elevation: 10 }}>
+      <View
+        style={{
+          backgroundColor: '#EFF5FF',
+          justifyContent: 'space-evenly',
+          alignContent: 'center',
+          elevation: 10,
+        }}>
         <View>
-          <Text style={{ textAlign: 'center', fontSize: 20, color: '#282C50', marginTop: 10, fontWeight: 'bold' }}>FORMS PANEL</Text>
-          <Text style={{ textAlign: 'center', fontSize: 14, color: '#8AB4CD', fontWeight: '400' }}>All form actions can be done here</Text>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 20,
+              color: '#282C50',
+              marginTop: 10,
+              fontWeight: 'bold',
+            }}>
+            FORMS PANEL
+          </Text>
+          <Text style={{textAlign: 'center', fontSize: 14, color: '#8AB4CD', fontWeight: '400'}}>
+            All form actions can be done here
+          </Text>
         </View>
-        <View style={{ backgroundColor: '#EFF5FF', marginBottom: 10, justifyContent: 'space-evenly', flexDirection: 'row', alignContent: 'center' }}>
-          <RoundButton path="Farm House Select" icon={<NewFormIcon size={68} />} title="Create Form" />
-          <RoundButton path="Edit Form Select" icon={<EditFormIcon size={68} />} title="Edit Form" />
+        <View
+          style={{
+            backgroundColor: '#EFF5FF',
+            marginBottom: 10,
+            justifyContent: 'space-evenly',
+            flexDirection: 'row',
+            alignContent: 'center',
+          }}>
+          <RoundButton
+            path="Farm House Select"
+            icon={<NewFormIcon size={68} />}
+            title="Create Form"
+          />
+          <RoundButton
+            path="Edit Form Select"
+            icon={<EditFormIcon size={68} />}
+            title="Edit Form"
+          />
           <RoundButton path="Review Form" icon={<ReviewFormIcon size={68} />} title="Review Form" />
-          <RoundButton path="Rejected Forms" icon={<RejectedFormsIcon size={68} />} title="Rejected Forms" />
+          <RoundButton
+            path="Rejected Forms"
+            icon={<RejectedFormsIcon size={68} />}
+            title="Rejected Forms"
+          />
         </View>
       </View>
     );
   }
   return (
-    <View style={{ paddingTop: 30, paddingHorizontal: 20 }}>
-      <Text style={{ fontSize: 20, color: '#282C50', marginTop: 10, fontWeight: 'bold' }}>You do not have access to the forms panel</Text>
+    <View style={{paddingTop: 30, paddingHorizontal: 20}}>
+      <Text style={{fontSize: 20, color: '#282C50', marginTop: 10, fontWeight: 'bold'}}>
+        You do not have access to the forms panel
+      </Text>
     </View>
   );
-}
-
-
+};
 
 // Queries
 export const executeApiQuery = async (url, token, method = 'get', data = {}, params = {}) => {
   const headers = {
-    'Content-Type': "application/json",
-    'Accept': "*/*",
+    'Content-Type': 'application/json',
+    Accept: '*/*',
     Authorization: 'bearer ' + token,
   };
 
   const config = {
     method,
-    url:APP_API+url,
+    url: APP_API + url,
     data,
     headers,
     params,
@@ -1275,32 +1482,29 @@ export const executeApiQuery = async (url, token, method = 'get', data = {}, par
   }
 };
 
-
 const validateInitValue = (value, valueType) => {
   if (value === null || value === undefined) {
-    return valueType === "string" ? "" : null;
+    return valueType === 'string' ? '' : null;
   }
 
-  if (valueType === "float") {
+  if (valueType === 'float') {
     const parsedValue = parseFloat(value);
     return !isNaN(parsedValue) ? parsedValue : null;
   }
 
-  if (valueType === "int") {
+  if (valueType === 'int') {
     const parsedValue = parseInt(value, 10);
     return !isNaN(parsedValue) ? parsedValue : null;
   }
 
-  if (valueType === "string") {
-    return typeof value === "string" ? value : null;
+  if (valueType === 'string') {
+    return typeof value === 'string' ? value : null;
   }
 
   return value;
 };
 
-
-
-const validateInitDateTime = (defaultVal) => {
+const validateInitDateTime = defaultVal => {
   if (defaultVal === null || defaultVal === undefined) {
     return false;
   }
@@ -1310,24 +1514,14 @@ const validateInitDateTime = (defaultVal) => {
   }
 
   return true;
-}
-
-export const ShowAlert =(title, message, buttonArray = undefined) =>{
-  Alert.alert(
-    `${title}`,
-    `${message}`,
-    buttonArray
-  );
-}
-
-export const getFarmsFromGlobalByName = async (name="") => {
-
 };
 
-export const isObjectEmpty = (obj) => {
-  return (
-    obj &&
-    Object.keys(obj).length === 0 &&
-    obj.constructor === Object
-  );
-}
+export const ShowAlert = (title, message, buttonArray = undefined) => {
+  Alert.alert(`${title}`, `${message}`, buttonArray);
+};
+
+export const getFarmsFromGlobalByName = async (name = '') => {};
+
+export const isObjectEmpty = obj => {
+  return obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+};

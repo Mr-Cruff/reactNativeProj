@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
@@ -35,50 +34,39 @@ const Login = () => {
     <View style={styles.container}>
       <ImageBackground source={backImage} style={styles.backImage}>
         <View style={styles.div}>
-          <Image
-            style={styles.image}
-            source={require('../resources/ipbFull.jpg')}
-          />
-          {/* <Text>Enter use info</Text> */}
+          <Image style={styles.image} source={require('../resources/ipbFull.jpg')} />
           <View style={styles.inputView}>
-            <Image
-              style={styles.imageStyle}
-              source={require('../resources/avatar.png')}
-            />
+            <Image style={styles.imageStyle} source={require('../resources/avatar.png')} />
             <TextInput
-              style={[styles.TextInput, {flex:1}]}
+              style={[styles.TextInput, {flex: 1}]}
               autoCapitalize="none"
               placeholder="Email Address"
               placeholderTextColor="#efefef"
-              // eslint-disable-next-line no-shadow
               onChangeText={email => setEmail(email)}
             />
           </View>
-          <View style={[styles.inputView,{}]}>
-            <Image
-              style={styles.imageStyle}
-              source={require('../resources/lock.png')}
-            />
+          <View style={[styles.inputView, {}]}>
+            <Image style={styles.imageStyle} source={require('../resources/lock.png')} />
             <TextInput
-              style={[styles.TextInput, {flex:1}]}
+              style={[styles.TextInput, {flex: 1}]}
               autoCapitalize="none"
               placeholder="Password"
               placeholderTextColor="#efefef"
               secureTextEntry={showPassword}
-              // eslint-disable-next-line no-shadow
               onChangeText={password => setPassword(password)}
             />
-            <TouchableOpacity style={{padding:10, color:'grey'}} onPress={()=>setShow(!showPassword)}><Text style={{color:"#efefef"}} >{showPassword?"SHOW":"HIDE"}</Text></TouchableOpacity>
+            <TouchableOpacity
+              style={{padding: 10, color: 'grey'}}
+              onPress={() => setShow(!showPassword)}>
+              <Text style={{color: '#efefef'}}>{showPassword ? 'SHOW' : 'HIDE'}</Text>
+            </TouchableOpacity>
           </View>
 
           {loading ? (
             <ActivityIndicator color={'#000'} animating={true} size="small" />
           ) : (
             <TouchableOpacity style={styles.loginBtn} onPress={signIn}>
-              <Text style={styles.loginText} >
-                LOGIN
-              </Text>
-              {/*<Button title="Sign In" style={styles.loginBtn} onPress={signIn}*/}
+              <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
           )}
         </View>

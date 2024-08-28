@@ -1,14 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  Button,
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {Button, Text, View, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native';
 
 export const getAllItems = async () => {
   let keys = [];
@@ -29,7 +21,7 @@ export const getItem = async () => {
       ? (() => {
           console.log('async: ===============================');
           // console.log(JSON.parse(jsonValue));
-          return (JSON.parse(jsonValue));
+          return JSON.parse(jsonValue);
         })()
       : console.log('Data Not Found!');
   } catch (e) {
@@ -64,30 +56,30 @@ async function checkForms() {
   }
 }
 
-export const deleteFormByFormId = async (formId) =>{
+export const deleteFormByFormId = async formId => {
   const storedForms = await AsyncStorage.getItem('@forms');
   let storedFormsParsed = JSON.parse(storedForms);
-  let found=false;
-  
+  let found = false;
+
   if (storedForms !== null) {
     storedFormsParsed.map(async (asyncForm, formIndex) => {
-      if(storedFormsParsed[formIndex]['Form Id']==formId){
-        storedFormsParsed.splice(formIndex,1);
+      if (storedFormsParsed[formIndex]['Form Id'] == formId) {
+        storedFormsParsed.splice(formIndex, 1);
         // storedFormsParsed[formIndex] = {...storedFormsParsed[formIndex], ...form};
         setAllForms(storedFormsParsed);
-        found=true;
-        try{
+        found = true;
+        try {
           await AsyncStorage.setItem('@forms', JSON.stringify(storedFormsParsed));
-        }catch(e){
+        } catch (e) {
           Alert.alert(e);
         }
       }
     });
-    if(!found){
-      Alert.alert(`Error`, "Form cannot be deleted at this time")
+    if (!found) {
+      Alert.alert(`Error`, 'Form cannot be deleted at this time');
     }
-  } 
-}
+  }
+};
 
 export const getAllForms = async () => {
   try {
@@ -103,22 +95,22 @@ export const getAllForms = async () => {
   }
 };
 
-export const getAllFormIds = async ()=>{
+export const getAllFormIds = async () => {
   const forms = await getAllForms();
   let formIds = [];
-  for(let form in forms){
-    formIds.push(forms[form]['Form Id'])
+  for (let form in forms) {
+    formIds.push(forms[form]['Form Id']);
   }
   return formIds;
-}
+};
 
-export const doesFormExist = async (formId) => {
+export const doesFormExist = async formId => {
   const formsIds = await getAllFormIds();
   // console.log(formsIds.includes(formId))
   // console.log(formsIds);
   // console.log("New Id: "+formId);
-  return formsIds.includes(formId); 
-}
+  return formsIds.includes(formId);
+};
 // interface App{
 //     AuthData{
 
@@ -138,23 +130,26 @@ export const doesFormExist = async (formId) => {
 // 2. Get @forms array, JSON.parse  and Iterate over @forms array to find form with similar formId
 // 3. get form with form id and iterate over categories to update accordingly.
 //  ----- OR -----
-// 3.  
-export const saveForm = async (form) => {
-  let found=false;
+// 3.
+export const saveForm = async form => {
+  let found = false;
   const arrForm = [form];
   console.log(form);
   const storedForms = await AsyncStorage.getItem('@forms');
   let storedFormsParsed = JSON.parse(storedForms);
-  let updatedForm={};
-  
+  let updatedForm = {};
+
   if (storedForms !== null) {
     storedFormsParsed.map(async (asyncForm, formIndex) => {
-      if(storedFormsParsed[formIndex]['Form Id']==form['Form Id']){
-        found=true;
-        Object.keys(storedFormsParsed[formIndex]).map((key, idx)=>{
-          if (typeof storedFormsParsed[formIndex][key] == 'object'){
+      if (storedFormsParsed[formIndex]['Form Id'] == form['Form Id']) {
+        found = true;
+        Object.keys(storedFormsParsed[formIndex]).map((key, idx) => {
+          if (typeof storedFormsParsed[formIndex][key] == 'object') {
             // console.log(key);
-            storedFormsParsed[formIndex][key] = {...storedFormsParsed[formIndex][key], ...form[key]};
+            storedFormsParsed[formIndex][key] = {
+              ...storedFormsParsed[formIndex][key],
+              ...form[key],
+            };
             // console.log(storedFormsParsed[formIndex][key]);
           }
           // console.log(typeof storedFormsParsed[formIndex][key] =='object' && storedFormsParsed[formIndex][key] )
@@ -162,21 +157,20 @@ export const saveForm = async (form) => {
         // storedFormsParsed[formIndex] = {...storedFormsParsed[formIndex], ...form};
         // console.log(storedFormsParsed[formIndex]);
         updatedForm = storedFormsParsed[formIndex];
-        try{
+        try {
           // console.log(JSON.stringify(storedFormsParsed[formIndex]));
           await AsyncStorage.setItem('@forms', JSON.stringify(storedFormsParsed));
-        }catch(e){
+        } catch (e) {
           Alert.alert(e);
         }
       }
     });
 
-    if(!found){
+    if (!found) {
       // console.log("this");
-      let x = [...storedFormsParsed, ...arrForm]
+      let x = [...storedFormsParsed, ...arrForm];
       await AsyncStorage.setItem('@forms', JSON.stringify(x));
     }
-
   } else {
     try {
       await AsyncStorage.setItem('@forms', JSON.stringify(arrForm));
@@ -187,55 +181,64 @@ export const saveForm = async (form) => {
   return updatedForm;
 };
 
-export const storeFarms = async (uuid, farms)=>{
+export const storeFarms = async (uuid, farms) => {
   // console.log('======== Store Farms ========');
   // console.log(uuid);
-  const userFarms = {[uuid]:farms}
-  try{
+  const userFarms = {[uuid]: farms};
+  try {
     // console.log(JSON.stringify(userFarms));
     await AsyncStorage.setItem('@farms', JSON.stringify(userFarms));
     // return true;
-  }catch(e){
+  } catch (e) {
     // Alert.alert(e);
     return false;
   }
-}
+};
 
 // get farms from async that belong to user, by id
-export const getFarmsFromAsync = async (uuid) => {
-  // console.log('============ Gettinmg farms from ASYNC =================');
-  // console.log(uuid);
-  let arr;
+// export const getFarmsFromAsync = async uuid => {
+//   let arr;
+//   try {
+//     const stringValue = await AsyncStorage.getItem('@farms');
+//     stringValue != null
+//       ? (() => {
+//           const jsonValue = JSON.parse(stringValue);
+//           Object.keys(jsonValue).map((key, idx) => {
+//             if (key === uuid) arr = jsonValue[uuid];
+//           });
+//         })()
+//       : undefined;
+//     return arr;
+//   } catch (e) {
+//     // error reading value
+//     return null;
+//   }
+// };
+
+export const getFarmsFromAsync = async uuid => {
   try {
     const stringValue = await AsyncStorage.getItem('@farms');
-    // console.log(stringValue);
-    stringValue != null
-      ? (() => {
-          // console.log('async: ===============================');
-          // console.log(JSON.parse(jsonValue)[`${uuid}`]);
-          // let arr;
-          const jsonValue = JSON.parse(stringValue);
-          Object.keys(jsonValue).map((key, idx)=>{
-            // console.log(key);
-            if(key === uuid)
-             arr=jsonValue[uuid];
-              // return jsonValue[uuid];
-          })
-        })()
-        : undefined;
-    return arr;
+
+    if (stringValue) {
+      const jsonValue = JSON.parse(stringValue);
+
+      // Check if the uuid exists in the jsonValue object and return the corresponding array
+      return jsonValue[uuid] || null;
+    }
+
+    return null; // Return null if stringValue is not found
   } catch (e) {
-    // error reading value
-    return null;
+    console.error('Error reading farms from AsyncStorage:', e);
+    return null; // Return null in case of any error
   }
 };
 
-export const getFarmFromAsync = async (uuid, name) =>{
+export const getFarmFromAsync = async (uuid, name) => {
   const farms = await getFarmsFromAsync(uuid);
   let farm;
-  farms && Object.keys(farms).map((idx)=>{
-    if(farms[idx].name == name)
-      farm= farms[idx];
-  })
+  farms &&
+    Object.keys(farms).map(idx => {
+      if (farms[idx].name == name) farm = farms[idx];
+    });
   return farm;
-}
+};
