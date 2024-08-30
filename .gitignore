@@ -1245,3 +1245,12 @@ android/app/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin
 android/app/release/app-release.apk
 android/app/release/output-metadata.json
 android/gradle/wrapper/gradle-wrapper.properties
+android/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+android/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+android/.gradle/7.3.3/fileHashes/fileHashes.lock
+android/.gradle/7.3.3/fileHashes/fileHashes.bin
+android/.gradle/7.3.3/executionHistory/executionHistory.lock
+android/.gradle/7.3.3/executionHistory/executionHistory.bin
+android/.gradle/7.3.3/checksums/checksums.lock
+android/.gradle/file-system.probe

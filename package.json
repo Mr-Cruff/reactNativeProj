@@ -1,6 +1,6 @@
 {
   "name": "reactNativeProj",
-  "version": "1.2.2 - UAT",
+  "version": "1.2.4 - Handoff Test",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

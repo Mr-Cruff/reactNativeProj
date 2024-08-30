@@ -501,7 +501,7 @@ export const ButtonPanel = ({navigation, role, farms, pkg}) => {
           <Text style={styles.panelSubtitle}>All form actions can be done here</Text>
         </View>
         {renderRoleButtons()}
-        <Text style={styles.versionText}>V. {pkg.version}</Text>
+        <Text style={styles.versionText}>Version {pkg.version}</Text>
       </View>
     );
   } else {
@@ -641,7 +641,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: '#EFF5FF',
-    marginBottom: 0,
+    marginBottom: 10,
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     alignContent: 'center',
@@ -660,9 +660,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   versionText: {
-    paddingHorizontal: 10,
-    textAlign: 'right',
+    padding: 5,
+    textAlign: 'center',
     marginTop: -20,
+    paddingBottom: 5,
+    backgroundColor: '#343a40',
+    color: 'grey',
   },
   invalidRoleWrapper: {
     backgroundColor: '#EFF5FF',
