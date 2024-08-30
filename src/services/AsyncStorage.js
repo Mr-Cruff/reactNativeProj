@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Button, Text, View, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native';
-
+import {useAuth} from '../contexts/Auth';
 export const getAllItems = async () => {
   let keys = [];
 
@@ -31,6 +31,16 @@ export const getItem = async () => {
 
 export const storeForm = async value => {
   const jsonValue = JSON.stringify(value);
+  try {
+    if (checkForms()) {
+      await AsyncStorage.setItem('@forms', jsonValue);
+    }
+  } catch (e) {
+    // saving error
+  }
+};
+export const ResetForms = async value => {
+  const jsonValue = JSON.stringify([]);
   try {
     if (checkForms()) {
       await AsyncStorage.setItem('@forms', jsonValue);

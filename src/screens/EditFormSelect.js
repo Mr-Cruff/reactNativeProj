@@ -4,6 +4,7 @@ import {convertToJSCompatibleFormat, jamaicanDateFormat, RedTrashCan} from '../s
 import {FORM_STATUS_OBJ} from '../Constants';
 import LoadingScreen from '../components/LoadingModal';
 import {getAllFormsFromAsync, deleteFormByFormId} from '../services/FormManagement';
+import {ResetForms} from '../services/AsyncStorage';
 
 const EditFormSelect = ({navigation, back, route}) => {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ const EditFormSelect = ({navigation, back, route}) => {
         setLoading(true); // Set loading state to true
         try {
           const forms = await getAllFormsFromAsync(); // Await the async function
-          setAllForms(forms); // Set the state after the async function resolves
+          setAllForms(forms || []); // Set the state after the async function resolves
         } catch (error) {
           console.error('Error fetching forms:', error);
           setAllForms(allForms || []); // Handle the error by setting forms to null
@@ -25,7 +26,6 @@ const EditFormSelect = ({navigation, back, route}) => {
           setLoading(false); // Set loading state to false after fetching is complete
         }
       };
-
       fetchForms();
     });
 
